@@ -20,6 +20,7 @@ export class SingleProduct extends React.Component {
 
   render() {
     const product = this.props.product
+    if (!product) return <h1>Loading Product</h1>
     return (
       <div className="single-product">
         <h1>{product.name}</h1>
@@ -36,7 +37,7 @@ export class SingleProduct extends React.Component {
 }
 
 const mapState = state => ({
-  product: state.product
+  product: state.singleProduct
 })
 
 const mapDispatch = dispatch => ({
