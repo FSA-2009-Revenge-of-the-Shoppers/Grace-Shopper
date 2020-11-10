@@ -3,7 +3,7 @@ import {fetchProducts, destroyProduct} from '../store/products'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 // edit this line according to David's code
-import ProductForm from './product-form'
+// import ProductForm from './product-form'
 
 class AllProducts extends React.Component {
   componentDidMount() {
@@ -16,11 +16,12 @@ class AllProducts extends React.Component {
       <h1>Loading Products</h1>
     ) : (
       <div>
-        {user.admin && <ProductForm />}
+        {/* {future product button } */}
+        {/* {user.admin && <ProductForm />} */}
         {products.map(product => {
           return (
             <div key={`product${product.id}`}>
-              <img src={product.imageUrl} />
+              <img src={product.imageUrl} width="500" height="500" />
               <Link to={`/products/${product.id}`}>
                 <h2>{product.name}</h2>
               </Link>

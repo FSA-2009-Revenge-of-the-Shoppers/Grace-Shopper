@@ -28,7 +28,7 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-route.delete('/:id', async (req, res, next) => {
+router.delete('/:id', async (req, res, next) => {
   try {
     await Product.destroy({
       where: {
