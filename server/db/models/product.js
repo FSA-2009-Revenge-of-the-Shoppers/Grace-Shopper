@@ -25,11 +25,11 @@ const Product = db.define('product', {
     allowNull: false
   },
   quantity: {
-    type: Sequelize.INTEGER
-    // validate: {
-    //   min: 0,
-    //   max: 10,
-    // },
+    type: Sequelize.INTEGER,
+    validate: {
+      min: 0,
+      max: 99
+    }
   }
 })
 
