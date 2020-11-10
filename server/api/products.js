@@ -1,7 +1,8 @@
 const router = require('express').Router()
 const {Product} = require('../db/models')
-const {route} = require('./users')
 
+// routes mounted on /api/products
+// GET /api/products
 router.get('/', async (req, res, next) => {
   try {
     const products = await Product.findAll()
@@ -11,7 +12,29 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+// GET /api/products/:productId
+router.get('/:productId', async (req, res, next) => {
+  try {
+    const product = await Product.findByPk(req.params.productId)
+    res.json(product)
+  } catch (err) {
+    next(err)
+  }
+})
+
 // routes for admin only
+
+// PUT /api/products/:productId
+router.put('/:productId', async (req, res, next) => {
+  try {
+    const product = await Product.findByPk(req.params.productId)
+    await product.update(req.body)
+  } catch (err) {
+    next(err)
+  }
+})
+
+// POST /api/products
 router.post('/', async (req, res, next) => {
   try {
     const [product, created] = await Product.findOrCreate({
@@ -28,11 +51,12 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-route.delete('/:id', async (req, res, next) => {
+// DELETE /api/products/:productId
+router.delete('/:productId', async (req, res, next) => {
   try {
     await Product.destroy({
       where: {
-        id: req.params.id
+        id: req.params.productId
       }
     })
     res.status(204).end()
