@@ -33,10 +33,10 @@ export const fetchProducts = () => {
   }
 }
 
-export const postProduct = () => {
+export const postProduct = updatedProduct => {
   return async dispatch => {
     try {
-      const {data: product} = await axios.post('/api/products')
+      const {data: product} = await axios.post('/api/products', updatedProduct)
       dispatch(addProduct(product))
     } catch (err) {
       console.log('failed to post a new product', err)
