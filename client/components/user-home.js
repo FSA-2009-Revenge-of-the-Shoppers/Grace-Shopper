@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import AllProducts from './all-products'
+import {AllProducts} from './index'
 // this part may need edits
 
 /**
