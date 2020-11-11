@@ -7,6 +7,7 @@ const App = () => {
   return (
     <div>
       <Navbar />
+      {/* {make the cart state available in navbar component} */}
       <Routes />
     </div>
   )
