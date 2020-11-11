@@ -9,6 +9,31 @@ describe('User model', () => {
     return db.sync({force: true})
   })
 
+  describe('adminAccess', () => {
+    let jim
+    let jan
+
+    beforeEach(async () => {
+      jim = await User.create({
+        email: 'jim@website.net',
+        password: '456'
+      })
+      jan = await User.create({
+        email: 'jan@email.com',
+        password: '0001',
+        admin: true
+      })
+    })
+
+    it('by default, does not assign the user to be an admin', () => {
+      expect(jim.admin).to.be.equal(false)
+    })
+
+    it('assigns admin access to user if directed', () => {
+      expect(jan.admin).to.be.equal(true)
+    })
+  })
+
   describe('instanceMethods', () => {
     describe('correctPassword', () => {
       let cody
