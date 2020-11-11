@@ -31,6 +31,7 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route path="/products" exact component={AllProducts} />
         <Route path="/products/:productId" component={SingleProduct} />
+        <Route path="/home" component={UserHome} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
@@ -56,7 +57,7 @@ const mapState = state => {
     // grab user's cart
     cart: state.user.cart,
     // check if the logged-in user is an admin
-    isAdmin: state.user.admin,
+    isAdmin: state.user.admin
   }
 }
 
