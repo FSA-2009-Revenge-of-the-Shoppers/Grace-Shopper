@@ -19,3 +19,30 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+/* cart icon */
+.icon-container {
+  height: 2em;
+  width: 2em;
+  position: relative;
+}
+
+#icon {
+  height: 2em;
+  width: 2em;
+  z-index: 1;
+  position: relative;
+}
+
+#badge {
+  z-index: 9999;
+  position: absolute;
+  height: 1em;
+  width: 1em;
+  bottom: 0;
+  right: 0;
+  background: red;
+  border-radius: 50%;
+  color: white;
+  text-align: center;
+}
