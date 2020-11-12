@@ -2,6 +2,8 @@ const crypto = require('crypto')
 const Sequelize = require('sequelize')
 const db = require('../db')
 
+//let's refactor the database
+
 const User = db.define('user', {
   email: {
     type: Sequelize.STRING,
