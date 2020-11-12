@@ -1,18 +1,20 @@
 import React from 'react'
-import {fetchProducts, destroyProduct} from '../store/products'
+import {fetchProducts, destroyProduct, updateQuantity} from '../store/products'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
-// edit this line according to David's code
 import NewProduct from './NewProduct'
+import ProductList from './ProductList'
 
 const defaultState = {
-  createMode: false
+  createMode: false,
+  imageSize: '500',
+  overview: true
 }
 
 class AllProducts extends React.Component {
   constructor() {
     super()
     this.state = defaultState
+    this.handleClick = this.handleClick.bind(this)
     this.toggleCreateMode = this.toggleCreateMode.bind(this)
   }
 
@@ -27,8 +29,16 @@ class AllProducts extends React.Component {
     })
   }
 
+  handleClick(event, productId, quantity) {
+    const increase = event.target.name === 'plus'
+    console.log(increase)
+    increase ? quantity++ : quantity--
+    updateQuantity(productId, quantity)
+  }
+
   render() {
     const {products, user, deleteProduct} = this.props
+    const {overview, imageSize} = this.state
     return !products.length ? (
       <h1>Loading Products</h1>
     ) : (
@@ -44,18 +54,15 @@ class AllProducts extends React.Component {
 
         {products.map(product => {
           return (
-            <div key={`product${product.id}`}>
-              <img src={product.imageUrl} width="500" height="500" />
-              <Link to={`/products/${product.id}`}>
-                <h2>{product.name}</h2>
-              </Link>
-              <p>{product.price}</p>
-              {user.admin && (
-                <button type="button" onClick={() => deleteProduct(product.id)}>
-                  Delete
-                </button>
-              )}
-            </div>
+            <ProductList
+              key={`product${product.id}`}
+              product={product}
+              user={user}
+              overview={overview}
+              imageSize={imageSize}
+              deleteProduct={deleteProduct}
+              handleClick={this.handleClick}
+            />
           )
         })}
       </div>

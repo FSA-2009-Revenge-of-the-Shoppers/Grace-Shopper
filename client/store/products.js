@@ -4,6 +4,7 @@ import axios from 'axios'
 const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS'
 const ADD_PRODUCT = 'ADD_PRODUCT'
 const DELETE_PRODUCT = 'DELETE_PRODUCT'
+const ADJUST_QUANTITY = 'ADJUST_QUANTITY'
 
 //action functions
 const getAllProducts = products => ({
@@ -18,6 +19,12 @@ const addProduct = product => ({
 
 const deleteProduct = productId => ({
   type: DELETE_PRODUCT,
+  productId
+})
+
+const adjustQuantity = (quantity, productId) => ({
+  type: ADJUST_QUANTITY,
+  quantity,
   productId
 })
 
@@ -55,6 +62,17 @@ export const destroyProduct = productId => {
   }
 }
 
+export const updateQuantity = (productId, quantity) => {
+  return async dispatch => {
+    try {
+      await axios.put(`/api/products/${productId}`, {quantity})
+      dispatch(adjustQuantity(quantity, productId))
+    } catch (err) {
+      console.log('failed to update the quantity', err)
+    }
+  }
+}
+
 const initialState = []
 
 const productReducer = (state = initialState, action) => {
@@ -65,6 +83,11 @@ const productReducer = (state = initialState, action) => {
       return [...state, action.product]
     case DELETE_PRODUCT:
       return state.filter(product => product.id !== action.productId)
+    case ADJUST_QUANTITY: {
+      const adjusted = state.filter(product => product.id === action.productId)
+      adjusted.quantity = action.quantity
+      return [...state, adjusted]
+    }
     default:
       return state
   }

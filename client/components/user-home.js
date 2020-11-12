@@ -8,11 +8,11 @@ import {AllProducts} from './index'
  * COMPONENT
  */
 export const UserHome = props => {
-  const {email} = props
+  const {email, isLoggedIn} = props
 
   return (
     <div>
-      <h3>Welcome, {email}</h3>
+      {isLoggedIn && <h3>Welcome, {email}</h3>}
       <AllProducts />
     </div>
   )
@@ -23,7 +23,8 @@ export const UserHome = props => {
  */
 const mapState = state => {
   return {
-    email: state.user.email
+    email: state.user.email,
+    isLoggedIn: !!state.user.id
   }
 }
 
