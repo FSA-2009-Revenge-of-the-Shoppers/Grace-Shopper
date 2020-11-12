@@ -10,15 +10,17 @@ import {
   AllProducts,
   AllUsers
 } from './components'
-import {me} from './store'
+import {me, cart as loadCart} from './store'
 
 /**
  * COMPONENT
  */
 class Routes extends Component {
-  componentDidMount() {
-    this.props.loadInitialData()
-    // this.props.getCart();
+  async componentDidMount() {
+    await this.props.loadInitialData()
+    if (this.props.isLoggedIn) {
+      await this.props.getCart(this.props.userId)
+    }
   }
 
   render() {
@@ -55,9 +57,11 @@ const mapState = state => {
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
     isLoggedIn: !!state.user.id,
     // grab user's cart
-    cart: state.user.cart,
+    cart: state.cart,
     // check if the logged-in user is an admin
-    isAdmin: state.user.admin
+    isAdmin: state.user.admin,
+    // user id to get the cart
+    userId: state.user.id
   }
 }
 
@@ -65,6 +69,9 @@ const mapDispatch = dispatch => {
   return {
     loadInitialData() {
       dispatch(me())
+    },
+    getCart(userId) {
+      dispatch(loadCart(userId))
     }
   }
 }

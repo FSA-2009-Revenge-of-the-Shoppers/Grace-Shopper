@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
-const Navbar = ({handleClick, isLoggedIn, isAdmin, dbCart, localCart}) => (
+const Navbar = ({handleClick, isLoggedIn, isAdmin, cart}) => (
   <div>
     <h1>Grace Shopper</h1>
     <nav>
@@ -17,7 +17,7 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin, dbCart, localCart}) => (
             Logout
           </a>
           <Link to="/cart" className="icon-container">
-            <img id="icon" src="./shopping-cart.jpg" />
+            <img id="icon" src="shopping-cart.jpg" />
             {/* <p id="badge">{dbCart.length}</p> */}
           </Link>
         </div>
@@ -29,8 +29,8 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin, dbCart, localCart}) => (
           <Link to="/home">Shop</Link>
           <Link to="/cart">
             <div className="icon-container">
-              <img id="icon" src="./shopping-cart.jpg" />
-              {localCart.length > 0 && <p id="badge">{localCart.length}</p>}
+              <img id="icon" src="shopping-cart.jpg" />
+              {cart.length && <p id="badge">{cart.length}</p>}
             </div>
           </Link>
         </div>
@@ -47,8 +47,8 @@ const mapState = state => {
   return {
     isLoggedIn: !!state.user.id,
     isAdmin: state.user.admin,
-    dbCart: state.user.carts,
-    localCart: state.cart
+    // one cart prop for db or localStorage cart array
+    cart: state.cart // this will be an array
   }
 }
 
