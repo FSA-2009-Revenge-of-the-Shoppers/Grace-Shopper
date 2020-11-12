@@ -28,7 +28,7 @@ describe('Product model', () => {
 
     it('adds a default image and decimals to the price', () => {
       expect(pencil.price).to.deep.equal('60.00')
-      expect(pen.imageUrl).to.be.equal('../../../public/baby-yoda.jpg')
+      expect(pen.imageUrl).to.be.equal('/baby-yoda.jpg')
     })
   })
 })

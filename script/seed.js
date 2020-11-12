@@ -115,7 +115,7 @@ async function seed() {
       price: 16.5
     }),
     Product.create({
-      name: 'Good Citizen Baby Yoda',
+      name: 'Good Neighbor Baby Yoda',
       description: 'This baby yoda wears a mask to protect its neighbors',
       imageUrl: 'https://i.imgur.com/Igwn9rN.jpeg',
       price: 30.0
