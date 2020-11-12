@@ -28,8 +28,9 @@ router.get('/:productId', async (req, res, next) => {
 router.put('/:productId', async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.params.productId)
-    await product.update(req.body)
-    res.status(204).end()
+    // Note that we will not use this response in our application, but it is useful for testing the api route in mocha and postman
+    const response = await product.update(req.body)
+    res.status(204).send(response)
   } catch (err) {
     next(err)
   }
