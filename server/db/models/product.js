@@ -18,14 +18,18 @@ const Product = db.define('product', {
   },
   imageUrl: {
     type: Sequelize.TEXT,
-    defaultValue: '../../../public/baby-yoda.jpg'
+    defaultValue: '/baby-yoda.jpg'
   },
   price: {
-    type: Sequelize.DECIMAL,
-    allowNull: false
+    type: Sequelize.DECIMAL(10, 2),
+    allowNull: false,
+    validate: {
+      isDecimal: true
+    }
   },
   quantity: {
     type: Sequelize.INTEGER,
+    defaultValue: 0,
     validate: {
       min: 0,
       max: 99

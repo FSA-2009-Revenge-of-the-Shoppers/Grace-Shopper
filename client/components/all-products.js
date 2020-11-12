@@ -4,23 +4,25 @@ import {connect} from 'react-redux'
 import NewProduct from './NewProduct'
 import ProductList from './ProductList'
 
+const defaultState = {
+  createMode: false,
+  imageSize: '500',
+  overview: true
+}
+
 class AllProducts extends React.Component {
   constructor() {
     super()
-    this.state = {
-      createMode: false,
-      imageSize: '500',
-      overview: true
-    }
-    this.tuggleCreateMode = this.tuggleCreateMode.bind(this)
+    this.state = defaultState
     this.handleClick = this.handleClick.bind(this)
+    this.toggleCreateMode = this.toggleCreateMode.bind(this)
   }
 
   componentDidMount() {
     this.props.getProducts()
   }
 
-  tuggleCreateMode() {
+  toggleCreateMode() {
     const currentMode = this.state.createMode
     this.setState({
       createMode: !currentMode
@@ -42,13 +44,14 @@ class AllProducts extends React.Component {
     ) : (
       <div>
         {user.admin && (
-          <button type="button" onClick={() => this.tuggleCreateMode()}>
-            Create
+          <button type="button" onClick={() => this.toggleCreateMode()}>
+            Add a Product
           </button>
         )}
         {this.state.createMode && (
-          <NewProduct tuggleCreateMode={this.tuggleCreateMode} />
+          <NewProduct toggleCreateMode={this.toggleCreateMode} />
         )}
+
         {products.map(product => {
           return (
             <ProductList
