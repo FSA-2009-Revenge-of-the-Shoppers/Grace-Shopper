@@ -29,9 +29,9 @@ class NewProduct extends React.Component {
     event.preventDefault()
     const {name, description, imageUrl, price, quantity} = this.state
 
-    !imageUrl
-      ? this.props.createProduct({name, description, price, quantity})
-      : this.props.createProduct({name, description, imageUrl, price, quantity})
+    const existingFields = [imageUrl, quantity].filter(item => !item)
+
+    this.props.createProduct({name, description, price, ...existingFields})
 
     this.setState(defaultState)
 
