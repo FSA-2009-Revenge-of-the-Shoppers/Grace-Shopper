@@ -5,20 +5,22 @@ import {Link} from 'react-router-dom'
 // edit this line according to David's code
 import NewProduct from './NewProduct'
 
+const defaultState = {
+  createMode: false
+}
+
 class AllProducts extends React.Component {
   constructor() {
     super()
-    this.state = {
-      createMode: false
-    }
-    this.tuggleCreateMode = this.tuggleCreateMode.bind(this)
+    this.state = defaultState
+    this.toggleCreateMode = this.toggleCreateMode.bind(this)
   }
 
   componentDidMount() {
     this.props.getProducts()
   }
 
-  tuggleCreateMode() {
+  toggleCreateMode() {
     const currentMode = this.state.createMode
     this.setState({
       createMode: !currentMode
@@ -32,12 +34,12 @@ class AllProducts extends React.Component {
     ) : (
       <div>
         {user.admin && (
-          <button type="button" onClick={() => this.tuggleCreateMode()}>
+          <button type="button" onClick={() => this.toggleCreateMode()}>
             Add a Product
           </button>
         )}
         {this.state.createMode && (
-          <NewProduct tuggleCreateMode={this.tuggleCreateMode} />
+          <NewProduct toggleCreateMode={this.toggleCreateMode} />
         )}
 
         {products.map(product => {

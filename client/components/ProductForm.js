@@ -5,7 +5,7 @@ const ProductForm = props => {
     <div>
       <h3>Product Info</h3>
       <form className="form" onSubmit={props.handleSubmit}>
-        <label htmlFor="name">Product Name:</label>
+        <label htmlFor="name">Product Name*:</label>
         <input
           name="name"
           type="text"
@@ -14,7 +14,7 @@ const ProductForm = props => {
           required="required"
         />
 
-        <label htmlFor="description">Description:</label>
+        <label htmlFor="description">Description*:</label>
         <input
           name="description"
           type="text"
@@ -31,7 +31,7 @@ const ProductForm = props => {
           value={props.imageUrl}
         />
 
-        <label htmlFor="price">Price:</label>
+        <label htmlFor="price">Price*:</label>
         <input
           name="price"
           type="text"
@@ -46,7 +46,6 @@ const ProductForm = props => {
           type="text"
           onChange={props.handleChange}
           value={props.quantity}
-          required="required"
         />
 
         <button type="submit">Submit Product</button>

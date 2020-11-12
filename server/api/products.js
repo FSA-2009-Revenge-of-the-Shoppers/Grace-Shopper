@@ -29,6 +29,7 @@ router.put('/:productId', async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.params.productId)
     await product.update(req.body)
+    res.status(204).end()
   } catch (err) {
     next(err)
   }
@@ -50,7 +51,6 @@ router.post('/', async (req, res, next) => {
     next(err)
   }
 })
-
 
 // DELETE /api/products/:productId
 router.delete('/:productId', async (req, res, next) => {

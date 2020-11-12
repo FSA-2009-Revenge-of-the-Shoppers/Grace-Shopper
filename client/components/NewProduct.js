@@ -3,16 +3,18 @@ import {connect} from 'react-redux'
 import {postProduct} from '../store/products'
 import ProductForm from './ProductForm'
 
+const defaultState = {
+  name: '',
+  description: '',
+  imageUrl: '',
+  price: '',
+  quantity: ''
+}
+
 class NewProduct extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      name: '',
-      description: '',
-      imageUrl: '',
-      price: '',
-      quantity: ''
-    }
+    this.state = defaultState
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
@@ -31,15 +33,9 @@ class NewProduct extends React.Component {
       ? this.props.createProduct({name, description, price, quantity})
       : this.props.createProduct({name, description, imageUrl, price, quantity})
 
-    this.setState({
-      name: '',
-      description: '',
-      imageUrl: '',
-      price: '',
-      quantity: ''
-    })
+    this.setState(defaultState)
 
-    this.props.tuggleCreateMode()
+    this.props.toggleCreateMode()
   }
 
   render() {
