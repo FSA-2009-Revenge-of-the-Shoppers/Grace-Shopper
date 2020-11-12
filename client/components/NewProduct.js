@@ -30,11 +30,9 @@ class NewProduct extends React.Component {
     const {name, description, imageUrl, price, quantity} = this.state
 
     const existingFields = [imageUrl, quantity].filter(item => !item)
-
     this.props.createProduct({name, description, price, ...existingFields})
 
     this.setState(defaultState)
-
     this.props.toggleCreateMode()
   }
 
