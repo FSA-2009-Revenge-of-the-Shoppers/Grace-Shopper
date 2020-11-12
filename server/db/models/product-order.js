@@ -4,11 +4,10 @@ const db = require('../db')
 const ProductOrder = db.define('product-order', {
   quantity: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    defaultValue: 1
   },
   savedPrice: {
-    type: Sequelize.DECIMAL,
-    allowNull: false
+    type: Sequelize.DECIMAL
   }
 })
 

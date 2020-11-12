@@ -9,7 +9,7 @@ Order.belongsTo(User)
 
 // many-to-many between Product and Order;
 Product.belongsToMany(Order, {through: ProductOrder})
-// Order.belongsToMany(Product, {through: ProductOrder})
+Order.belongsToMany(Product, {through: ProductOrder})
 
 // has-many magic methods on user. We can use these to load the cart into the store
 // this.accessors = {
@@ -34,5 +34,6 @@ Product.belongsToMany(Order, {through: ProductOrder})
 module.exports = {
   User,
   Product,
-  Cart
+  Order,
+  ProductOrder
 }
