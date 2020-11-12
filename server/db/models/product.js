@@ -21,8 +21,11 @@ const Product = db.define('product', {
     defaultValue: '../../../public/baby-yoda.jpg'
   },
   price: {
-    type: Sequelize.DECIMAL,
-    allowNull: false
+    type: Sequelize.DECIMAL(10, 2),
+    allowNull: false,
+    validate: {
+      isDecimal: true
+    }
   },
   quantity: {
     type: Sequelize.INTEGER,
