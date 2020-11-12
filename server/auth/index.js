@@ -8,9 +8,6 @@ router.post('/login', async (req, res, next) => {
       where: {email: req.body.email},
       include: Cart
     })
-    // this is where we want to grab the user's persistent cart
-    // user.cart = await user.getCarts;
-    console.log(user)
     if (!user) {
       console.log('No such user found:', req.body.email)
       res.status(401).send('Wrong username and/or password')
@@ -44,8 +41,22 @@ router.post('/logout', (req, res) => {
   res.redirect('/')
 })
 
-router.get('/me', (req, res) => {
-  res.json(req.user)
+router.get('/me', async (req, res) => {
+  //runs everytime page gets loaded
+  //console.log(req.user)
+  const user = await User.findOne({
+    where: {email: req.user.dataValues.email},
+    include: Cart
+  })
+
+  res.json(user)
+  //for when user is still logged in and comes back
 })
+
+// router.get('/me', (req, res) => {
+//   console.log(req.user)
+//   res.json(req.user)
+// //for when user is still logged in and comes back
+// })
 
 router.use('/google', require('./google'))

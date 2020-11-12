@@ -8,7 +8,8 @@ import {
   UserHome,
   SingleProduct,
   AllProducts,
-  AllUsers
+  AllUsers,
+  Cart
 } from './components'
 import {me} from './store'
 
@@ -18,7 +19,7 @@ import {me} from './store'
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
-    // this.props.getCart();
+    // this would be where we would load in the cart instead of doing it in the auth/me route
   }
 
   render() {
@@ -31,6 +32,7 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route path="/products" exact component={AllProducts} />
         <Route path="/products/:productId" component={SingleProduct} />
+        <Route path="/cart" component={Cart} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
@@ -56,7 +58,7 @@ const mapState = state => {
     // grab user's cart
     cart: state.user.cart,
     // check if the logged-in user is an admin
-    isAdmin: state.user.admin,
+    isAdmin: state.user.admin
   }
 }
 

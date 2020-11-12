@@ -29,9 +29,10 @@ if (process.env.NODE_ENV === 'test') {
 if (process.env.NODE_ENV !== 'production') require('../secrets')
 
 // passport registration
-passport.serializeUser((user, done) => done(null, user.id))
+passport.serializeUser((user, done) => done(null, user.id)) //first login
 
 passport.deserializeUser(async (id, done) => {
+  //second vist after being logged in already
   try {
     const user = await db.models.user.findByPk(id)
     done(null, user)
