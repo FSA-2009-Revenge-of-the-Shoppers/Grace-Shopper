@@ -28,7 +28,6 @@ export class SingleProduct extends React.Component {
 
   render() {
     const {product, user} = this.props
-    console.log(product)
     if (!product) return <h1>Loading Product</h1>
     return !product.name ? (
       <h1>Loading Product</h1>

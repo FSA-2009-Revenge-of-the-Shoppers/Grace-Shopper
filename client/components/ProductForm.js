@@ -43,7 +43,7 @@ const ProductForm = props => {
         <label htmlFor="quantity">Quantity:</label>
         <input
           name="quantity"
-          type="text"
+          type="number"
           onChange={props.handleChange}
           value={props.quantity}
         />
