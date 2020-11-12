@@ -16,8 +16,9 @@ export const loadCart = userId => {
     return async dispatch => {
       try {
         console.log(userId)
-        const {data} = await axios.get(`/cart/${userId}`)
-        dispatch(getCart(data))
+        const {data} = await axios.get(`/orders/${userId}`)
+        const productsInCart = data[0].products
+        dispatch(getCart(productsInCart))
       } catch (err) {
         console.log(err)
       }
@@ -35,7 +36,7 @@ const initialState = []
 export default (state = initialState, action) => {
   switch (action.type) {
     case GET_CART:
-      return [...state, action.cart]
+      return [...state, ...action.cart]
     default:
       return state
   }

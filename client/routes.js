@@ -10,7 +10,8 @@ import {
   AllProducts,
   AllUsers
 } from './components'
-import {me, cart as loadCart} from './store'
+import {me} from './store'
+import {loadCart} from './store/cart'
 
 /**
  * COMPONENT
@@ -18,12 +19,11 @@ import {me, cart as loadCart} from './store'
 class Routes extends Component {
   async componentDidMount() {
     await this.props.loadInitialData()
-    if (this.props.isLoggedIn) {
-      await this.props.getCart(this.props.userId)
-    }
+    await this.props.getCart(this.props.userId)
   }
 
   render() {
+    console.log(this.props)
     const {isLoggedIn, isAdmin} = this.props
 
     return (
