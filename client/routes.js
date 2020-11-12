@@ -17,9 +17,11 @@ import {loadCart} from './store/cart'
  * COMPONENT
  */
 class Routes extends Component {
-  async componentDidMount() {
-    await this.props.loadInitialData()
-    await this.props.getCart(this.props.userId)
+  componentDidMount() {
+    this.props.loadInitialData()
+
+    //grabbing cart from localStorage if one exists -user is not yet logged in
+    this.props.getCart(this.props.userId)
   }
 
   render() {
