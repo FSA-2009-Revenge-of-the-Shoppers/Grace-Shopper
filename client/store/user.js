@@ -10,9 +10,7 @@ const REMOVE_USER = 'REMOVE_USER'
 /**
  * INITIAL STATE
  */
-const defaultUser = {
-  cart: []
-}
+const defaultUser = {}
 
 /**
  * ACTION CREATORS
