@@ -33,7 +33,7 @@ export const updateProduct = (
 ) => async dispatch => {
   try {
     await axios.put(`api/products/${productId}`, updatedProductInfo)
-    dispatch(gotUpdatedProductInfo)
+    dispatch(gotUpdatedProductInfo(updatedProductInfo))
   } catch (err) {
     console.error('error updating the product', err)
   }

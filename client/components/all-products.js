@@ -33,12 +33,13 @@ class AllProducts extends React.Component {
       <div>
         {user.admin && (
           <button type="button" onClick={() => this.tuggleCreateMode()}>
-            Create
+            Add a Product
           </button>
         )}
         {this.state.createMode && (
           <NewProduct tuggleCreateMode={this.tuggleCreateMode} />
         )}
+
         {products.map(product => {
           return (
             <div key={`product${product.id}`}>

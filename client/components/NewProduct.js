@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {postProduct} from '../store/products'
+import ProductForm from './ProductForm'
 
 class NewProduct extends React.Component {
   constructor(props) {
@@ -18,7 +19,7 @@ class NewProduct extends React.Component {
 
   handleChange(event) {
     this.setState({
-      [event.target.name]: [event.target.value]
+      [event.target.name]: event.target.value
     })
   }
 
@@ -42,7 +43,17 @@ class NewProduct extends React.Component {
   }
 
   render() {
-    return <h1>ProductForm</h1>
+    return (
+      <ProductForm
+        name={this.state.name}
+        description={this.state.description}
+        imageUrl={this.state.imageUrl}
+        price={this.state.price}
+        quantity={this.state.quantity}
+        handleChange={this.handleChange}
+        handleSubmit={this.handleSubmit}
+      />
+    )
   }
 }
 
