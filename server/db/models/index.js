@@ -1,12 +1,15 @@
 const User = require('./user')
 const Product = require('./product')
-const Cart = require('./cart')
+const ProductOrder = require('./product-order')
+const Order = require('./order')
 
-User.hasMany(Cart) //each row in cart table is a different product- (different "cart")
-Cart.belongsTo(User) //** One-To-Many
+// one-to-many between User and Order
+User.hasMany(Order)
+Order.belongsTo(User)
 
-Cart.belongsTo(Product) //** One-To-Many
-Product.hasMany(Cart)
+// many-to-many between Product and Order;
+Product.belongsToMany(Order, {through: ProductOrder})
+// Order.belongsToMany(Product, {through: ProductOrder})
 
 // has-many magic methods on user. We can use these to load the cart into the store
 // this.accessors = {
