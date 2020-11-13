@@ -3,11 +3,17 @@ import history from '../history'
 
 // action types
 const GET_CART = 'GET_CART'
+const CREATE_ORDER = 'CREATE_ORDER'
 
 // action creator
 const getCart = cart => ({
   type: GET_CART,
   cart
+})
+
+const createOrder = updatedCart => ({
+  type: CREATE_ORDER,
+  updatedCart
 })
 
 // thunk creator
@@ -34,12 +40,31 @@ export const loadCart = userId => {
   }
 }
 
+export const postOrder = order => {
+  if (order.userId) {
+    return async dispatch => {
+      try {
+        // this axios.post return an array of all the products on the order, not just the newly created one;
+        const {data: updatedCart} = await axios.post('api/orders', order)
+        dispatch(createOrder(updatedCart))
+      } catch (err) {
+        console.log(err)
+      }
+    }
+  } else {
+    console.log('user is not logged in')
+    return dispatch => dispatch(createOrder([]))
+  }
+}
+
 const initialState = []
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case GET_CART:
-      return [...state, ...action.cart]
+      return action.cart
+    case CREATE_ORDER:
+      return action.updatedCart
     default:
       return state
   }

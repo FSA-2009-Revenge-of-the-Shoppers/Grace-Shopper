@@ -39,8 +39,8 @@ router.post('/', async (req, res, next) => {
       quantity,
       savedPrice
     })
-    const products = order.getProducts()
-    res.json(products)
+
+    res.json(await order.getProducts())
   } catch (err) {
     next(err)
   }
