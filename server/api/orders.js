@@ -7,15 +7,15 @@ module.exports = router
 
 router.get('/:id', async (req, res, next) => {
   try {
-    const orders = await Order.findAll({
+    const order = await Order.findOne({
       where: {
         userId: req.params.id,
         completed: false
       },
       include: Product
     })
-    if (!orders.length) return res.send('You cart is empty')
-    return res.json(orders)
+    if (!order.products) return res.send('You cart is empty')
+    return res.json(order.products)
   } catch (err) {
     next(err)
   }
@@ -39,7 +39,6 @@ router.post('/', async (req, res, next) => {
       quantity,
       savedPrice
     })
-
     res.json(await order.getProducts())
   } catch (err) {
     next(err)

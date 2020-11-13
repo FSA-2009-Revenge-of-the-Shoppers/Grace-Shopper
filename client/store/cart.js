@@ -40,6 +40,7 @@ export const loadCart = userId => {
   }
 }
 
+// this order should include productId, userId, quantity, savedPrice
 export const postOrder = order => {
   if (order.userId) {
     return async dispatch => {
