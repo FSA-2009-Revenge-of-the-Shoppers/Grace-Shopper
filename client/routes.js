@@ -8,7 +8,8 @@ import {
   UserHome,
   SingleProduct,
   AllProducts,
-  AllUsers
+  AllUsers,
+  Cart
 } from './components'
 import {me} from './store'
 import {loadCart} from './store/cart'
@@ -19,7 +20,6 @@ import {loadCart} from './store/cart'
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
-
     //grabbing cart from localStorage if one exists -user is not yet logged in
     this.props.getCart(this.props.userId)
   }
@@ -36,6 +36,7 @@ class Routes extends Component {
         <Route path="/products" exact component={AllProducts} />
         <Route path="/products/:productId" component={SingleProduct} />
         <Route path="/home" component={UserHome} />
+        <Route path="/cart" component={Cart} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}

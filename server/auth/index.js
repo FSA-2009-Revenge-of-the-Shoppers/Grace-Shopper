@@ -40,21 +40,8 @@ router.post('/logout', (req, res) => {
   res.redirect('/')
 })
 
-// router.get('/me', async (req, res) => {
-//   //runs everytime page gets loaded
-//   //console.log(req.user)
-//   const user = await User.findOne({
-//     where: {email: req.user.email}
-//   })
-
-//   res.json(user)
-//   //for when user is still logged in and comes back
-// })
-
 router.get('/me', (req, res) => {
-  // console.log(req.user)
   res.json(req.user)
-  //for when user is still logged in and comes back
 })
 
 router.use('/google', require('./google'))

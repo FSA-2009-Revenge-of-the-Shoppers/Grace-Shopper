@@ -55,6 +55,8 @@ export class SingleProduct extends React.Component {
           className="product-image"
           src={product.imageUrl}
           alt="image of this product"
+          width="500"
+          height="500"
         />
         <h3>{product.price}</h3>
         <p>{product.description}</p>
