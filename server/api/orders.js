@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Order, Product} = require('../db/models')
+const {Order, Product, ProductOrder} = require('../db/models')
 
 module.exports = router
 
@@ -22,3 +22,26 @@ router.get('/:id', async (req, res, next) => {
 })
 
 //possible route to get all completed orders for each User....
+
+router.post('/', async (req, res, next) => {
+  try {
+    const {userId, quantity, savedPrice, productId} = req.body
+    const [order, created] = await Order.findOrCreate({
+      where: {
+        completed: false,
+        userId
+      }
+    })
+    const orderId = order.id
+    const productOrder = await ProductOrder.create({
+      productId,
+      orderId,
+      quantity,
+      savedPrice
+    })
+    const products = order.getProducts()
+    res.json(products)
+  } catch (err) {
+    next(err)
+  }
+})
