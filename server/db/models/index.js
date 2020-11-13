@@ -1,6 +1,6 @@
 const User = require('./user')
 const Product = require('./product')
-const ProductOrder = require('./product-order')
+const ProductOrder = require('./productOrder')
 const Order = require('./order')
 
 // one-to-many between User and Order

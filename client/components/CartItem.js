@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import Order from '../../server/db/models/order'
 // import {connect} from 'react-redux'
 // import {fetchSingleProduct} from '../store/singleProduct'
 
@@ -31,7 +32,7 @@ export default class CartItem extends React.Component {
           height="500"
         />
         <h3>Price:${product.price}</h3>
-        <p>Quantity:{product.quantity}</p>
+        <p>Quantity:{product.productOrder.quantity}</p>
         <button
           type="button"
           className="rmv-btn"
