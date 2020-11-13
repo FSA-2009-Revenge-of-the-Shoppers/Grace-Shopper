@@ -3,6 +3,7 @@ import {fetchProducts, destroyProduct, updateQuantity} from '../store/products'
 import {connect} from 'react-redux'
 import NewProduct from './NewProduct'
 import ProductList from './ProductList'
+import {loadCart} from '../store/cart'
 
 const defaultState = {
   createMode: false,
@@ -20,6 +21,7 @@ class AllProducts extends React.Component {
 
   componentDidMount() {
     this.props.getProducts()
+    this.props.getCart(this.props.userId)
   }
 
   toggleCreateMode() {
@@ -72,12 +74,14 @@ class AllProducts extends React.Component {
 
 const mapState = state => ({
   products: state.products,
-  user: state.user
+  user: state.user,
+  userId: state.user.id
 })
 
 const mapDispatch = dispatch => ({
   getProducts: () => dispatch(fetchProducts()),
-  deleteProduct: productId => dispatch(destroyProduct(productId))
+  deleteProduct: productId => dispatch(destroyProduct(productId)),
+  getCart: userId => dispatch(loadCart(userId))
 })
 
 export default connect(mapState, mapDispatch)(AllProducts)

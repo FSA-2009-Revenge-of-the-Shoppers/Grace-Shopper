@@ -10,20 +10,22 @@ import {
   AllProducts,
   AllUsers
 } from './components'
-import {me, cart as loadCart} from './store'
+import {me} from './store'
+import {loadCart} from './store/cart'
 
 /**
  * COMPONENT
  */
 class Routes extends Component {
-  async componentDidMount() {
-    await this.props.loadInitialData()
-    if (this.props.isLoggedIn) {
-      await this.props.getCart(this.props.userId)
-    }
+  componentDidMount() {
+    this.props.loadInitialData()
+
+    //grabbing cart from localStorage if one exists -user is not yet logged in
+    this.props.getCart(this.props.userId)
   }
 
   render() {
+    console.log(this.props)
     const {isLoggedIn, isAdmin} = this.props
 
     return (

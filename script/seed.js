@@ -158,29 +158,33 @@ async function seed() {
     })
   )
 
-  await users[0].setOrders(orders.slice(0, 3)) // first user should have the first 3 orders in the orders array
-  await users[1].setOrders(orders.slice(3, 6))
-  await users[2].setOrders(orders.slice(6, 9))
-  await users[3].setOrders(orders.slice(9, 12))
-  await users[4].setOrders(orders.slice(12, 15))
-  await users[5].setOrders(orders.slice(15, 18))
-  await users[6].setOrders(orders.slice(21))
-
-  await products[0].addOrders(orders.slice(0, 3))
-  await products[1].addOrders(orders.slice(3, 6))
-  await products[2].addOrders(orders.slice(6, 9))
-  await products[3].addOrders(orders.slice(9, 12))
-  await products[4].addOrders(orders.slice(12, 15))
-  await products[5].addOrders(orders.slice(15, 18))
-  await products[6].addOrders(orders.slice(21))
-
-  await orders[0].addProducts(products.slice(0, 3))
-  await orders[1].addProducts(products.slice(3, 6))
-  await orders[2].addProducts(products.slice(6, 9))
-  await orders[3].addProducts(products.slice(9, 12))
-  await orders[4].addProducts(products.slice(12, 15))
-  await orders[5].addProducts(products.slice(15, 18))
-  await orders[6].addProducts(products.slice(21))
+  const associations1 = await Promise.all([
+    users[0].setOrders(orders.slice(0, 3)), // firsr should have the first 3 orders in the orders array
+    users[1].setOrders(orders.slice(3, 6)),
+    users[2].setOrders(orders.slice(6, 9)),
+    users[3].setOrders(orders.slice(9, 12)),
+    users[4].setOrders(orders.slice(12, 15)),
+    users[5].setOrders(orders.slice(15, 18)),
+    users[6].setOrders(orders.slice(18, 21))
+  ])
+  const associations2 = await Promise.all([
+    products[0].addOrders(orders.slice(0, 3)),
+    products[1].addOrders(orders.slice(3, 6)),
+    products[2].addOrders(orders.slice(6, 9)),
+    products[3].addOrders(orders.slice(9, 12)),
+    products[4].addOrders(orders.slice(12, 15)),
+    products[5].addOrders(orders.slice(15, 18)),
+    products[6].addOrders(orders.slice(18, 21))
+  ])
+  const associations3 = await Promise.all([
+    orders[0].addProducts(products.slice(0, 3)),
+    orders[1].addProducts(products.slice(3, 6)),
+    orders[2].addProducts(products.slice(6, 9)),
+    orders[3].addProducts(products.slice(9, 12)),
+    orders[4].addProducts(products.slice(12, 15)),
+    orders[5].addProducts(products.slice(15, 18)),
+    orders[6].addProducts(products.slice(18, 21))
+  ])
 
   const productOrders = await ProductOrder.findAll()
   for (let i = 0; i < productOrders.length; i++) {
