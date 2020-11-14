@@ -16,34 +16,36 @@ class Cart extends React.Component {
   }
 
   render() {
-    const products = this.props.userCart
-    console.log('props', this.props)
-    return !products.length ? (
+    const productsInCart = this.props.userCart
+    console.log('products in cart', productsInCart)
+    // let total =
+
+    return !productsInCart.length ? (
       <h1>No Items In Cart!</h1>
     ) : (
       <div className="cart-container">
         <h3 className="cart-title">Shopping Cart</h3>
-        {products.map(product => (
+        <h2>Total</h2>
+        {productsInCart.map(product => (
           <CartItem
             product={product}
             remove={this.props.removeItem}
             key={product.id}
           />
         ))}
-        <h3>Total: $</h3>
       </div>
     )
   }
 }
 
 const mapState = state => ({
-  userId: state.user.id,
-  userCart: state.cart
+  userCart: state.cart,
+  userId: state.user.id
 })
 
 const mapDispatch = dispatch => ({
-  getCart: userId => dispatch(loadCart(userId)),
-  removeItem: productId => dispatch(removeItem(productId))
+  // removeItem: productId => dispatch(removeItem(productId)),
+  getCart: userId => dispatch(loadCart(userId))
 })
 
 export default connect(mapState, mapDispatch)(Cart)

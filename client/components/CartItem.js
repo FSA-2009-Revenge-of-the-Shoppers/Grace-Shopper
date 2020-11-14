@@ -36,7 +36,7 @@ export default class CartItem extends React.Component {
         <button
           type="button"
           className="rmv-btn"
-          onClick={() => this.props.remove(product)}
+          //onClick={() => this.props.remove(product)}
         >
           Remove from cart
         </button>
