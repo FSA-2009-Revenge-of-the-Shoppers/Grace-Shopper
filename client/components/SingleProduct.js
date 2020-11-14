@@ -36,13 +36,13 @@ export class SingleProduct extends React.Component {
     })
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault()
     const {product, user} = this.props
     const {quantity} = this.state
     const userId = user.id
     const savedPrice = product.price
-    this.props.orderProduct({product, userId, quantity, savedPrice})
+    await this.props.orderProduct({product, userId, quantity, savedPrice})
   }
 
   render() {
@@ -79,7 +79,7 @@ export class SingleProduct extends React.Component {
         />
         <h3>{product.price}</h3>
         <p>{product.description}</p>
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <label htmlFor="quantity">Quantity:</label>
           <input
             type="number"
@@ -87,9 +87,7 @@ export class SingleProduct extends React.Component {
             value={this.state.quantity}
             onChange={this.handleChange}
           />
-          <button type="submit" onSubmit={this.handleSubmit}>
-            Add to cart
-          </button>
+          <button type="submit">Add To Cart</button>
         </form>
       </div>
     )

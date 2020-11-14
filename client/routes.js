@@ -14,7 +14,7 @@ import {
 /**
  * COMPONENT
  */
-const Routes = ({isLoggedIn, isAdmin}) => {
+const Routes = ({user}) => {
   return (
     <Switch>
       {/* Routes placed here are available to all visitors */}
@@ -24,11 +24,11 @@ const Routes = ({isLoggedIn, isAdmin}) => {
       <Route exact path="/products/:productId" component={SingleProduct} />
       <Route exact path="/cart" component={Cart} />
       <Route exact path="/home" component={UserHome} />
-      {isLoggedIn && (
+      {user.id && (
         <Switch>
           {/* Routes placed here are only available after logging in */}
           <Route exact path="/home" component={UserHome} />
-          {isAdmin && <Route exact path="/users" component={AllUsers} />}
+          {user.admin && <Route exact path="/users" component={AllUsers} />}
         </Switch>
       )}
       {/* Displays our Login component as a fallback */}
