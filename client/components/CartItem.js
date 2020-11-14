@@ -31,8 +31,8 @@ export default class CartItem extends React.Component {
           width="500"
           height="500"
         />
-        <h3>Price:${product.price}</h3>
-        <p>Quantity:{product.productOrder.quantity}</p>
+        <h3>Price: ${product.productOrder.savedPrice}</h3>
+        <p>Quantity: {product.productOrder.quantity}</p>
         <button
           type="button"
           className="rmv-btn"

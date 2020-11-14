@@ -17,15 +17,13 @@ class Cart extends React.Component {
 
   render() {
     const productsInCart = this.props.userCart
-    console.log('products in cart', productsInCart)
-    // let total =
+    // console.log('products in cart', productsInCart)
 
     return !productsInCart.length ? (
       <h1>No Items In Cart!</h1>
     ) : (
       <div className="cart-container">
         <h3 className="cart-title">Shopping Cart</h3>
-        <h2>Total</h2>
         {productsInCart.map(product => (
           <CartItem
             product={product}
@@ -33,6 +31,15 @@ class Cart extends React.Component {
             key={product.id}
           />
         ))}
+        <h2>
+          Total: ${productsInCart.reduce(
+            (accumulator, product) =>
+              accumulator +
+              Number(product.productOrder.savedPrice) *
+                product.productOrder.quantity,
+            0
+          )}
+        </h2>
       </div>
     )
   }
@@ -40,6 +47,7 @@ class Cart extends React.Component {
 
 const mapState = state => ({
   userCart: state.cart,
+  // products: state.products,
   userId: state.user.id
 })
 
