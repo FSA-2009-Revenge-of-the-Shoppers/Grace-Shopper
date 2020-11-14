@@ -39,7 +39,7 @@ const initialState = []
 export default (state = initialState, action) => {
   switch (action.type) {
     case GET_CART:
-      return [...state, ...action.cart]
+      return action.cart
     default:
       return state
   }

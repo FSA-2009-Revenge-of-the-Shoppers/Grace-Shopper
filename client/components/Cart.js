@@ -3,6 +3,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 // import {Link} from 'react-router-dom'
 import CartItem from './CartItem'
+import {loadCart} from '../store/cart'
 
 class Cart extends React.Component {
   constructor(props) {
@@ -11,37 +12,48 @@ class Cart extends React.Component {
   }
 
   componentDidMount() {
-    // this.props.getProducts()
+    this.props.getCart(this.props.userId)
   }
 
   render() {
-    const products = this.props.userCart
-    console.log(this.props)
-    return !products ? (
+    const productsInCart = this.props.userCart
+    // console.log('products in cart', productsInCart)
+
+    return !productsInCart.length ? (
       <h1>No Items In Cart!</h1>
     ) : (
       <div className="cart-container">
         <h3 className="cart-title">Shopping Cart</h3>
-        {products.map(product => (
+        {productsInCart.map(product => (
           <CartItem
             product={product}
             remove={this.props.removeItem}
             key={product.id}
           />
         ))}
+        <h2>
+          Total: ${productsInCart.reduce(
+            (accumulator, product) =>
+              accumulator +
+              Number(product.productOrder.savedPrice) *
+                product.productOrder.quantity,
+            0
+          )}
+        </h2>
       </div>
     )
   }
 }
 
 const mapState = state => ({
+  userCart: state.cart,
   // products: state.products,
-  userCart: state.user.carts
+  userId: state.user.id
 })
 
 const mapDispatch = dispatch => ({
-  // getProducts: () => dispatch(fetchProducts()),
-  removeItem: productId => dispatch(removeItem(productId))
+  // removeItem: productId => dispatch(removeItem(productId)),
+  getCart: userId => dispatch(loadCart(userId))
 })
 
 export default connect(mapState, mapDispatch)(Cart)
