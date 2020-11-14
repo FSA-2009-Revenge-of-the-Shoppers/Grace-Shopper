@@ -17,8 +17,8 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin, cart}) => (
             Logout
           </a>
           <Link to="/cart" className="icon-container">
-            <img id="icon" src="shopping-cart.jpg" />
-            {/* <p id="badge">{dbCart.length}</p> */}
+            <img id="icon" src="/shopping-cart.jpg" />
+            {cart && cart.length && <p id="badge">{cart.length}</p>}
           </Link>
         </div>
       ) : (
@@ -30,7 +30,7 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin, cart}) => (
           <Link to="/cart">
             <div className="icon-container">
               <img id="icon" src="shopping-cart.jpg" />
-              {cart.length && <p id="badge">{cart.length}</p>}
+              {cart && cart.length && <p id="badge">{cart.length}</p>}
             </div>
           </Link>
         </div>
@@ -43,14 +43,6 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin, cart}) => (
 /**
  * CONTAINER
  */
-const mapState = state => {
-  return {
-    isLoggedIn: !!state.user.id,
-    isAdmin: state.user.admin,
-    // one cart prop for db or localStorage cart array
-    cart: state.cart // this will be an array
-  }
-}
 
 const mapDispatch = dispatch => {
   return {
@@ -60,7 +52,7 @@ const mapDispatch = dispatch => {
   }
 }
 
-export default connect(mapState, mapDispatch)(Navbar)
+export default connect(null, mapDispatch)(Navbar)
 
 /**
  * PROP TYPES

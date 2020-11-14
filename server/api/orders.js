@@ -7,15 +7,17 @@ module.exports = router
 
 router.get('/:id', async (req, res, next) => {
   try {
-    const orders = await Order.findAll({
+    const order = await Order.findOne({
       where: {
         userId: req.params.id,
         completed: false
       },
       include: Product
     })
-    if (!orders.length) return res.send('You cart is empty')
-    return res.json(orders)
+
+    // J: make sure that what this returns fits the format of the cart
+    if (!order.products) return res.send('You cart is empty')
+    return res.json(order.products)
   } catch (err) {
     next(err)
   }
@@ -25,22 +27,25 @@ router.get('/:id', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    const {userId, quantity, savedPrice, productId} = req.body
+    /* J: changed productId into product so that the order passed in
+    thunk postOrder can be also used by guest
+    */
+    const {userId, quantity, savedPrice, product} = req.body
     const [order, created] = await Order.findOrCreate({
       where: {
         completed: false,
         userId
       }
     })
+    const productId = product.id
     const orderId = order.id
-    const productOrder = await ProductOrder.create({
+    await ProductOrder.create({
       productId,
       orderId,
       quantity,
       savedPrice
     })
-    const products = order.getProducts()
-    res.json(products)
+    res.json(await order.getProducts())
   } catch (err) {
     next(err)
   }
