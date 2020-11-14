@@ -6,17 +6,12 @@ import CartItem from './CartItem'
 import {loadCart} from '../store/cart'
 
 class Cart extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
-
   componentDidMount() {
-    this.props.getCart(this.props.userId)
+    this.props.getCart(this.props.user.id)
   }
 
   render() {
-    const productsInCart = this.props.userCart
+    const {cart: productsInCart} = this.props
     // console.log('products in cart', productsInCart)
 
     return !productsInCart.length ? (
@@ -24,14 +19,7 @@ class Cart extends React.Component {
     ) : (
       <div className="cart-container">
         <h3 className="cart-title">Shopping Cart</h3>
-        {productsInCart.map(product => (
-          <CartItem
-            product={product}
-            remove={this.props.removeItem}
-            key={product.id}
-          />
-        ))}
-        <h2>
+        <h3>
           Total: ${productsInCart.reduce(
             (accumulator, product) =>
               accumulator +
@@ -39,16 +27,23 @@ class Cart extends React.Component {
                 product.productOrder.quantity,
             0
           )}
-        </h2>
+        </h3>
+        {productsInCart.map(product => (
+          <CartItem
+            product={product}
+            remove={this.props.removeItem}
+            key={product.id}
+          />
+        ))}
       </div>
     )
   }
 }
 
 const mapState = state => ({
-  userCart: state.cart,
+  cart: state.cart,
   // products: state.products,
-  userId: state.user.id
+  user: state.user
 })
 
 const mapDispatch = dispatch => ({
