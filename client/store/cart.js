@@ -18,11 +18,9 @@ const createOrder = updatedCart => ({
 // thunk creator
 export const loadCart = userId => {
   if (userId) {
-    console.log('thunk triggered')
     return async dispatch => {
       try {
-        const {data: orderedProducts} = await axios.get(`/api/orders/${userId}`) //this is the problem
-        // console.log(productsInCart)
+        const {data: orderedProducts} = await axios.get(`/api/orders/${userId}`)
         dispatch(getCart(orderedProducts))
       } catch (err) {
         console.log(err)
@@ -46,7 +44,6 @@ export const postOrder = order => {
     return async dispatch => {
       try {
         // J: this axios.post return an array of all the products on the order, not just the newly created one;
-        console.log('what is order????????????', order)
         const {data: updatedCart} = await axios.post('/api/orders', order)
         dispatch(createOrder(updatedCart))
       } catch (err) {
