@@ -3,6 +3,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 // import {Link} from 'react-router-dom'
 import CartItem from './CartItem'
+import {loadCart} from '../store/cart'
 
 class Cart extends React.Component {
   constructor(props) {
@@ -11,13 +12,13 @@ class Cart extends React.Component {
   }
 
   componentDidMount() {
-    // this.props.getProducts()
+    this.props.getCart(this.props.userId)
   }
 
   render() {
     const products = this.props.userCart
-    console.log(this.props)
-    return !products ? (
+    console.log('props', this.props)
+    return !products.length ? (
       <h1>No Items In Cart!</h1>
     ) : (
       <div className="cart-container">
@@ -29,18 +30,19 @@ class Cart extends React.Component {
             key={product.id}
           />
         ))}
+        <h3>Total: $</h3>
       </div>
     )
   }
 }
 
 const mapState = state => ({
-  // products: state.products,
-  userCart: state.user.carts
+  userId: state.user.id,
+  userCart: state.cart
 })
 
 const mapDispatch = dispatch => ({
-  // getProducts: () => dispatch(fetchProducts()),
+  getCart: userId => dispatch(loadCart(userId)),
   removeItem: productId => dispatch(removeItem(productId))
 })
 
