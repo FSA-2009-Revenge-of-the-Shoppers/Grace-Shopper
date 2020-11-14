@@ -2,9 +2,11 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {UpdateProduct} from '.'
 import {fetchSingleProduct} from '../store/singleProduct'
+import {postOrder} from '../store/cart'
 
 const defaultState = {
-  editMode: false
+  editMode: false,
+  quantity: 1
 }
 
 export class SingleProduct extends React.Component {
@@ -12,6 +14,8 @@ export class SingleProduct extends React.Component {
     super(props)
     this.state = defaultState
     this.toggleEditMode = this.toggleEditMode.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
   componentDidMount() {
@@ -24,6 +28,21 @@ export class SingleProduct extends React.Component {
     this.setState({
       editMode: !currentMode
     })
+  }
+
+  handleChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+  }
+
+  handleSubmit(event) {
+    event.preventDefault()
+    const {product, user} = this.props
+    const {quantity} = this.state
+    const userId = user.id
+    const savedPrice = product.price
+    this.props.orderProduct({product, userId, quantity, savedPrice})
   }
 
   render() {
@@ -58,6 +77,18 @@ export class SingleProduct extends React.Component {
         />
         <h3>{product.price}</h3>
         <p>{product.description}</p>
+        <form>
+          <label htmlFor="quantity">Quantity:</label>
+          <input
+            type="number"
+            name="quantity"
+            value={this.state.quantity}
+            onChange={this.handleChange}
+          />
+          <button type="submit" onSubmit={this.handleSubmit}>
+            Add to cart
+          </button>
+        </form>
       </div>
     )
   }
@@ -65,11 +96,13 @@ export class SingleProduct extends React.Component {
 
 const mapState = state => ({
   product: state.singleProduct,
-  user: state.user
+  user: state.user,
+  cart: state.cart
 })
 
 const mapDispatch = dispatch => ({
-  getProduct: id => dispatch(fetchSingleProduct(id))
+  getProduct: id => dispatch(fetchSingleProduct(id)),
+  orderProduct: order => dispatch(postOrder(order))
 })
 
 export default connect(mapState, mapDispatch)(SingleProduct)

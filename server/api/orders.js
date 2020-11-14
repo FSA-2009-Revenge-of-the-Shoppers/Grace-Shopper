@@ -15,7 +15,7 @@ router.get('/:id', async (req, res, next) => {
       include: Product
     })
 
-    // make sure that what this returns fits the format of the cart
+    // J: make sure that what this returns fits the format of the cart
     if (!order.products) return res.send('You cart is empty')
     return res.json(order.products)
   } catch (err) {
@@ -27,6 +27,9 @@ router.get('/:id', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
+    /* J: changed productId into product so that the order passed in
+    thunk postOrder can be also used by guest
+    */
     const {userId, quantity, savedPrice, product} = req.body
     const [order, created] = await Order.findOrCreate({
       where: {

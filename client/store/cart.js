@@ -22,9 +22,9 @@ export const loadCart = userId => {
     console.log('thunk triggered')
     return async dispatch => {
       try {
-        const {data: products} = await axios.get(`api/orders/${userId}`) //this is the problem
+        const {data: orderedProducts} = await axios.get(`api/orders/${userId}`) //this is the problem
         // console.log(productsInCart)
-        dispatch(getCart(products))
+        dispatch(getCart(orderedProducts))
       } catch (err) {
         console.log(err)
       }
@@ -35,7 +35,8 @@ export const loadCart = userId => {
     // if there's a cart, load it from window.localStorage.cart
     // if there isn't, set it as an empty array
     // dispatch getCart with that data
-    return dispatch => dispatch(getCart([]))
+    const orderedProducts = JSON.parse(window.localStorage.getItem('cart'))
+    return dispatch => dispatch(getCart(orderedProducts))
   }
 }
 
@@ -45,6 +46,7 @@ export const postOrder = order => {
     return async dispatch => {
       try {
         // J: this axios.post return an array of all the products on the order, not just the newly created one;
+        console.log('what is order????????????', order)
         const {data: updatedCart} = await axios.post('api/orders', order)
         dispatch(createOrder(updatedCart))
       } catch (err) {
@@ -54,21 +56,24 @@ export const postOrder = order => {
   } else {
     // J: create a localStorage cart in the same format as database cart
     const {product, quantity, savedPrice} = order
-    const orderedItem = product
-    orderedItem['product-order'] = {
+    const orderedProduct = product
+    orderedProduct['product-order'] = {
       quantity,
       savedPrice
     }
+
     /* J: check if local cart exists, if exists, add a new item into it;
     if not create a cart and place the item in it */
     if (!window.localStorage.cart)
-      window.localStorage.setItem('cart', JSON.stringify([orderedItem]))
-    const cart = JSON.parse(window.localStorage.getItem('cart'))
-    cart.push(orderedItem)
-    window.localStorage.setItem('cart', JSON.stringify(cart))
-    return dispatch => dispatch(cart)
+      window.localStorage.setItem('cart', JSON.stringify([orderedProduct]))
+    const orderedProducts = JSON.parse(window.localStorage.getItem('cart'))
+    orderedProducts.push(orderedProduct)
+    window.localStorage.setItem('cart', JSON.stringify(orderedProducts))
+    return dispatch => dispatch(orderedProducts)
   }
 }
+
+// J: this thunk is getting huge, we probably need to split it;
 
 const initialState = []
 
@@ -84,6 +89,7 @@ export default (state = initialState, action) => {
 }
 
 /*
+Sample: a product in an order returned by database calls
  {
         "id": 1,
         "name": "Hungry Baby Yoda",
