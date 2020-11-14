@@ -53,7 +53,7 @@ export const postOrder = order => {
     )
     const {product, quantity, savedPrice} = order
     const cartItem = product
-    cartItem['product-order'] = {
+    cartItem.productOrder = {
       quantity,
       savedPrice
     }
