@@ -4,21 +4,21 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
-const Navbar = ({handleClick, isLoggedIn, isAdmin, cart}) => (
+const Navbar = ({handleClick, user, cart}) => (
   <div>
     <h1>Grace Shopper</h1>
     <nav>
-      {isLoggedIn ? (
+      {user.id ? (
         <div>
           {/* The navbar will show these links after you log in */}
           <Link to="/home">Home</Link>
-          {isAdmin && <Link to="/users">Users</Link>}
+          {user.admin && <Link to="/users">Users</Link>}
           <a href="#" onClick={handleClick}>
             Logout
           </a>
           <Link to="/cart" className="icon-container">
-            <img id="icon" src="shopping-cart.jpg" />
-            {/* <p id="badge">{dbCart.length}</p> */}
+            <img id="icon" src="/shopping-cart.jpg" />
+            {cart && cart.length && <p id="badge">{cart.length}</p>}
           </Link>
         </div>
       ) : (
@@ -30,7 +30,7 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin, cart}) => (
           <Link to="/cart">
             <div className="icon-container">
               <img id="icon" src="shopping-cart.jpg" />
-              {cart.length && <p id="badge">{cart.length}</p>}
+              {cart && cart.length && <p id="badge">{cart.length}</p>}
             </div>
           </Link>
         </div>
@@ -43,14 +43,6 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin, cart}) => (
 /**
  * CONTAINER
  */
-const mapState = state => {
-  return {
-    isLoggedIn: !!state.user.id,
-    isAdmin: state.user.admin,
-    // one cart prop for db or localStorage cart array
-    cart: state.cart // this will be an array
-  }
-}
 
 const mapDispatch = dispatch => {
   return {
@@ -60,12 +52,11 @@ const mapDispatch = dispatch => {
   }
 }
 
-export default connect(mapState, mapDispatch)(Navbar)
+export default connect(null, mapDispatch)(Navbar)
 
 /**
  * PROP TYPES
  */
 Navbar.propTypes = {
-  handleClick: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired
+  handleClick: PropTypes.func.isRequired
 }
