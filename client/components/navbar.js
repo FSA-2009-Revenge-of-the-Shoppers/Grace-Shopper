@@ -17,8 +17,8 @@ const Navbar = ({handleClick, user, cart}) => (
             Logout
           </a>
           <Link to="/cart" className="icon-container">
-            <img id="icon" src="/shopping-cart.jpg" />
-            {cart && cart.length && <p id="badge">{cart.length}</p>}
+            <img className="icon" src="/shopping-cart.jpg" />
+            {cart && cart.length >= 1 && <p className="badge">{cart.length}</p>}
           </Link>
         </div>
       ) : (
@@ -29,8 +29,9 @@ const Navbar = ({handleClick, user, cart}) => (
           <Link to="/home">Shop</Link>
           <Link to="/cart">
             <div className="icon-container">
-              <img id="icon" src="shopping-cart.jpg" />
-              {cart && cart.length && <p id="badge">{cart.length}</p>}
+              <img className="icon" src="shopping-cart.jpg" />
+              {cart &&
+                cart.length >= 1 && <p className="badge">{cart.length}</p>}
             </div>
           </Link>
         </div>

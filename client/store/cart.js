@@ -17,6 +17,8 @@ const createOrder = updatedCart => ({
 
 // thunk creator
 export const loadCart = userId => {
+  console.log('how many times it this running?')
+  console.log('what is the userId?', userId)
   if (userId) {
     return async dispatch => {
       try {
