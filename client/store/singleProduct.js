@@ -36,6 +36,7 @@ export const updateProduct = (
       `/api/products/${productId}`,
       updatedProductInfo
     )
+    // J: passed in the response (updatedProduct) from api route instead of updatedProductInfo from component. Because the database can take care of undefined fields and assign them with default values;
     dispatch(gotUpdatedProductInfo(updatedProduct))
   } catch (err) {
     console.error('error updating the product', err)
