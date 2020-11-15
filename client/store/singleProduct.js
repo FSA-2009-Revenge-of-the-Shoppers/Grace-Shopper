@@ -32,8 +32,11 @@ export const updateProduct = (
   updatedProductInfo
 ) => async dispatch => {
   try {
-    await axios.put(`/api/products/${productId}`, updatedProductInfo)
-    dispatch(gotUpdatedProductInfo(updatedProductInfo))
+    const {data: updatedProduct} = await axios.put(
+      `/api/products/${productId}`,
+      updatedProductInfo
+    )
+    dispatch(gotUpdatedProductInfo(updatedProduct))
   } catch (err) {
     console.error('error updating the product', err)
   }

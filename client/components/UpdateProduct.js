@@ -27,7 +27,13 @@ class UpdateProduct extends React.Component {
     event.preventDefault()
     const productId = this.props.productId
     // J: assuming that admins would not replace information with undefined values
-    this.props.editProduct(productId, this.state)
+    const {name, description, price, quantity, imageUrl} = this.state
+
+    const updatedProductInfo = {name, description, price}
+    if (quantity) updatedProductInfo.quantity = quantity
+    if (imageUrl) updatedProductInfo.imageUrl = imageUrl
+
+    this.props.editProduct(productId, updatedProductInfo)
     this.props.toggleEditMode()
   }
 

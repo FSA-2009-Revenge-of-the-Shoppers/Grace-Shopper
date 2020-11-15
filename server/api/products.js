@@ -31,7 +31,8 @@ router.put('/:productId', async (req, res, next) => {
     const product = await Product.findByPk(req.params.productId)
     // Note that we will not use this response in our application, but it is useful for testing the api route in mocha and postman
     const response = await product.update(req.body)
-    res.status(204).send(response)
+    // J: deleted status(204), which means no content; instead sent the response (the updated response) so that the thunk updateProduct in singleProduct.js can make use of this response
+    res.json(response)
   } catch (err) {
     next(err)
   }
