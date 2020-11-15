@@ -19,9 +19,14 @@ class AllProducts extends React.Component {
     this.toggleCreateMode = this.toggleCreateMode.bind(this)
   }
 
-  componentDidMount() {
-    this.props.getProducts()
-    this.props.getCart(this.props.userId)
+  /*J: the problem is that getCart runs faster than getUser; added async and await to
+  slow down the getCart and in most cases the cart item number would show, but still
+  there are cases that getCart runs earlier than getUser;
+  there should be better solutions
+  */
+  async componentDidMount() {
+    await this.props.getProducts()
+    await this.props.getCart(this.props.user.id)
   }
 
   toggleCreateMode() {
@@ -42,7 +47,7 @@ class AllProducts extends React.Component {
     const {products, user, deleteProduct} = this.props
     const {overview, imageSize} = this.state
     return !products.length ? (
-      <h1>Loading Products</h1>
+      <h1>Loading Product</h1>
     ) : (
       <div>
         {user.admin && (

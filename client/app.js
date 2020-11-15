@@ -10,7 +10,8 @@ class App extends React.Component {
   componentDidMount() {
     this.props.loadInitialData()
     //grabbing cart from localStorage if one exists -user is not yet logged in
-    this.props.getCart(this.props.user.id)
+    // J: don't think the next line is needed;
+    // this.props.getCart(this.props.user.id)
   }
 
   render() {

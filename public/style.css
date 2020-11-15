@@ -27,14 +27,14 @@ form div {
   position: relative;
 }
 
-#icon {
+.icon-container > .icon {
   height: 2em;
   width: 2em;
   z-index: 1;
   position: relative;
 }
 
-#badge {
+.icon-container > .badge {
   z-index: 9999;
   position: absolute;
   height: 1em;
