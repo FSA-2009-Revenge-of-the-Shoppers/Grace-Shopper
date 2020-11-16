@@ -24,13 +24,6 @@ class Cart extends React.Component {
     ) : (
       <div className="cart-container">
         <h3 className="cart-title">Shopping Cart</h3>
-        {productsInCart.map(product => (
-          <CartItem
-            product={product}
-            remove={this.props.removeItem}
-            key={product.id}
-          />
-        ))}
         <h2>
           Total: ${productsInCart.reduce(
             (accumulator, product) =>
@@ -40,6 +33,14 @@ class Cart extends React.Component {
             0
           )}
         </h2>
+        {productsInCart.map(product => (
+          <CartItem
+            product={product}
+            remove={this.props.removeItem}
+            key={product.id}
+            userId={this.props.userId}
+          />
+        ))}
       </div>
     )
   }

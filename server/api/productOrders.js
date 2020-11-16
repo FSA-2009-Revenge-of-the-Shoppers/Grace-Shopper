@@ -52,8 +52,8 @@ router.put('/:orderId/:productId', async (req, res, next) => {
         productId: req.params.productId
       }
     })
-    await productOrder.update(req.body)
-    res.sendStatus(204)
+    const response = await productOrder.update(req.body)
+    res.json(response)
   } catch (err) {
     next(err)
   }

@@ -10,15 +10,15 @@ const getCart = cart => ({
   cart
 })
 
-export const gotUpdatedQuantity = updatedQuantity => ({
-  type: GOT_UPDATED_QUANTITY,
-  quantity: updatedQuantity
-})
+// export const gotUpdatedQuantity = updatedQuantity => ({
+//   type: GOT_UPDATED_QUANTITY,
+//   quantity: updatedQuantity
+// })
 
 // thunk creator
 export const loadCart = userId => {
   if (userId) {
-    console.log('thunk triggered')
+    console.log('loadCart thunk triggered')
     return async dispatch => {
       try {
         const {data} = await axios.get(`api/orders/${userId}`) //this is the problem
@@ -39,14 +39,22 @@ export const loadCart = userId => {
   }
 }
 
-// export const updateQuantity = (orderId, productId, updatedQuantity) => async dispatch => {
-//   try {
-//     await axios.put(`/api/productorders/${orderId}/${productId}`, updatedQuantity)
-//     dispatch(gotUpdatedQuantity(updatedQuantity))
-//   } catch (err) {
-//     console.error('error updating quantity', err)
-//   }
-// }
+export const updateQty = (orderId, productId, userId, updatedQty) => {
+  console.log('updateQty thunk triggered')
+  return async dispatch => {
+    try {
+      const {data} = await axios.put(
+        `/api/productorders/${orderId}/${productId}`,
+        updatedQty
+      )
+      console.log(data)
+      dispatch(loadCart(userId))
+      // dispatch(gotUpdatedQuantity(updatedQuantity))
+    } catch (err) {
+      console.error('error updating quantity', err)
+    }
+  }
+}
 
 // const updateProductOrder = (orderId, productId, stateArr) => {
 //   for (let i = 0; i < stateArr.length; i++) {

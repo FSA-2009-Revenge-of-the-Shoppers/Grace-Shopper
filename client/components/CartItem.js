@@ -1,17 +1,18 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import axios from 'axios'
+import {updateQty} from '../store/cart'
+import {connect} from 'react-redux'
 
 // import Order from '../../server/db/models/order'
-// import {connect} from 'react-redux'
 // import {fetchSingleProduct} from '../store/singleProduct'
 
-export default class CartItem extends React.Component {
+export class CartItem extends React.Component {
   constructor(props) {
     //should get remove function and the actual individual item from the Cart component
     super(props)
     this.state = {
-      quantity: this.props.product.productOrder.quantity
+      quantity: this.props.product.productOrder.quantity,
+      editMode: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -22,24 +23,46 @@ export default class CartItem extends React.Component {
   // this.props.getProduct(productId)
   // }
 
+  toggleEditMode() {
+    const currentMode = this.state.editMode
+    this.setState({
+      editMode: !currentMode
+    })
+    console.log(this.state)
+  }
+
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value
     })
   }
 
-  async handleSubmit(event) {
+  handleSubmit(event) {
     event.preventDefault()
-    const productId = this.props.product.id
+
+    console.log('props', this.props)
+
     const orderId = this.props.product.productOrder.orderId
+    const productId = this.props.product.id
+    const userId = this.props.userId
     const updatedQty = {
       quantity: this.state.quantity
     }
-    try {
-      await axios.put(`/api/productorders/${orderId}/${productId}`, updatedQty)
-    } catch (err) {
-      console.error('error updating quantity', err)
-    }
+
+    console.log('args')
+    console.log('orderId', orderId)
+    console.log('productId', productId)
+    console.log('userId', userId)
+    console.log('updatedQty', updatedQty)
+
+    this.props.changeQty(orderId, productId, userId, updatedQty)
+
+    // try {
+    //   await axios.put(`/api/productorders/${orderId}/${productId}`, updatedQty)
+
+    // } catch (err) {
+    //   console.error('error updating quantity', err)
+    // }
 
     // const productQty = this.props.product.productOrder.quantity
   }
@@ -67,17 +90,23 @@ export default class CartItem extends React.Component {
         />
         <h3>Price: ${product.productOrder.savedPrice}</h3>
         <p>Quantity: {product.productOrder.quantity}</p>
-        <form className="qtyForm" onSubmit={this.handleSubmit}>
-          <label htmlFor="quantity">Change Quantity:</label>
-          <input
-            name="quantity"
-            type="number"
-            onChange={this.handleChange}
-            value={this.state.quantity}
-            required="required"
-          />
-          <button type="submit">Change Quanity</button>
-        </form>
+        <button type="button" onClick={() => this.toggleEditMode()}>
+          Change Quantity
+        </button>
+
+        {this.state.editMode && (
+          <form className="qtyForm" onSubmit={this.handleSubmit}>
+            <label htmlFor="quantity">Change Quantity:</label>
+            <input
+              name="quantity"
+              type="number"
+              onChange={this.handleChange}
+              value={this.state.quantity}
+              required="required"
+            />
+            <button type="submit">Change Quanity</button>
+          </form>
+        )}
 
         <button
           type="button"
@@ -90,3 +119,10 @@ export default class CartItem extends React.Component {
     )
   }
 }
+
+const mapDispatch = dispatch => ({
+  changeQty: (orderId, productId, userId, updatedQty) =>
+    dispatch(updateQty(orderId, productId, userId, updatedQty))
+})
+
+export default connect(null, mapDispatch)(CartItem)
