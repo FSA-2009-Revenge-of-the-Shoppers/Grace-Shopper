@@ -37,15 +37,28 @@ router.post('/', async (req, res, next) => {
         userId
       }
     })
+
     const productId = product.id
     const orderId = order.id
-    await ProductOrder.create({
-      productId,
-      orderId,
-      quantity,
-      savedPrice
+
+    const [productOrder, wasCreated] = await ProductOrder.findOrCreate({
+      where: {
+        productId,
+        orderId
+      },
+      defualts: req.body
     })
-    res.status(201).json(await order.getProducts())
+
+    if (!wasCreated) {
+      const currentQuantity = productOrder.quantity
+      // what if the price changed?
+      await productOrder.update({
+        quantity: currentQuantity + quantity,
+        savedPrice
+      })
+    }
+
+    res.json(await order.getProducts())
   } catch (err) {
     next(err)
   }
