@@ -1,20 +1,42 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-// import Order from '../../server/db/models/order'
-// import {connect} from 'react-redux'
-// import {fetchSingleProduct} from '../store/singleProduct'
+import {updateQty} from '../store/cart'
+import {connect} from 'react-redux'
 
-export default class CartItem extends React.Component {
+export class CartItem extends React.Component {
   constructor(props) {
-    //should get remove function and the actual individual item from the Cart component
     super(props)
-    this.state = {}
+    this.state = {
+      quantity: this.props.product.productOrder.quantity,
+      editMode: false
+    }
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  // componentDidMount() {
-  //   const productId = this.props.match.params.productId
-  //   this.props.getProduct(productId)
-  // }
+  toggleEditMode() {
+    const currentMode = this.state.editMode
+    this.setState({
+      editMode: !currentMode
+    })
+  }
+
+  handleChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+  }
+
+  handleSubmit(event) {
+    event.preventDefault()
+    const orderId = this.props.product.productOrder.orderId
+    const productId = this.props.product.id
+    const userId = this.props.userId
+    const updatedQty = {
+      quantity: this.state.quantity
+    }
+    this.props.changeQty(orderId, productId, userId, updatedQty)
+  }
 
   render() {
     const product = this.props.product
@@ -36,6 +58,23 @@ export default class CartItem extends React.Component {
         <p>
           Quantity: {quantity} - Total: ${savedPrice * quantity}
         </p>
+        <button type="button" onClick={() => this.toggleEditMode()}>
+          Change Quantity
+        </button>
+
+        {this.state.editMode && (
+          <form className="qtyForm" onSubmit={this.handleSubmit}>
+            <label htmlFor="quantity">Change Quantity:</label>
+            <input
+              name="quantity"
+              type="number"
+              onChange={this.handleChange}
+              value={this.state.quantity}
+              required="required"
+            />
+            <button type="submit">Change Quanity</button>
+          </form>
+        )}
         <button
           type="button"
           className="rmv-btn"
@@ -47,3 +86,10 @@ export default class CartItem extends React.Component {
     )
   }
 }
+
+const mapDispatch = dispatch => ({
+  changeQty: (orderId, productId, userId, updatedQty) =>
+    dispatch(updateQty(orderId, productId, userId, updatedQty))
+})
+
+export default connect(null, mapDispatch)(CartItem)

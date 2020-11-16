@@ -33,6 +33,22 @@ export const loadCart = userId => {
   }
 }
 
+export const updateQty = (orderId, productId, userId, updatedQty) => {
+  console.log('updateQty thunk triggered')
+  return async dispatch => {
+    try {
+      const {data} = await axios.put(
+        `/api/productorders/${orderId}/${productId}`,
+        updatedQty
+      )
+      console.log(data)
+      dispatch(loadCart(userId))
+    } catch (err) {
+      console.error('error updating quantity', err)
+    }
+  }
+}
+
 // J: this order should include all product info, userId, quantity, savedPrice;
 export const postOrder = order => {
   if (order.userId) {

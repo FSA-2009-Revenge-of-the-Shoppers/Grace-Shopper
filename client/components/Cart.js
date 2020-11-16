@@ -1,7 +1,5 @@
 import React from 'react'
-// import {fetchProducts, destroyProduct} from '../store/products'
 import {connect} from 'react-redux'
-// import {Link} from 'react-router-dom'
 import CartItem from './CartItem'
 import {loadCart} from '../store/cart'
 import {me} from '../store'
@@ -13,15 +11,15 @@ class Cart extends React.Component {
   }
 
   render() {
-    const {cart: productsInCart} = this.props
+    const {cart} = this.props
 
-    return !productsInCart.length ? (
+    return !cart.length ? (
       <h1>No Items In Cart!</h1>
     ) : (
       <div className="cart-container">
         <h3 className="cart-title">Shopping Cart</h3>
         <h3>
-          Total: ${productsInCart.reduce(
+          Total: ${cart.reduce(
             (accumulator, product) =>
               accumulator +
               Number(product.productOrder.savedPrice) *
@@ -29,11 +27,12 @@ class Cart extends React.Component {
             0
           )}
         </h3>
-        {productsInCart.map(product => (
+        {cart.map(product => (
           <CartItem
             product={product}
             remove={this.props.removeItem}
             key={product.id}
+            userId={this.props.userId}
           />
         ))}
       </div>
@@ -43,12 +42,10 @@ class Cart extends React.Component {
 
 const mapState = state => ({
   cart: state.cart,
-  // products: state.products,
   user: state.user
 })
 
 const mapDispatch = dispatch => ({
-  // removeItem: productId => dispatch(removeItem(productId)),
   getCart: userId => dispatch(loadCart(userId)),
   loadInitialData: () => dispatch(me())
 })
