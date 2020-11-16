@@ -4,15 +4,16 @@ import {connect} from 'react-redux'
 // import {Link} from 'react-router-dom'
 import CartItem from './CartItem'
 import {loadCart} from '../store/cart'
+import {me} from '../store'
 
 class Cart extends React.Component {
-  componentDidMount() {
-    this.props.getCart(this.props.user.id)
+  async componentDidMount() {
+    await this.props.loadInitialData()
+    await this.props.getCart(this.props.user.id)
   }
 
   render() {
     const {cart: productsInCart} = this.props
-    // console.log('products in cart', productsInCart)
 
     return !productsInCart.length ? (
       <h1>No Items In Cart!</h1>
@@ -48,7 +49,8 @@ const mapState = state => ({
 
 const mapDispatch = dispatch => ({
   // removeItem: productId => dispatch(removeItem(productId)),
-  getCart: userId => dispatch(loadCart(userId))
+  getCart: userId => dispatch(loadCart(userId)),
+  loadInitialData: () => dispatch(me())
 })
 
 export default connect(mapState, mapDispatch)(Cart)

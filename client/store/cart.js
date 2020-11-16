@@ -47,10 +47,6 @@ export const postOrder = order => {
     }
   } else {
     // J: create a localStorage cart in the same format as database cart
-    console.log(
-      'postOrder thunk triggered without a userId on state -- order:',
-      order
-    )
     const {product, quantity, savedPrice} = order
     const cartItem = product
     cartItem.productOrder = {

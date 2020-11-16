@@ -19,9 +19,9 @@ class AllProducts extends React.Component {
     this.toggleCreateMode = this.toggleCreateMode.bind(this)
   }
 
-  componentDidMount() {
-    this.props.getProducts()
-    this.props.getCart(this.props.userId)
+  async componentDidMount() {
+    await this.props.getProducts()
+    await this.props.getCart(this.props.userId)
   }
 
   toggleCreateMode() {

@@ -18,6 +18,7 @@ export default class CartItem extends React.Component {
 
   render() {
     const product = this.props.product
+    const {savedPrice, quantity} = product.productOrder
     if (!product) return <h1>Loading Product</h1>
     return (
       <div className="single-product">
@@ -31,8 +32,10 @@ export default class CartItem extends React.Component {
           width="500"
           height="500"
         />
-        <h3>Price: ${product.productOrder.savedPrice}</h3>
-        <p>Quantity: {product.productOrder.quantity}</p>
+        <h3>Price: ${savedPrice}</h3>
+        <p>
+          Quantity: {quantity} - Total: ${savedPrice * quantity}
+        </p>
         <button
           type="button"
           className="rmv-btn"

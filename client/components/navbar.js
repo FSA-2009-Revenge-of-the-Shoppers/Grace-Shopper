@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
+import {loadCart} from '../store/cart'
 
 const Navbar = ({handleClick, user, cart}) => (
   <div>
@@ -46,8 +47,9 @@ const Navbar = ({handleClick, user, cart}) => (
 
 const mapDispatch = dispatch => {
   return {
-    handleClick() {
-      dispatch(logout())
+    async handleClick() {
+      await dispatch(logout())
+      await dispatch(loadCart())
     }
   }
 }
