@@ -2,17 +2,11 @@ import axios from 'axios'
 
 // action types
 const GET_CART = 'GET_CART'
-const CREATE_ORDER = 'CREATE_ORDER'
 
 // action creator
 const getCart = cart => ({
   type: GET_CART,
   cart
-})
-
-const createOrder = updatedCart => ({
-  type: CREATE_ORDER,
-  updatedCart
 })
 
 // thunk creator
@@ -32,9 +26,10 @@ export const loadCart = userId => {
     // if there's a cart, load it from window.localStorage.cart
     // if there isn't, set it as an empty array
     // dispatch getCart with that data
-    const orderedProducts = JSON.parse(window.localStorage.getItem('cart'))
+    const cart = JSON.parse(window.localStorage.getItem('cart'))
     // We will optionally return an empty array here, but in the future we will create the cart array in local storage when the user adds their first item
-    return dispatch => dispatch(getCart(orderedProducts || []))
+
+    return dispatch => dispatch(getCart(cart || []))
   }
 }
 
@@ -45,28 +40,36 @@ export const postOrder = order => {
       try {
         // J: this axios.post return an array of all the products on the order, not just the newly created one;
         const {data: updatedCart} = await axios.post('/api/orders', order)
-        dispatch(createOrder(updatedCart))
+        dispatch(getCart(updatedCart))
       } catch (err) {
         console.log(err)
       }
     }
   } else {
     // J: create a localStorage cart in the same format as database cart
+    console.log(
+      'postOrder thunk triggered without a userId on state -- order:',
+      order
+    )
     const {product, quantity, savedPrice} = order
-    const orderedProduct = product
-    orderedProduct['product-order'] = {
+    const cartItem = product
+    cartItem.productOrder = {
       quantity,
       savedPrice
     }
 
-    /* J: check if local cart exists, if exists, add a new item into it;
-    if not create a cart and place the item in it */
-    if (!window.localStorage.cart)
-      window.localStorage.setItem('cart', JSON.stringify([orderedProduct]))
-    const orderedProducts = JSON.parse(window.localStorage.getItem('cart'))
-    orderedProducts.push(orderedProduct)
-    window.localStorage.setItem('cart', JSON.stringify(orderedProducts))
-    return dispatch => dispatch(orderedProducts)
+    /* J: check if localStorage cart doesn't exist, create a cart */
+    if (!window.localStorage.cart) {
+      window.localStorage.setItem('cart', JSON.stringify([]))
+    }
+    // grab the existing cart
+    const cart = JSON.parse(window.localStorage.getItem('cart'))
+    // push the new item onto the array
+    cart.push(cartItem)
+    // reset localStorage with the new item
+    window.localStorage.setItem('cart', JSON.stringify(cart))
+    // update redux
+    return dispatch => dispatch(getCart(cart))
   }
 }
 
@@ -78,8 +81,6 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case GET_CART:
       return action.cart
-    case CREATE_ORDER:
-      return action.updatedCart
     default:
       return state
   }

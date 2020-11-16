@@ -30,7 +30,7 @@ const Navbar = ({handleClick, user, cart}) => (
           <Link to="/cart">
             <div className="icon-container">
               <img id="icon" src="shopping-cart.jpg" />
-              {cart && cart.length && <p id="badge">{cart.length}</p>}
+              {cart && cart.length >= 1 && <p id="badge">{cart.length}</p>}
             </div>
           </Link>
         </div>
