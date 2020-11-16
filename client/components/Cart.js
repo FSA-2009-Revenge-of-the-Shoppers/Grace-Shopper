@@ -20,7 +20,8 @@ class Cart extends React.Component {
       <div className="cart-container">
         <h3 className="cart-title">Shopping Cart</h3>
         <h3>
-          Total: ${productsInCart.reduce(
+          Total: $
+          {productsInCart.reduce(
             (accumulator, product) =>
               accumulator +
               Number(product.productOrder.savedPrice) *
