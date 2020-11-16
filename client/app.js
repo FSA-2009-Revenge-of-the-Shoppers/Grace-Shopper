@@ -7,10 +7,10 @@ import {loadCart} from './store/cart'
 import PropTypes from 'prop-types'
 
 class App extends React.Component {
-  componentDidMount() {
-    this.props.loadInitialData()
+  async componentDidMount() {
+    await this.props.loadInitialData()
     //grabbing cart from localStorage if one exists -user is not yet logged in
-    this.props.getCart(this.props.user.id)
+    await this.props.getCart(this.props.user.id)
   }
 
   render() {
