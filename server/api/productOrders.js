@@ -43,7 +43,7 @@ router.get('/:orderId/:productId', async (req, res, next) => {
   }
 })
 
-// PUT /api/productOrders/:orderId/:productId
+// PUT /api/productorders/:orderId/:productId
 router.put('/:orderId/:productId', async (req, res, next) => {
   try {
     const productOrder = await ProductOrder.findOne({
@@ -55,6 +55,22 @@ router.put('/:orderId/:productId', async (req, res, next) => {
     const response = await productOrder.update(req.body)
     res.json(response)
   } catch (err) {
+    next(err)
+  }
+})
+
+//DELETE /api/productOrders/:orderId/:productId
+router.delete('/:orderId/:productId', async (req, res, next) => {
+  try {
+    await ProductOrder.destroy({
+      where: {
+        orderId: req.params.orderId,
+        productId: req.params.productId
+      }
+    })
+    res.status(204).end()
+  } catch (err) {
+    console.log(err)
     next(err)
   }
 })

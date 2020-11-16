@@ -37,14 +37,22 @@ export const updateQty = (orderId, productId, userId, updatedQty) => {
   console.log('updateQty thunk triggered')
   return async dispatch => {
     try {
-      const {data} = await axios.put(
-        `/api/productorders/${orderId}/${productId}`,
-        updatedQty
-      )
-      console.log(data)
+      await axios.put(`/api/productorders/${orderId}/${productId}`, updatedQty)
       dispatch(loadCart(userId))
     } catch (err) {
       console.error('error updating quantity', err)
+    }
+  }
+}
+
+export const removeItemFromCart = (orderId, productId, userId) => {
+  console.log('deleteItem thunk triggered')
+  return async dispatch => {
+    try {
+      await axios.delete(`/api/productorders/${orderId}/${productId}`)
+      dispatch(loadCart(userId))
+    } catch (err) {
+      console.error('error deleting item from cart', err)
     }
   }
 }
