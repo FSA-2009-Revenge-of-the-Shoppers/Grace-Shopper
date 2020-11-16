@@ -18,17 +18,11 @@ export class CartItem extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  // componentDidMount() {
-  // const productId = this.props.match.params.productId
-  // this.props.getProduct(productId)
-  // }
-
   toggleEditMode() {
     const currentMode = this.state.editMode
     this.setState({
       editMode: !currentMode
     })
-    console.log(this.state)
   }
 
   handleChange(event) {
@@ -39,39 +33,14 @@ export class CartItem extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-
-    console.log('props', this.props)
-
     const orderId = this.props.product.productOrder.orderId
     const productId = this.props.product.id
     const userId = this.props.userId
     const updatedQty = {
       quantity: this.state.quantity
     }
-
-    console.log('args')
-    console.log('orderId', orderId)
-    console.log('productId', productId)
-    console.log('userId', userId)
-    console.log('updatedQty', updatedQty)
-
     this.props.changeQty(orderId, productId, userId, updatedQty)
-
-    // try {
-    //   await axios.put(`/api/productorders/${orderId}/${productId}`, updatedQty)
-
-    // } catch (err) {
-    //   console.error('error updating quantity', err)
-    // }
-
-    // const productQty = this.props.product.productOrder.quantity
   }
-
-  // how the form works
-  // local state is initialized with the quantity of the product in our cart
-  // value for the input field is taken from the value we have for it in our local state
-  // when we type something into the input field, the change handler sets our local state to reflect what is in the input field
-  // when we click submit, we trigger a thunk what will use a put route to edit the quantity in the productOrder table in our database
 
   render() {
     const product = this.props.product

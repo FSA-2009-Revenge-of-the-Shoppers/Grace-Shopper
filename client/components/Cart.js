@@ -17,7 +17,6 @@ class Cart extends React.Component {
 
   render() {
     const productsInCart = this.props.userCart
-    // console.log('products in cart', productsInCart)
 
     return !productsInCart.length ? (
       <h1>No Items In Cart!</h1>
