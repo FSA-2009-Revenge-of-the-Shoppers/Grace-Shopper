@@ -26,18 +26,12 @@ class UpdateProduct extends React.Component {
   handleSubmit(event) {
     event.preventDefault()
     const productId = this.props.productId
+    // J: assuming that admins would not replace information with undefined values
+    const {name, description, price, quantity, imageUrl} = this.state
 
-    const {name, description, imageUrl, price, quantity} = this.state
-
-    const existing = quantity && quantity
-
-    const updatedProductInfo = {
-      name,
-      description,
-      price,
-      imageUrl,
-      existing
-    }
+    const updatedProductInfo = {name, description, price}
+    if (quantity) updatedProductInfo.quantity = quantity
+    if (imageUrl) updatedProductInfo.imageUrl = imageUrl
 
     this.props.editProduct(productId, updatedProductInfo)
     this.props.toggleEditMode()

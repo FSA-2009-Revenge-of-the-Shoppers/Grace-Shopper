@@ -26,7 +26,7 @@ const ProductForm = props => {
         <label htmlFor="imageUrl">Image URL:</label>
         <input
           name="imageUrl"
-          type="text"
+          type="url"
           onChange={props.handleChange}
           value={props.imageUrl}
         />

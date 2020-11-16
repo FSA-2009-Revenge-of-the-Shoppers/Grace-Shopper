@@ -45,7 +45,7 @@ router.post('/', async (req, res, next) => {
       quantity,
       savedPrice
     })
-    res.json(await order.getProducts())
+    res.status(201).json(await order.getProducts())
   } catch (err) {
     next(err)
   }

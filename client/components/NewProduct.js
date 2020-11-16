@@ -27,11 +27,10 @@ class NewProduct extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    const {name, description, imageUrl, price, quantity} = this.state
-
-    const existingFields = [imageUrl, quantity].filter(item => !item)
-    this.props.createProduct({name, description, price, ...existingFields})
-
+    let {name, description, imageUrl, price, quantity} = this.state
+    if (!imageUrl) imageUrl = undefined
+    if (!quantity) quantity = undefined
+    this.props.createProduct({name, description, price, imageUrl, quantity})
     this.setState(defaultState)
     this.props.toggleCreateMode()
   }
