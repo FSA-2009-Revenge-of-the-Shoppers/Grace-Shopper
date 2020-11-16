@@ -1,11 +1,12 @@
 const router = require('express').Router()
 const {Order, Product, ProductOrder} = require('../db/models')
+const adminAuth = require('../auth/adminAuth')
 
 module.exports = router
 
 //sends back only 1 open order because only 1 can be incomplete - the order has an id, which has a products array, which has objects for each products
 
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', adminAuth, async (req, res, next) => {
   try {
     const order = await Order.findOne({
       where: {
