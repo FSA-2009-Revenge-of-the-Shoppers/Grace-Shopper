@@ -44,6 +44,7 @@ export class SingleProduct extends React.Component {
     const savedPrice = product.price
     await this.props.orderProduct({product, userId, quantity, savedPrice})
     // Redirect to cart
+    // J: why do we need to redirect to cart?
     this.props.history.push('/cart')
   }
 
