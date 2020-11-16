@@ -65,7 +65,9 @@ export class CartItem extends React.Component {
         />
         <h3>Price: ${savedPrice}</h3>
         <p>
-          Quantity: {quantity} - Total: ${savedPrice * quantity}
+          Quantity: {quantity} - Total: ${Number(savedPrice * quantity) *
+            100 /
+            100}
         </p>
         <button type="button" onClick={() => this.toggleEditMode()}>
           Change Quantity

@@ -42,7 +42,12 @@ export class SingleProduct extends React.Component {
     const {quantity} = this.state
     const userId = user.id
     const savedPrice = product.price
-    await this.props.orderProduct({product, userId, quantity, savedPrice})
+    await this.props.orderProduct({
+      product,
+      userId,
+      quantity: Number(quantity),
+      savedPrice: Number(savedPrice)
+    })
     // Redirect to cart
     this.props.history.push('/cart')
   }

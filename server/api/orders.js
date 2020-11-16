@@ -13,7 +13,7 @@ router.get('/:id', async (req, res, next) => {
         completed: false
       },
       include: Product
-    })
+    }) ///make sure it doesnt break when there is not "false" order to be found
 
     // J: make sure that what this returns fits the format of the cart
     if (!order.products) return res.send('You cart is empty')
@@ -46,7 +46,7 @@ router.post('/', async (req, res, next) => {
         productId,
         orderId
       },
-      defualts: req.body
+      defaults: req.body
     })
 
     if (!wasCreated) {
