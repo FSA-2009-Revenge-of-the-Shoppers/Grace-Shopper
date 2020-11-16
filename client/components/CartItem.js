@@ -3,12 +3,8 @@ import {Link} from 'react-router-dom'
 import {updateQty} from '../store/cart'
 import {connect} from 'react-redux'
 
-// import Order from '../../server/db/models/order'
-// import {fetchSingleProduct} from '../store/singleProduct'
-
 export class CartItem extends React.Component {
   constructor(props) {
-    //should get remove function and the actual individual item from the Cart component
     super(props)
     this.state = {
       quantity: this.props.product.productOrder.quantity,
@@ -44,6 +40,7 @@ export class CartItem extends React.Component {
 
   render() {
     const product = this.props.product
+    const {savedPrice, quantity} = product.productOrder
     if (!product) return <h1>Loading Product</h1>
     return (
       <div className="single-product">
@@ -57,8 +54,10 @@ export class CartItem extends React.Component {
           width="500"
           height="500"
         />
-        <h3>Price: ${product.productOrder.savedPrice}</h3>
-        <p>Quantity: {product.productOrder.quantity}</p>
+        <h3>Price: ${savedPrice}</h3>
+        <p>
+          Quantity: {quantity} - Total: ${savedPrice * quantity}
+        </p>
         <button type="button" onClick={() => this.toggleEditMode()}>
           Change Quantity
         </button>
@@ -76,7 +75,6 @@ export class CartItem extends React.Component {
             <button type="submit">Change Quanity</button>
           </form>
         )}
-
         <button
           type="button"
           className="rmv-btn"
