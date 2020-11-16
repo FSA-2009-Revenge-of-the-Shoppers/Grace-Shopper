@@ -12,20 +12,23 @@ class Cart extends React.Component {
 
   render() {
     const {cart} = this.props
-
+    //{Number(savedPrice * quantity) * 100 /100}
     return !cart.length ? (
       <h1>No Items In Cart!</h1>
     ) : (
       <div className="cart-container">
         <h3 className="cart-title">Shopping Cart</h3>
         <h3>
-          Total: ${cart.reduce(
-            (accumulator, product) =>
-              accumulator +
-              Number(product.productOrder.savedPrice) *
-                product.productOrder.quantity,
-            0
-          )}
+          Total: ${Number(
+            cart.reduce(
+              (accumulator, product) =>
+                accumulator +
+                product.productOrder.savedPrice * product.productOrder.quantity,
+              0
+            )
+          ) *
+            100 /
+            100}
         </h3>
         {cart.map(product => (
           <CartItem

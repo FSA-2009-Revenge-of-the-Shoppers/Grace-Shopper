@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import {updateQty} from '../store/cart'
+import {updateQty, removeItemFromCart} from '../store/cart'
 import {connect} from 'react-redux'
 
 export class CartItem extends React.Component {
@@ -12,6 +12,7 @@ export class CartItem extends React.Component {
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleRemove = this.handleRemove.bind(this)
   }
 
   toggleEditMode() {
@@ -38,6 +39,14 @@ export class CartItem extends React.Component {
     this.props.changeQty(orderId, productId, userId, updatedQty)
   }
 
+  handleRemove() {
+    const orderId = this.props.product.productOrder.orderId
+    const productId = this.props.product.id
+    const userId = this.props.userId
+    // console.log(userId)
+    this.props.removeItem(orderId, productId, userId)
+  }
+
   render() {
     const product = this.props.product
     const {savedPrice, quantity} = product.productOrder
@@ -56,7 +65,9 @@ export class CartItem extends React.Component {
         />
         <h3>Price: ${savedPrice}</h3>
         <p>
-          Quantity: {quantity} - Total: ${savedPrice * quantity}
+          Quantity: {quantity} - Total: ${Number(savedPrice * quantity) *
+            100 /
+            100}
         </p>
         <button type="button" onClick={() => this.toggleEditMode()}>
           Change Quantity
@@ -64,7 +75,7 @@ export class CartItem extends React.Component {
 
         {this.state.editMode && (
           <form className="qtyForm" onSubmit={this.handleSubmit}>
-            <label htmlFor="quantity">Change Quantity:</label>
+            <label htmlFor="quantity">New Quantity:</label>
             <input
               name="quantity"
               type="number"
@@ -72,13 +83,13 @@ export class CartItem extends React.Component {
               value={this.state.quantity}
               required="required"
             />
-            <button type="submit">Change Quanity</button>
+            <button type="submit">Update</button>
           </form>
         )}
         <button
           type="button"
           className="rmv-btn"
-          //onClick={() => this.props.remove(product)}
+          onClick={() => this.handleRemove()}
         >
           Remove from cart
         </button>
@@ -87,9 +98,15 @@ export class CartItem extends React.Component {
   }
 }
 
-const mapDispatch = dispatch => ({
-  changeQty: (orderId, productId, userId, updatedQty) =>
-    dispatch(updateQty(orderId, productId, userId, updatedQty))
+const mapState = state => ({
+  userId: state.user.id //need this in order to find a userId when using removeItemFromCart thunk after clicking on button. Otherwise for some reason, the DB is updated (that productOrder is destroyed) but immediately after the cart of the guest user is rendered instead of the cart of the logged in user. But when you refresh, the right cart renders. Passing the state.user.id state to this component fixed the problem
 })
 
-export default connect(null, mapDispatch)(CartItem)
+const mapDispatch = dispatch => ({
+  changeQty: (orderId, productId, userId, updatedQty) =>
+    dispatch(updateQty(orderId, productId, userId, updatedQty)),
+  removeItem: (orderId, productId, userId) =>
+    dispatch(removeItemFromCart(orderId, productId, userId))
+})
+
+export default connect(mapState, mapDispatch)(CartItem)
