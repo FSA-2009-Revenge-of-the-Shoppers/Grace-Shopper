@@ -1,5 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import axios from 'axios'
+
 // import Order from '../../server/db/models/order'
 // import {connect} from 'react-redux'
 // import {fetchSingleProduct} from '../store/singleProduct'
@@ -16,8 +18,8 @@ export default class CartItem extends React.Component {
   }
 
   // componentDidMount() {
-  //   const productId = this.props.match.params.productId
-  //   this.props.getProduct(productId)
+  // const productId = this.props.match.params.productId
+  // this.props.getProduct(productId)
   // }
 
   handleChange(event) {
@@ -26,18 +28,23 @@ export default class CartItem extends React.Component {
     })
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault()
     const productId = this.props.product.id
-
-    const updatedProductQty = {
+    const orderId = this.props.product.productOrder.orderId
+    const updatedQty = {
       quantity: this.state.quantity
+    }
+    try {
+      await axios.put(`/api/productorders/${orderId}/${productId}`, updatedQty)
+    } catch (err) {
+      console.error('error updating quantity', err)
     }
 
     // const productQty = this.props.product.productOrder.quantity
   }
 
-  // our form
+  // how the form works
   // local state is initialized with the quantity of the product in our cart
   // value for the input field is taken from the value we have for it in our local state
   // when we type something into the input field, the change handler sets our local state to reflect what is in the input field
@@ -60,15 +67,16 @@ export default class CartItem extends React.Component {
         />
         <h3>Price: ${product.productOrder.savedPrice}</h3>
         <p>Quantity: {product.productOrder.quantity}</p>
-        <form className="qtyForm" onSubmit={this.props.handleSubmit}>
-          <label htmlFor="quantity">Quantity:</label>
+        <form className="qtyForm" onSubmit={this.handleSubmit}>
+          <label htmlFor="quantity">Change Quantity:</label>
           <input
             name="quantity"
             type="number"
-            onChange={this.props.handleChange}
+            onChange={this.handleChange}
             value={this.state.quantity}
             required="required"
           />
+          <button type="submit">Change Quanity</button>
         </form>
 
         <button

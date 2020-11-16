@@ -1,13 +1,18 @@
 import axios from 'axios'
-import history from '../history'
 
 // action types
 const GET_CART = 'GET_CART'
+const GOT_UPDATED_QUANTITY = 'GOT_UPDATED_QUANTITY'
 
 // action creator
 const getCart = cart => ({
   type: GET_CART,
   cart
+})
+
+export const gotUpdatedQuantity = updatedQuantity => ({
+  type: GOT_UPDATED_QUANTITY,
+  quantity: updatedQuantity
 })
 
 // thunk creator
@@ -34,12 +39,33 @@ export const loadCart = userId => {
   }
 }
 
+// export const updateQuantity = (orderId, productId, updatedQuantity) => async dispatch => {
+//   try {
+//     await axios.put(`/api/productorders/${orderId}/${productId}`, updatedQuantity)
+//     dispatch(gotUpdatedQuantity(updatedQuantity))
+//   } catch (err) {
+//     console.error('error updating quantity', err)
+//   }
+// }
+
+// const updateProductOrder = (orderId, productId, stateArr) => {
+//   for (let i = 0; i < stateArr.length; i++) {
+//     const orderIdToCheck = stateArr[i].productOrder.orderId
+//     const productIdToCheck = stateArr[i].productOrder.productId
+//     if (orderIdToCheck === orderId && productIdToCheck === productId) {
+//       stateArr[i].quantity =
+//     }
+//   }
+// }
+
 const initialState = []
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case GET_CART:
       return action.cart
+    // case GOT_UPDATED_QUANTITY:
+    //   return []
     default:
       return state
   }

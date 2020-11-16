@@ -1,17 +1,13 @@
 const router = require('express').Router()
 const {ProductOrder} = require('../db/models')
 
-// write a post route to update the quantity of productOrder
+// write a put route to update the quantity of productOrder
 // need product id and order id to pinpoint the right row in productOrders
 
 // GET /api/productorders/
 router.get('/', async (req, res, next) => {
   try {
     const productOrders = await ProductOrder.findAll({})
-    // where: {
-    //   productId: req.params.productId
-    // }
-    // })
     res.json(productOrders)
   } catch (err) {
     next(err)
@@ -56,8 +52,8 @@ router.put('/:orderId/:productId', async (req, res, next) => {
         productId: req.params.productId
       }
     })
-    const response = await productOrder.update(req.body)
-    res.status(204).send(response)
+    await productOrder.update(req.body)
+    res.sendStatus(204)
   } catch (err) {
     next(err)
   }
