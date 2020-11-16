@@ -42,7 +42,6 @@ export const updateQty = (orderId, productId, userId, updatedQty) => {
       )
       console.log(data)
       dispatch(loadCart(userId))
-      // dispatch(gotUpdatedQuantity(updatedQuantity))
     } catch (err) {
       console.error('error updating quantity', err)
     }
