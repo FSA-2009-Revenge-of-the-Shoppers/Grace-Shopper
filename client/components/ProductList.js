@@ -4,10 +4,11 @@ import {Link} from 'react-router-dom'
 const ProductList = props => {
   const {product, deleteProduct, user, overview, imageSize} = props
   return (
-    <div>
-      <img src={product.imageUrl} width={imageSize} height={imageSize} />
+    <div className="single-product">
       <Link to={`/products/${product.id}`}>
-        <h2>{product.name}</h2>
+        <img src={product.imageUrl} width="250" height="250" />
+        <h4 className="product-name">{product.name}</h4>
+        <p className="price">${product.price}</p>
       </Link>
       <p>{product.price}</p>
       {/* {* D: Should we add the delete Product functionality in the Update Product component, instead of the all products view? - seems dangerous since it is just a single misclick away} */}
