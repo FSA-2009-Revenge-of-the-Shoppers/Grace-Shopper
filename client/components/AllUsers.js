@@ -2,6 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchUsers} from '../store/users'
 
+// Available to admin only
+
 class AllUsers extends React.Component {
   componentDidMount() {
     this.props.getUsers()

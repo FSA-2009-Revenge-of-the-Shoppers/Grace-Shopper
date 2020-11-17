@@ -1,9 +1,7 @@
 const router = require('express').Router()
-const {ProductOrder} = require('../db/models')
+const {ProductOrder, Product} = require('../db/models')
 
-// write a put route to update the quantity of productOrder
-// need product id and order id to pinpoint the right row in productOrders
-
+// All productOrders
 // GET /api/productorders/
 router.get('/', async (req, res, next) => {
   try {
@@ -14,6 +12,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+// All productOrders for a single orderId (returns an array)
 // GET /api/productorders/:orderId
 router.get('/:orderId', async (req, res, next) => {
   try {
@@ -28,6 +27,7 @@ router.get('/:orderId', async (req, res, next) => {
   }
 })
 
+// Single productOrder (1 product in the order)
 // GET api/productorders/:orderId/:productId
 router.get('/:orderId/:productId', async (req, res, next) => {
   try {
@@ -43,6 +43,7 @@ router.get('/:orderId/:productId', async (req, res, next) => {
   }
 })
 
+// Edit a single productOrder
 // PUT /api/productorders/:orderId/:productId
 router.put('/:orderId/:productId', async (req, res, next) => {
   try {
@@ -59,6 +60,7 @@ router.put('/:orderId/:productId', async (req, res, next) => {
   }
 })
 
+// Delete a single productOrder
 //DELETE /api/productOrders/:orderId/:productId
 router.delete('/:orderId/:productId', async (req, res, next) => {
   try {

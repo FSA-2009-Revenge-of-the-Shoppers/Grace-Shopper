@@ -3,15 +3,12 @@ import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
 
-/**
- * COMPONENT
- */
 const AuthForm = props => {
-  const {name, displayName, handleSubmit, error} = props
+  const {name, displayName, handleSubmit, error, cart} = props
 
   return (
     <div>
-      <form onSubmit={handleSubmit} name={name}>
+      <form onSubmit={event => handleSubmit(event, cart)} name={name}>
         <div>
           <label htmlFor="email">
             <small>Email</small>
@@ -45,6 +42,7 @@ const mapLogin = state => {
   return {
     name: 'login',
     displayName: 'Login',
+    cart: state.cart,
     error: state.user.error
   }
 }
@@ -53,18 +51,20 @@ const mapSignup = state => {
   return {
     name: 'signup',
     displayName: 'Sign Up',
+    cart: state.cart,
     error: state.user.error
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    handleSubmit(evt) {
+    handleSubmit(evt, cart) {
       evt.preventDefault()
       const formName = evt.target.name
       const email = evt.target.email.value
       const password = evt.target.password.value
-      dispatch(auth(email, password, formName))
+      // The cart is needed in the authentication thunk because if a user has been shopping as a guest before login/signup, we will join the cart from redux state/local storage into the persistent user's new or existing database. See ../store/cart for more.
+      dispatch(auth(email, password, formName, cart))
     }
   }
 }
@@ -72,9 +72,6 @@ const mapDispatch = dispatch => {
 export const Login = connect(mapLogin, mapDispatch)(AuthForm)
 export const Signup = connect(mapSignup, mapDispatch)(AuthForm)
 
-/**
- * PROP TYPES
- */
 AuthForm.propTypes = {
   name: PropTypes.string.isRequired,
   displayName: PropTypes.string.isRequired,

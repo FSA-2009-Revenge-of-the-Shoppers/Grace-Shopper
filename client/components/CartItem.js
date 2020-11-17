@@ -37,13 +37,13 @@ export class CartItem extends React.Component {
       quantity: this.state.quantity
     }
     this.props.changeQty(orderId, productId, userId, updatedQty)
+    this.toggleEditMode()
   }
 
   handleRemove() {
     const orderId = this.props.product.productOrder.orderId
     const productId = this.props.product.id
     const userId = this.props.userId
-    // console.log(userId)
     this.props.removeItem(orderId, productId, userId)
   }
 
@@ -99,7 +99,7 @@ export class CartItem extends React.Component {
 }
 
 const mapState = state => ({
-  userId: state.user.id //need this in order to find a userId when using removeItemFromCart thunk after clicking on button. Otherwise for some reason, the DB is updated (that productOrder is destroyed) but immediately after the cart of the guest user is rendered instead of the cart of the logged in user. But when you refresh, the right cart renders. Passing the state.user.id state to this component fixed the problem
+  userId: state.user.id //need this for removeItemFromCart thunk after clicking on button. Otherwise, the DB is updated (that productOrder is destroyed) but immediately after the cart of the guest user is rendered instead of the cart of the logged in user. But when you refresh, the right cart renders. Passing the state.user.id state to this component fixed the problem
 })
 
 const mapDispatch = dispatch => ({

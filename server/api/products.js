@@ -3,6 +3,7 @@ const {Product} = require('../db/models')
 
 // routes mounted on /api/products
 
+// All products
 // GET /api/products
 router.get('/', async (req, res, next) => {
   try {
@@ -13,6 +14,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+// Single product
 // GET /api/products/:productId
 router.get('/:productId', async (req, res, next) => {
   try {
@@ -25,11 +27,11 @@ router.get('/:productId', async (req, res, next) => {
 
 // routes for admin only
 
+// Edit a single product
 // PUT /api/products/:productId
 router.put('/:productId', async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.params.productId)
-    // Note that we will not use this response in our application, but it is useful for testing the api route in mocha and postman
     const response = await product.update(req.body)
     // J: deleted status(204), which means no content; instead sent the response (the updated response) so that the thunk updateProduct in singleProduct.js can make use of this response
     res.json(response)
@@ -38,6 +40,7 @@ router.put('/:productId', async (req, res, next) => {
   }
 })
 
+// Add a new product
 // POST /api/products
 router.post('/', async (req, res, next) => {
   try {
@@ -55,6 +58,7 @@ router.post('/', async (req, res, next) => {
   }
 })
 
+// Delete product entirely (irreversible)
 // DELETE /api/products/:productId
 router.delete('/:productId', async (req, res, next) => {
   try {

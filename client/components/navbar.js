@@ -4,10 +4,11 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 import {loadCart} from '../store/cart'
+import CartIcon from './CartIcon'
 
 const Navbar = ({handleClick, user, cart}) => (
   <div>
-    <h1>Grace Shopper</h1>
+    <h1>YoDaddy - The Home Of Everything Baby Yoda</h1>
     <nav>
       {user.id ? (
         <div>
@@ -17,10 +18,11 @@ const Navbar = ({handleClick, user, cart}) => (
           <a href="#" onClick={handleClick}>
             Logout
           </a>
-          <Link to="/cart" className="icon-container">
+          <CartIcon cart={cart} />
+          {/* <Link to="/cart" className="icon-container">
             <img id="icon" src="/shopping-cart.jpg" />
             {cart && cart.length && <p id="badge">{cart.length}</p>}
-          </Link>
+          </Link> */}
         </div>
       ) : (
         <div>
@@ -41,10 +43,6 @@ const Navbar = ({handleClick, user, cart}) => (
   </div>
 )
 
-/**
- * CONTAINER
- */
-
 const mapDispatch = dispatch => {
   return {
     async handleClick() {
@@ -56,9 +54,6 @@ const mapDispatch = dispatch => {
 
 export default connect(null, mapDispatch)(Navbar)
 
-/**
- * PROP TYPES
- */
 Navbar.propTypes = {
   handleClick: PropTypes.func.isRequired
 }
