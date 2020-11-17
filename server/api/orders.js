@@ -46,7 +46,7 @@ router.post('/', async (req, res, next) => {
         productId,
         orderId
       },
-      defualts: req.body
+      defaults: req.body
     })
 
     if (!wasCreated) {
