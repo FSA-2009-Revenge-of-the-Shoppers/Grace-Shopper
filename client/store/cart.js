@@ -21,14 +21,9 @@ export const loadCart = userId => {
       }
     }
   } else {
-    console.log('loadCart thunk triggered without userId on state')
-    // We have a guest user
     // if there's a cart, load it from window.localStorage.cart
     // if there isn't, set it as an empty array
-    // dispatch getCart with that data
     const cart = JSON.parse(window.localStorage.getItem('cart'))
-    // We will optionally return an empty array here, but in the future we will create the cart array in local storage when the user adds their first item
-
     return dispatch => dispatch(getCart(cart || []))
   }
 }
