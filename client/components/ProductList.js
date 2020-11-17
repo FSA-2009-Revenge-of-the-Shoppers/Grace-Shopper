@@ -4,35 +4,12 @@ import {Link} from 'react-router-dom'
 const ProductList = props => {
   const {product, deleteProduct, user, overview, imageSize, handleClick} = props
   return (
-    <div>
-      <img src={product.imageUrl} width={imageSize} height={imageSize} />
+    <div className="single-product">
       <Link to={`/products/${product.id}`}>
-        <h2>{product.name}</h2>
+        <img src={product.imageUrl} width="250" height="250" />
+        <h4 className="product-name">{product.name}</h4>
+        <p className="price">${product.price}</p>
       </Link>
-      {/* {overview && user.admin && (
-        <div>
-          <p>{product.quantity}</p>
-          <button
-            type="button"
-            name="minus"
-            onClick={(event) =>
-              handleClick(event, product.id, product.quantity)
-            }
-          >
-            -
-          </button>
-          <button
-            type="button"
-            name="plus"
-            onClick={(event) =>
-              handleClick(event, product.id, product.quantity)
-            }
-          >
-            +
-          </button>
-        </div>
-      )} */}
-      <p>{product.price}</p>
       {overview &&
         user.admin && (
           <button type="button" onClick={() => deleteProduct(product.id)}>

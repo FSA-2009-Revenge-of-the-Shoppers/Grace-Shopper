@@ -2,6 +2,49 @@ body {
   font-family: sans-serif;
 }
 
+/* CSS for all products view */
+.products-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 10px;
+}
+.single-product {
+  border-style: hidden;
+  border-radius: 25px;
+  padding: 5px;
+  margin: 5px;
+}
+.single-product img:hover {
+  border: 2px groove aquamarine;
+  /* border-style: groove;
+  border-color: aquamarine; */
+  transition: 0.2s ease-in-out;
+  margin: -2px;
+}
+.product-name {
+  color: black;
+  font-weight: 500;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+    'Lucida Sans', Arial, sans-serif;
+  margin-bottom: 0px;
+  margin-top: 3px;
+}
+.price {
+  margin-top: 2px;
+  color: black;
+  font-weight: bold;
+}
+/* ----- */
+
+/* CSS for single products view */
+.single-product-view-container {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  justify-content: space-around;
+}
+
 a {
   text-decoration: none;
 }

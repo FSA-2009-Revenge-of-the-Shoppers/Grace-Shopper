@@ -41,10 +41,11 @@ class AllProducts extends React.Component {
   render() {
     const {products, user, deleteProduct} = this.props
     const {overview, imageSize} = this.state
+    console.log(imageSize)
     return !products.length ? (
       <h1>Loading Products</h1>
     ) : (
-      <div>
+      <div className="products-container">
         {user.admin && (
           <button type="button" onClick={() => this.toggleCreateMode()}>
             Add a Product

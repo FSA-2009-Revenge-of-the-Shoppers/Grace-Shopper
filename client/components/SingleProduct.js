@@ -58,7 +58,7 @@ export class SingleProduct extends React.Component {
     return !product.name ? (
       <h1>Loading Product</h1>
     ) : (
-      <div className="single-product">
+      <div className="single-product-view-container">
         {user.admin && (
           <button type="button" onClick={() => this.toggleEditMode()}>
             Edit Product
@@ -75,8 +75,6 @@ export class SingleProduct extends React.Component {
             quantity={product.quantity}
           />
         )}
-
-        <h1>{product.name}</h1>
         <img
           className="product-image"
           src={product.imageUrl}
@@ -84,18 +82,21 @@ export class SingleProduct extends React.Component {
           width="500"
           height="500"
         />
-        <h3>{product.price}</h3>
-        <p>{product.description}</p>
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="quantity">Quantity:</label>
-          <input
-            type="number"
-            name="quantity"
-            value={this.state.quantity}
-            onChange={this.handleChange}
-          />
-          <button type="submit">Add To Cart</button>
-        </form>
+        <div>
+          <h1 className="product-name">{product.name}</h1>
+          <h3>${product.price}</h3>
+          <p>{product.description}</p>
+          <form onSubmit={this.handleSubmit}>
+            <label htmlFor="quantity">Quantity:</label>
+            <input
+              type="number"
+              name="quantity"
+              value={this.state.quantity}
+              onChange={this.handleChange}
+            />
+            <button type="submit">Add To Cart</button>
+          </form>
+        </div>
       </div>
     )
   }
