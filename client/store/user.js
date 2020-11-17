@@ -1,6 +1,6 @@
 import axios from 'axios'
 import history from '../history'
-import {loadCart, postOrder} from './cart'
+import {postOrder} from './cart'
 
 /**
  * ACTION TYPES
@@ -44,7 +44,12 @@ export const auth = (email, password, method, localCart) => async dispatch => {
   try {
     dispatch(getUser(res.data))
     const userId = res.data.id
-    combineLocalCart(dispatch, userId, localCart)
+    //* D: Not sure if this if block will work properly, may need to take it out, but ideally we only want combineLocalCart to run if there are cart items on localStorage. Otherwise it's wasted expense.
+    if (localCart && localCart.length) {
+      // See comments below
+      combineLocalCart(dispatch, userId, localCart)
+    }
+    // Redirect after logging in
     history.push('/home')
   } catch (dispatchOrHistoryErr) {
     console.error(dispatchOrHistoryErr)
@@ -54,7 +59,7 @@ export const auth = (email, password, method, localCart) => async dispatch => {
 // About the combineLocalCart helper function:
 // Intended to take the cart a guest creates, saved on localStorage and Redux, and add those items to the database when that guest logs in or signs up, and localStorage is cleared
 // It appears to work well when an existing user logs in
-// There is a bug where if the user signs up, only the first item is added. localStorage is cleared
+// There is a bug where if the user signs up, only one item is added. localStorage is cleared
 // There is a bigger bug with Google OAuth users, where the localCart seems to persist, and if they don't have a database order it will show up in their cart, but nothing gets updated in the database.
 
 async function combineLocalCart(dispatch, userId, localCart) {
@@ -66,10 +71,10 @@ async function combineLocalCart(dispatch, userId, localCart) {
       quantity: product.productOrder.quantity,
       userId
     }
-    // create return the promise to the mapped array
+    // push the promise onto the mapped array
     return dispatch(postOrder(orderObj))
   })
-  // asynchronously add the guests' orders to the database & update state
+  // invokes the promises, adding the guests' orders to the database & updating state
   await Promise.all(orderFromLocal)
   // clear the cart on local storage
   window.localStorage.removeItem('cart')

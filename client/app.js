@@ -8,14 +8,16 @@ import PropTypes from 'prop-types'
 
 class App extends React.Component {
   async componentDidMount() {
+    // grabs the user
     await this.props.loadInitialData()
-    //grabbing cart from localStorage if one exists -user is not yet logged in
+    // grabs the user's cart, falls back on local storage if the user is not logged in
     await this.props.getCart(this.props.user.id)
   }
 
   render() {
     return (
       <div>
+        {/* {both primary components use these props} */}
         <Navbar {...this.props} />
         <Routes {...this.props} />
       </div>

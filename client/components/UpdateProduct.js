@@ -30,6 +30,7 @@ class UpdateProduct extends React.Component {
     const {name, description, price, quantity, imageUrl} = this.state
 
     const updatedProductInfo = {name, description, price}
+    // allows us to omit these keys if undefined so the database can validate the fields with default values
     if (quantity) updatedProductInfo.quantity = quantity
     if (imageUrl) updatedProductInfo.imageUrl = imageUrl
 
