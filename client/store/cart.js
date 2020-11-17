@@ -52,6 +52,25 @@ export const removeItemFromCart = (orderId, productId, userId) => {
   }
 }
 
+export const checkout = (cart, total, userId) => {
+  // Because this is not a REAL store, we don't actually need the whole cart, only the orderId which we are going to change to true. However, in a real app, we'd want this information
+  const {orderId} = cart[0].productOrder
+  if (userId) {
+    return async dispatch => {
+      try {
+        // Async change the complete field on the order to true
+        await axios.put(`api/orders/checkout/${orderId}`)
+        dispatch(getCart([]))
+      } catch (err) {
+        console.error('error in checkout', err)
+      }
+    }
+  } else {
+    window.localStorage.removeItem('cart')
+    return dispatch => dispatch(getCart([]))
+  }
+}
+
 // J: this order should include all product info, userId, quantity, savedPrice;
 export const postOrder = order => {
   if (order.userId) {

@@ -14,10 +14,12 @@ router.get('/:id', async (req, res, next) => {
       },
       include: Product
     }) ///make sure it doesnt break when there is not "false" order to be found
-
+    console.log('what is this when the cart is empty?? ', order)
     // J: make sure that what this returns fits the format of the cart
-    if (!order.products) return res.send('You cart is empty')
-    return res.json(order.products)
+    // if (!order.products) return res.send('You cart is empty')
+    let response = []
+    if (order) response = order.products
+    return res.json(response)
   } catch (err) {
     next(err)
   }
@@ -59,6 +61,25 @@ router.post('/', async (req, res, next) => {
     }
 
     res.json(await order.getProducts())
+  } catch (err) {
+    next(err)
+  }
+})
+
+// checkout route updates the completed field to true
+router.put('/checkout/:orderId', async (req, res, next) => {
+  try {
+    const orderId = req.params.orderId
+    const order = await Order.findOne({
+      where: {
+        id: orderId
+      }
+    })
+    await order.update({
+      completed: true
+    })
+    // No content to send back
+    res.sendStatus(204)
   } catch (err) {
     next(err)
   }
