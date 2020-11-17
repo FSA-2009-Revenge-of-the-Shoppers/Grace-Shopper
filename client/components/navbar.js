@@ -7,7 +7,7 @@ import {loadCart} from '../store/cart'
 
 const Navbar = ({handleClick, user, cart}) => (
   <div>
-    <h1>Grace Shopper</h1>
+    <h1>YoDaddy - The Home Of Everything Baby Yoda</h1>
     <nav>
       {user.id ? (
         <div>
