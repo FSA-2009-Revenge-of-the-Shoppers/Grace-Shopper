@@ -12,6 +12,7 @@ router.get('/:id', async (req, res, next) => {
         completed: false
       },
       include: Product
+    })
 
     let response = []
     if (order) response = order.products
