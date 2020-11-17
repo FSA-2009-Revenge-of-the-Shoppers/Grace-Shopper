@@ -3,8 +3,7 @@ const {Order, Product, ProductOrder} = require('../db/models')
 
 module.exports = router
 
-//sends back only 1 open order because only 1 can be incomplete - the order has an id, which has a products array, which has objects for each products
-
+// only 1 incomplete order per user << many productOrders point to that order
 router.get('/:id', async (req, res, next) => {
   try {
     const order = await Order.findOne({
@@ -13,7 +12,7 @@ router.get('/:id', async (req, res, next) => {
         completed: false
       },
       include: Product
-    }) ///make sure it doesnt break when there is not "false" order to be found
+    }) // make sure it doesnt break when there is not "false" order to be found
 
     // J: make sure that what this returns fits the format of the cart
     if (!order.products) return res.send('You cart is empty')
@@ -23,8 +22,8 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
-//possible route to get all completed orders for each User....
-
+// This route creates a finds or creates an incomplete order for the user, and adds a productOrder in that order.
+//* D: Is there a more efficient way to write this route?
 router.post('/', async (req, res, next) => {
   try {
     /* J: changed productId into product so that the order passed in
@@ -49,10 +48,11 @@ router.post('/', async (req, res, next) => {
       defaults: req.body
     })
 
+    // This accounts for the edge case where a user already has that product in their database order, but adds it anyway instead of changing the quantity in their cart
     if (!wasCreated) {
       const currentQuantity = productOrder.quantity
-      // what if the price changed?
       await productOrder.update({
+        // the cart will then reflect the total of the two quantities
         quantity: currentQuantity + quantity,
         savedPrice
       })

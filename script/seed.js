@@ -1,5 +1,6 @@
 'use strict'
 
+const {blue, green, magenta, cyan} = require('chalk')
 const db = require('../server/db')
 const {User, Product, Order, ProductOrder} = require('../server/db/models')
 
@@ -194,9 +195,10 @@ async function seed() {
     })
   }
 
-  console.log(`seeded ${users.length} users`)
-  console.log(`seeded ${products.length} products`)
-  console.log(`seeded successfully`)
+  console.log(blue(`seeded ${users.length} users`))
+  console.log(cyan(`seeded ${products.length} products`))
+  console.log(magenta(`seeded ${productOrders.length} product orders`))
+  console.log(green(`seeded successfully!`))
 }
 
 // We've separated the `seed` function from the `runSeed` function.

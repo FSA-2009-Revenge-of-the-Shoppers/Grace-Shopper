@@ -41,10 +41,6 @@ const Navbar = ({handleClick, user, cart}) => (
   </div>
 )
 
-/**
- * CONTAINER
- */
-
 const mapDispatch = dispatch => {
   return {
     async handleClick() {
@@ -56,9 +52,6 @@ const mapDispatch = dispatch => {
 
 export default connect(null, mapDispatch)(Navbar)
 
-/**
- * PROP TYPES
- */
 Navbar.propTypes = {
   handleClick: PropTypes.func.isRequired
 }

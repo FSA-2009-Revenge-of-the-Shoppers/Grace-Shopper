@@ -6,13 +6,13 @@ import {me} from '../store'
 
 class Cart extends React.Component {
   async componentDidMount() {
+    // Need to wait for user in order to pass userId to getCart
     await this.props.loadInitialData()
     await this.props.getCart(this.props.user.id)
   }
 
   render() {
     const {cart} = this.props
-    //{Number(savedPrice * quantity) * 100 /100}
     return !cart.length ? (
       <h1>No Items In Cart!</h1>
     ) : (

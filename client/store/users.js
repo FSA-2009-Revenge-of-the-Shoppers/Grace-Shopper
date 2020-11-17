@@ -10,6 +10,7 @@ const getUsers = users => ({
 })
 
 //thunk creator
+// * Available to admins only *
 export const fetchUsers = () => {
   return async dispatch => {
     try {
