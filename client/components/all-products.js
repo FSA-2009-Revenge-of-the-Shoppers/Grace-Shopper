@@ -7,7 +7,7 @@ import {loadCart} from '../store/cart'
 
 const defaultState = {
   createMode: false,
-  imageSize: '500',
+  imageSize: '300',
   overview: true
 }
 

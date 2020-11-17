@@ -29,6 +29,8 @@ const adjustQuantity = (quantity, productId) => ({
 })
 
 //thunk functions
+
+// All users:
 export const fetchProducts = () => {
   return async dispatch => {
     try {
@@ -40,6 +42,7 @@ export const fetchProducts = () => {
   }
 }
 
+// Admins only:
 export const postProduct = createdProduct => {
   return async dispatch => {
     try {
@@ -51,6 +54,7 @@ export const postProduct = createdProduct => {
   }
 }
 
+// Admins only:
 export const destroyProduct = productId => {
   return async dispatch => {
     try {
@@ -62,6 +66,7 @@ export const destroyProduct = productId => {
   }
 }
 
+// Admins only:
 export const updateQuantity = (productId, quantity) => {
   return async dispatch => {
     try {

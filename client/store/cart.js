@@ -29,10 +29,10 @@ export const loadCart = userId => {
 }
 
 export const updateQty = (orderId, productId, userId, updatedQty) => {
-  console.log('updateQty thunk triggered')
   return async dispatch => {
     try {
       await axios.put(`/api/productorders/${orderId}/${productId}`, updatedQty)
+      //* D: In the future can we do this in a less expensive way, by having a new Reducer case that spreads the existing cart, and only updates the quanitity field of one productOrder?
       dispatch(loadCart(userId))
     } catch (err) {
       console.error('error updating quantity', err)
@@ -41,7 +41,6 @@ export const updateQty = (orderId, productId, userId, updatedQty) => {
 }
 
 export const removeItemFromCart = (orderId, productId, userId) => {
-  console.log('deleteItem thunk triggered')
   return async dispatch => {
     try {
       await axios.delete(`/api/productorders/${orderId}/${productId}`)
@@ -73,10 +72,11 @@ export const checkout = (cart, total, userId) => {
 
 // J: this order should include all product info, userId, quantity, savedPrice;
 export const postOrder = order => {
+  // checks if the user is logged in
   if (order.userId) {
     return async dispatch => {
       try {
-        // J: this axios.post return an array of all the products on the order, not just the newly created one;
+        // J: this axios.post returns an array of all the products on the order, not just the newly created one;
         const {data: updatedCart} = await axios.post('/api/orders', order)
         dispatch(getCart(updatedCart))
       } catch (err) {
@@ -84,7 +84,7 @@ export const postOrder = order => {
       }
     }
   } else {
-    // J: create a localStorage cart in the same format as database cart
+    // J: create a localStorage cart item in the same format as database productOrder
     const {product, quantity, savedPrice} = order
     const cartItem = product
     cartItem.productOrder = {
@@ -92,7 +92,7 @@ export const postOrder = order => {
       savedPrice
     }
 
-    /* J: check if localStorage cart doesn't exist, create a cart */
+    /* J: creates a cart on localStorage if needed */
     if (!window.localStorage.cart) {
       window.localStorage.setItem('cart', JSON.stringify([]))
     }
@@ -123,22 +123,21 @@ export default (state = initialState, action) => {
 /*
 Sample: a product in an order returned by a database call
  {
-        "id": 1,
-        "name": "Hungry Baby Yoda",
-        "description": "This baby yoda wants its nom nom.",
-        "imageUrl": "https://i.pinimg.com/564x/f6/c5/36/f6c5362760240453788a4257c748a0b1.jpg",
-        "price": "30.00",
-        "quantity": 0,
-        "createdAt": "2020-11-13T21:55:12.098Z",
-        "updatedAt": "2020-11-13T21:55:12.098Z",
-        "product-order": {
-            "quantity": 25,
-            "savedPrice": "54",
-            "createdAt": "2020-11-13T21:55:12.183Z",
-            "updatedAt": "2020-11-13T21:55:12.236Z",
-            "productId": 1,
-            "orderId": 3
-        }
-    },
-
+    "id": 1,
+    "name": "Hungry Baby Yoda",
+    "description": "This baby yoda wants its nom nom.",
+    "imageUrl": "https://i.pinimg.com/564x/f6/c5/36/f6c5362760240453788a4257c748a0b1.jpg",
+    "price": "30.00",
+    "quantity": 0,
+    "createdAt": "2020-11-13T21:55:12.098Z",
+    "updatedAt": "2020-11-13T21:55:12.098Z",
+    "productOrder": {
+      "quantity": 25,
+      "savedPrice": "54",
+      "createdAt": "2020-11-13T21:55:12.183Z",
+      "updatedAt": "2020-11-13T21:55:12.236Z",
+      "productId": 1,
+      "orderId": 3
+    }
+  },
 */

@@ -10,6 +10,7 @@ class Cart extends React.Component {
     this.checkoutCart = this.checkoutCart.bind(this)
   }
   async componentDidMount() {
+    // Need to wait for user in order to pass userId to getCart
     await this.props.loadInitialData()
     await this.props.getCart(this.props.user.id)
   }
@@ -21,6 +22,7 @@ class Cart extends React.Component {
 
   render() {
     const {cart} = this.props
+
     const total =
       Number(
         cart.reduce(

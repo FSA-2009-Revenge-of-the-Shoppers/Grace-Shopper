@@ -41,8 +41,8 @@ export class SingleProduct extends React.Component {
     const {product, user} = this.props
     const {quantity} = this.state
     const userId = user.id
-    console.log('User Id in handleSubmit')
     const savedPrice = product.price
+    // Quantity and savedPrice are string inputs and must be parsed as numbers
     await this.props.orderProduct({
       product,
       userId,
@@ -81,9 +81,9 @@ export class SingleProduct extends React.Component {
         <img
           className="product-image"
           src={product.imageUrl}
-          alt="image of this product"
-          width="500"
-          height="500"
+          alt={`image of ${product.name}`}
+          width="300"
+          height="300"
         />
         <h3>{product.price}</h3>
         <p>{product.description}</p>
