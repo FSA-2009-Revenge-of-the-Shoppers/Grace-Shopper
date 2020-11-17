@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 import {loadCart} from '../store/cart'
+import CartIcon from './CartIcon'
 
 const Navbar = ({handleClick, user, cart}) => (
   <div>
@@ -17,10 +18,11 @@ const Navbar = ({handleClick, user, cart}) => (
           <a href="#" onClick={handleClick}>
             Logout
           </a>
-          <Link to="/cart" className="icon-container">
+          <CartIcon cart={cart} />
+          {/* <Link to="/cart" className="icon-container">
             <img id="icon" src="/shopping-cart.jpg" />
             {cart && cart.length && <p id="badge">{cart.length}</p>}
-          </Link>
+          </Link> */}
         </div>
       ) : (
         <div>

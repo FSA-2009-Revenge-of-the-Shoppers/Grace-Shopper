@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {ProductOrder} = require('../db/models')
+const {ProductOrder, Product} = require('../db/models')
 
 // write a put route to update the quantity of productOrder
 // need product id and order id to pinpoint the right row in productOrders
