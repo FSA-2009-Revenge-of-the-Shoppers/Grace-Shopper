@@ -41,6 +41,7 @@ export class SingleProduct extends React.Component {
     const {product, user} = this.props
     const {quantity} = this.state
     const userId = user.id
+    console.log('User Id in handleSubmit')
     const savedPrice = product.price
     await this.props.orderProduct({
       product,
