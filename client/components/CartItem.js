@@ -37,6 +37,7 @@ export class CartItem extends React.Component {
       quantity: this.state.quantity
     }
     this.props.changeQty(orderId, productId, userId, updatedQty)
+    this.toggleEditMode()
   }
 
   handleRemove() {

@@ -8,7 +8,8 @@ import {
   SingleProduct,
   AllProducts,
   AllUsers,
-  Cart
+  Cart,
+  PostCheckout
 } from './components'
 
 /**
@@ -24,6 +25,7 @@ const Routes = ({user}) => {
       <Route exact path="/products/:productId" component={SingleProduct} />
       <Route exact path="/cart" component={Cart} />
       <Route exact path="/home" component={UserHome} />
+      <Route exact path="/checkout" component={PostCheckout} />
       {user.id && (
         <Switch>
           {/* Routes placed here are only available after logging in */}
