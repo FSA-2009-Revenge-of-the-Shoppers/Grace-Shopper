@@ -2,7 +2,7 @@ import React from 'react'
 
 const ProductForm = props => {
   return (
-    <div>
+    <div className="form-container">
       <h3>Product Info</h3>
       <form className="form" onSubmit={props.handleSubmit}>
         <label htmlFor="name">Product Name*:</label>
@@ -15,7 +15,8 @@ const ProductForm = props => {
         />
 
         <label htmlFor="description">Description*:</label>
-        <input
+        <textarea
+          rows="3"
           name="description"
           type="text"
           onChange={props.handleChange}
