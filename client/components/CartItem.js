@@ -52,47 +52,49 @@ export class CartItem extends React.Component {
     const {savedPrice, quantity} = product.productOrder
     if (!product) return <h1>Loading Product</h1>
     return (
-      <div className="single-product">
-        <Link to={`/products/${product.id}`}>
-          <h1>{product.name}</h1>
-        </Link>
+      <div className="single-product-view-container">
         <img
           className="cart-item-image"
           src={product.imageUrl}
-          alt="image of this product"
-          width="500"
-          height="500"
+          alt={`image of ${product.name}`}
+          width="300"
+          height="300"
         />
-        <h3>Price: ${savedPrice}</h3>
-        <p>
-          Quantity: {quantity} - Total: ${Number(savedPrice * quantity) *
-            100 /
-            100}
-        </p>
-        <button type="button" onClick={() => this.toggleEditMode()}>
-          Change Quantity
-        </button>
+        <div className="product-info">
+          <Link to={`/products/${product.id}`}>
+            <h1>{product.name}</h1>
+          </Link>
+          <h3>Price: ${savedPrice}</h3>
+          <p>
+            Quantity: {quantity} - Total: ${Number(savedPrice * quantity) *
+              100 /
+              100}
+          </p>
+          <button type="button" onClick={() => this.toggleEditMode()}>
+            Change Quantity
+          </button>
 
-        {this.state.editMode && (
-          <form className="qtyForm" onSubmit={this.handleSubmit}>
-            <label htmlFor="quantity">New Quantity:</label>
-            <input
-              name="quantity"
-              type="number"
-              onChange={this.handleChange}
-              value={this.state.quantity}
-              required="required"
-            />
-            <button type="submit">Update</button>
-          </form>
-        )}
-        <button
-          type="button"
-          className="rmv-btn"
-          onClick={() => this.handleRemove()}
-        >
-          Remove from cart
-        </button>
+          {this.state.editMode && (
+            <form className="qtyForm" onSubmit={this.handleSubmit}>
+              <label htmlFor="quantity">New Quantity:</label>
+              <input
+                name="quantity"
+                type="number"
+                onChange={this.handleChange}
+                value={this.state.quantity}
+                required="required"
+              />
+              <button type="submit">Update</button>
+            </form>
+          )}
+          <button
+            type="button"
+            className="rmv-btn"
+            onClick={() => this.handleRemove()}
+          >
+            Remove from cart
+          </button>
+        </div>
       </div>
     )
   }

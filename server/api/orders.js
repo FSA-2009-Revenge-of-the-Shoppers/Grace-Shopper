@@ -45,7 +45,7 @@ router.post('/', async (req, res, next) => {
         productId,
         orderId
       },
-      // Note that the console was logging the following warning when passing req.body to defaults: (sequelize) Warning: Unknown attributes (product,userId) passed to defaults option of findOrCreate -- we should only handle the fields ProductOrder actually needs, which are saved price and quantity
+      //* D: Note that the console was logging the following warning when passing req.body to defaults: (sequelize) Warning: Unknown attributes (product,userId) passed to defaults option of findOrCreate -- we should only handle the fields ProductOrder actually needs, which are saved price and quantity. This no longer errors
       defaults: {
         quantity,
         savedPrice

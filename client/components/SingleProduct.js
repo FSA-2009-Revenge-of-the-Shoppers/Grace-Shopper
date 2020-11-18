@@ -59,7 +59,10 @@ export class SingleProduct extends React.Component {
     return !product.name ? (
       <h1>Loading Product</h1>
     ) : (
-      <div className="single-product-view-container">
+      <div
+        className={`single-product-view-container ${this.state.editMode &&
+          'wider-container'}`}
+      >
         {user.admin && (
           <button
             type="button"
