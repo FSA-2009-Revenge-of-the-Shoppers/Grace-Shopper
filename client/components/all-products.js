@@ -45,29 +45,36 @@ class AllProducts extends React.Component {
     return !products.length ? (
       <h1>Loading Products</h1>
     ) : (
-      <div className="products-container">
-        {user.admin && (
-          <button type="button" onClick={() => this.toggleCreateMode()}>
-            Add a Product
-          </button>
-        )}
-        {this.state.createMode && (
-          <NewProduct toggleCreateMode={this.toggleCreateMode} />
-        )}
-
-        {products.map(product => {
-          return (
-            <ProductList
-              key={`product${product.id}`}
-              product={product}
-              user={user}
-              overview={overview}
-              imageSize={imageSize}
-              deleteProduct={deleteProduct}
-              handleClick={this.handleClick}
-            />
-          )
-        })}
+      <div>
+        <div className="add-product-container">
+          {user.admin && (
+            <button
+              type="button"
+              id="add-a-product"
+              onClick={() => this.toggleCreateMode()}
+            >
+              Add a Product
+            </button>
+          )}
+          {this.state.createMode && (
+            <NewProduct toggleCreateMode={this.toggleCreateMode} />
+          )}
+        </div>
+        <div className="products-container">
+          {products.map(product => {
+            return (
+              <ProductList
+                key={`product${product.id}`}
+                product={product}
+                user={user}
+                overview={overview}
+                imageSize={imageSize}
+                deleteProduct={deleteProduct}
+                handleClick={this.handleClick}
+              />
+            )
+          })}
+        </div>
       </div>
     )
   }

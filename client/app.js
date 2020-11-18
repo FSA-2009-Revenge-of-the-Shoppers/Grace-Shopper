@@ -16,7 +16,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div id="app-container">
         {/* {both primary components use these props} */}
         <Navbar {...this.props} />
         <Routes {...this.props} />

@@ -13,7 +13,7 @@ class AllUsers extends React.Component {
     const {users} = this.props
     if (!users) return <h1>Loading Users</h1>
     return (
-      <div>
+      <div className="align-left">
         {users.map(user => {
           return (
             <div key={`user${user.id}`}>

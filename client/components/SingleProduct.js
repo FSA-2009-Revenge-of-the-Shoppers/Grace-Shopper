@@ -61,7 +61,11 @@ export class SingleProduct extends React.Component {
     ) : (
       <div className="single-product-view-container">
         {user.admin && (
-          <button type="button" onClick={() => this.toggleEditMode()}>
+          <button
+            type="button"
+            id="edit-a-product"
+            onClick={() => this.toggleEditMode()}
+          >
             Edit Product
           </button>
         )}
@@ -80,8 +84,8 @@ export class SingleProduct extends React.Component {
           className="product-image"
           src={product.imageUrl}
           alt={`image of ${product.name}`}
-          width="500"
-          height="500"
+          width="400"
+          height="400"
         />
         <div>
           <h1 className="product-name">{product.name}</h1>
