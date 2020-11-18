@@ -52,7 +52,7 @@ export class CartItem extends React.Component {
     const {savedPrice, quantity} = product.productOrder
     if (!product) return <h1>Loading Product</h1>
     return (
-      <div className="single-product-view-container">
+      <div className="indv-cart-item">
         <img
           className="cart-item-image"
           src={product.imageUrl}
@@ -62,7 +62,7 @@ export class CartItem extends React.Component {
         />
         <div className="product-info">
           <Link to={`/products/${product.id}`}>
-            <h1>{product.name}</h1>
+            <h2 className="product-name">{product.name}</h2>
           </Link>
           <h3>Price: ${savedPrice}</h3>
           <p>
