@@ -26,7 +26,7 @@ const Navbar = ({handleClick, user, cart}) => (
           </a>
           <CartIcon cart={cart} className="nav-link" />
           {/* <Link to="/cart" className="icon-container">
-            <img id="icon" src="/shopping-cart.jpg" />
+            <img id="icon" src="/shopping-cart.png" />
             {cart && cart.length && <p id="badge">{cart.length}</p>}
           </Link> */}
         </div>
@@ -44,7 +44,7 @@ const Navbar = ({handleClick, user, cart}) => (
           </Link>
           <Link to="/cart">
             <div className="icon-container">
-              <img id="icon" src="shopping-cart.jpg" />
+              <img id="icon" src="shopping-cart.png" />
               {cart && cart.length >= 1 && <p id="badge">{cart.length}</p>}
             </div>
           </Link>
