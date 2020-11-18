@@ -4,6 +4,8 @@ import {connect} from 'react-redux'
 import NewProduct from './NewProduct'
 import ProductList from './ProductList'
 import {loadCart} from '../store/cart'
+import {withRouter} from 'react-router'
+import {Link} from 'react-router-dom'
 
 const defaultState = {
   createMode: false,
@@ -12,8 +14,8 @@ const defaultState = {
 }
 
 class AllProducts extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = defaultState
     this.handleClick = this.handleClick.bind(this)
     this.toggleCreateMode = this.toggleCreateMode.bind(this)
@@ -41,40 +43,50 @@ class AllProducts extends React.Component {
   render() {
     const {products, user, deleteProduct} = this.props
     const {overview, imageSize} = this.state
-    console.log(imageSize)
-    return !products.length ? (
-      <h1>Loading Products</h1>
-    ) : (
+    const recentlyAdded = this.props.location.state
+    return (
       <div>
-        <div className="add-product-container">
-          {user.admin && (
-            <button
-              type="button"
-              id="add-a-product"
-              onClick={() => this.toggleCreateMode()}
-            >
-              Add a Product
-            </button>
-          )}
-          {this.state.createMode && (
-            <NewProduct toggleCreateMode={this.toggleCreateMode} />
-          )}
-        </div>
-        <div className="products-container">
-          {products.map(product => {
-            return (
-              <ProductList
-                key={`product${product.id}`}
-                product={product}
-                user={user}
-                overview={overview}
-                imageSize={imageSize}
-                deleteProduct={deleteProduct}
-                handleClick={this.handleClick}
-              />
-            )
-          })}
-        </div>
+        {!products.length ? (
+          <h1>Loading Products</h1>
+        ) : (
+          <div>
+            <div className="add-product-container">
+              {user.admin && (
+                <button
+                  type="button"
+                  id="add-a-product"
+                  onClick={() => this.toggleCreateMode()}
+                >
+                  Add a Product
+                </button>
+              )}
+              {this.state.createMode && (
+                <NewProduct toggleCreateMode={this.toggleCreateMode} />
+              )}
+            </div>
+            {recentlyAdded && (
+              <Link to="/cart">
+                {<span style={{color: 'green'}}>{recentlyAdded.name}</span>} has
+                been added to your cart!
+              </Link>
+            )}
+            <div className="products-container">
+              {products.map(product => {
+                return (
+                  <ProductList
+                    key={`product${product.id}`}
+                    product={product}
+                    user={user}
+                    overview={overview}
+                    imageSize={imageSize}
+                    deleteProduct={deleteProduct}
+                    handleClick={this.handleClick}
+                  />
+                )
+              })}
+            </div>
+          </div>
+        )}
       </div>
     )
   }
@@ -83,7 +95,8 @@ class AllProducts extends React.Component {
 const mapState = state => ({
   products: state.products,
   user: state.user,
-  userId: state.user.id
+  userId: state.user.id,
+  singleProduct: state.singleProduct
 })
 
 const mapDispatch = dispatch => ({
@@ -92,4 +105,5 @@ const mapDispatch = dispatch => ({
   getCart: userId => dispatch(loadCart(userId))
 })
 
-export default connect(mapState, mapDispatch)(AllProducts)
+// Want to try to wrap this connect function in a withRouter in order to pass location props but it's tricky
+export default withRouter(connect(mapState, mapDispatch)(AllProducts))

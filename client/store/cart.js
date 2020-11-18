@@ -29,25 +29,57 @@ export const loadCart = userId => {
 }
 
 export const updateQty = (orderId, productId, userId, updatedQty) => {
-  return async dispatch => {
-    try {
-      await axios.put(`/api/productorders/${orderId}/${productId}`, updatedQty)
-      //* D: In the future can we do this in a less expensive way, by having a new Reducer case that spreads the existing cart, and only updates the quanitity field of one productOrder?
-      dispatch(loadCart(userId))
-    } catch (err) {
-      console.error('error updating quantity', err)
+  if (userId) {
+    return async dispatch => {
+      try {
+        const qtyBody = {quantity: updatedQty}
+        await axios.put(`/api/productorders/${orderId}/${productId}`, qtyBody)
+        //* D: In the future can we do this in a less expensive way, by having a new Reducer case that spreads the existing cart, and only updates the quanitity field of one productOrder?
+        dispatch(loadCart(userId))
+      } catch (err) {
+        console.error('error updating quantity', err)
+      }
     }
+  } else {
+    // grab the cart
+    const cart = JSON.parse(window.localStorage.getItem('cart'))
+    // update the quantity of the changed product
+    const updatedCart = cart.map(item => {
+      if (item.id === productId) {
+        item.productOrder.quantity = updatedQty
+        return item
+      } else {
+        return item
+      }
+    })
+    // reset localStorage with the new item
+    window.localStorage.setItem('cart', JSON.stringify(updatedCart))
+    // update redux
+    return dispatch => dispatch(getCart(updatedCart))
   }
 }
 
 export const removeItemFromCart = (orderId, productId, userId) => {
-  return async dispatch => {
-    try {
-      await axios.delete(`/api/productorders/${orderId}/${productId}`)
-      dispatch(loadCart(userId))
-    } catch (err) {
-      console.error('error deleting item from cart', err)
+  if (userId) {
+    return async dispatch => {
+      try {
+        await axios.delete(`/api/productorders/${orderId}/${productId}`)
+        dispatch(loadCart(userId))
+      } catch (err) {
+        console.error('error deleting item from cart', err)
+      }
     }
+  } else {
+    // grab the cart
+    const cart = JSON.parse(window.localStorage.getItem('cart'))
+    // update the quantity of the changed product
+    const updatedCart = cart.filter(item => {
+      return item.id !== productId
+    })
+    // reset localStorage without the target item
+    window.localStorage.setItem('cart', JSON.stringify(updatedCart))
+    // update redux
+    return dispatch => dispatch(getCart(updatedCart))
   }
 }
 

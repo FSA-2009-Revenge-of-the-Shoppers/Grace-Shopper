@@ -33,9 +33,8 @@ export class CartItem extends React.Component {
     const orderId = this.props.product.productOrder.orderId
     const productId = this.props.product.id
     const userId = this.props.userId
-    const updatedQty = {
-      quantity: this.state.quantity
-    }
+    const updatedQty = this.state.quantity
+
     this.props.changeQty(orderId, productId, userId, updatedQty)
     this.toggleEditMode()
   }
