@@ -15,14 +15,19 @@ import {
 /**
  * COMPONENT
  */
-const Routes = ({user}) => {
+const Routes = props => {
+  const user = props.user
   return (
     <div id="routes-container">
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route exact path="/login" component={Login} />
         <Route exact path="/signup" component={Signup} />
-        <Route exact path="/products" component={AllProducts} />
+        <Route
+          exact
+          path="/products"
+          component={() => <AllProducts {...props} />}
+        />
         <Route exact path="/products/:productId" component={SingleProduct} />
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/home" component={UserHome} />

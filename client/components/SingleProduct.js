@@ -49,8 +49,9 @@ export class SingleProduct extends React.Component {
       quantity: Number(quantity),
       savedPrice: Number(savedPrice)
     })
-    // Redirect to cart
-    this.props.history.push('/cart')
+    // Redirect to home so they keep shopping
+    // Need to access product off of props. history, but that prop isn't availabe on AllProducts (unlike PostCheckout) ~~ weird
+    this.props.history.push('/home', product)
   }
 
   render() {

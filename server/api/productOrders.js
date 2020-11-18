@@ -53,6 +53,7 @@ router.put('/:orderId/:productId', async (req, res, next) => {
         productId: req.params.productId
       }
     })
+    console.log('What is req.body?', req.body)
     const response = await productOrder.update(req.body)
     res.json(response)
   } catch (err) {
