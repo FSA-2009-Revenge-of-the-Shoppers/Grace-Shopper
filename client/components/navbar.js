@@ -7,18 +7,24 @@ import {loadCart} from '../store/cart'
 import CartIcon from './CartIcon'
 
 const Navbar = ({handleClick, user, cart}) => (
-  <div>
-    <h1>YoDaddy - The Home Of Everything Baby Yoda</h1>
+  <div id="nav-container">
+    {/* <h1>YoDaddy - The Home Of Everything Baby Yoda</h1> */}
     <nav>
       {user.id ? (
         <div>
           {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
-          {user.admin && <Link to="/users">Users</Link>}
-          <a href="#" onClick={handleClick}>
+          <Link to="/home" className="nav-link">
+            Home
+          </Link>
+          {user.admin && (
+            <Link to="/users" className="nav-link">
+              Users
+            </Link>
+          )}
+          <a href="#" className="nav-link" onClick={handleClick}>
             Logout
           </a>
-          <CartIcon cart={cart} />
+          <CartIcon cart={cart} className="nav-link" />
           {/* <Link to="/cart" className="icon-container">
             <img id="icon" src="/shopping-cart.jpg" />
             {cart && cart.length && <p id="badge">{cart.length}</p>}
@@ -27,9 +33,15 @@ const Navbar = ({handleClick, user, cart}) => (
       ) : (
         <div>
           {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
-          <Link to="/home">Shop</Link>
+          <Link to="/login" className="nav-link">
+            Login
+          </Link>
+          <Link to="/signup" className="nav-link">
+            Sign Up
+          </Link>
+          <Link to="/home" className="nav-link">
+            Shop
+          </Link>
           <Link to="/cart">
             <div className="icon-container">
               <img id="icon" src="shopping-cart.jpg" />

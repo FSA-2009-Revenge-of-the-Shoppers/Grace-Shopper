@@ -2,6 +2,16 @@ body {
   font-family: sans-serif;
 }
 
+/* CSS for NavBar */
+#nav-container {
+  background-image: url('storeNameBackgroundImage.jpg');
+  background-size: cover;
+}
+.nav-link {
+  color: white;
+}
+/* ----- */
+
 #routes-container {
   display: flex;
   flex-direction: column;
@@ -20,6 +30,7 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   padding: 10px;
+  margin-left: 120px;
 }
 .single-product {
   border-style: hidden;
