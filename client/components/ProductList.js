@@ -10,7 +10,6 @@ const ProductList = props => {
         <h4 className="product-name">{product.name}</h4>
         <p className="price">${product.price}</p>
       </Link>
-      <p>{product.price}</p>
       {/* {* D: Should we add the delete Product functionality in the Update Product component, instead of the all products view? - seems dangerous since it is just a single misclick away} */}
       {overview &&
         user.admin && (

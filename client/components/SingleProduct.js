@@ -80,8 +80,8 @@ export class SingleProduct extends React.Component {
           className="product-image"
           src={product.imageUrl}
           alt={`image of ${product.name}`}
-          width="300"
-          height="300"
+          width="500"
+          height="500"
         />
         <div>
           <h1 className="product-name">{product.name}</h1>
