@@ -13,7 +13,7 @@ export class CartIcon extends React.Component {
       <Link to="/cart" className="icon-container">
         <img id="icon" src="/shopping-cart.png" />
         {this.props.cart &&
-          this.props.cart.length && <p id="badge">{quantity}</p>}
+          this.props.cart.length > 0 && <p id="badge">{quantity}</p>}
       </Link>
     )
   }

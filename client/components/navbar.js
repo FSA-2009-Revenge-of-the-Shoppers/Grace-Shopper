@@ -14,7 +14,7 @@ const Navbar = ({handleClick, user, cart}) => (
         <div>
           {/* The navbar will show these links after you log in */}
           <Link to="/home" className="nav-link">
-            Home
+            Shop
           </Link>
           {user.admin && (
             <Link to="/users" className="nav-link">
@@ -33,14 +33,14 @@ const Navbar = ({handleClick, user, cart}) => (
       ) : (
         <div>
           {/* The navbar will show these links before you log in */}
+          <Link to="/home" className="nav-link">
+            Shop
+          </Link>
           <Link to="/login" className="nav-link">
             Login
           </Link>
           <Link to="/signup" className="nav-link">
             Sign Up
-          </Link>
-          <Link to="/home" className="nav-link">
-            Shop
           </Link>
           <Link to="/cart">
             <div className="icon-container">

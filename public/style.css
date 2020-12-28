@@ -55,9 +55,9 @@ body {
   margin: 5px;
 }
 .single-product img:hover {
-  border: 4px groove aquamarine;
+  box-shadow: 0 0 0 4px aquamarine;
   transition: 0.2s ease-in-out;
-  margin: -4px;
+  /* margin: -4px; */
   opacity: 0.8;
 }
 .product-name {
