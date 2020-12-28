@@ -9,7 +9,8 @@ import {
   AllProducts,
   AllUsers,
   Cart,
-  PostCheckout
+  PostCheckout,
+  CheckoutForm
 } from './components'
 
 /**
@@ -31,7 +32,8 @@ const Routes = props => {
         <Route exact path="/products/:productId" component={SingleProduct} />
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/home" component={UserHome} />
-        <Route exact path="/checkout" component={PostCheckout} />
+        <Route exact path="/checkout" component={CheckoutForm} />
+        <Route exact path="/thank-you" component={PostCheckout} />
         {user.id && (
           <Switch>
             {/* Routes placed here are only available after logging in */}

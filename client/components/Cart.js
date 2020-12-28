@@ -17,7 +17,7 @@ class Cart extends React.Component {
 
   checkoutCart(cart, total, userId) {
     this.props.checkout(cart, total, userId)
-    this.props.history.push('/checkout', total)
+    this.props.history.push('/thank-you', total)
   }
 
   render() {
