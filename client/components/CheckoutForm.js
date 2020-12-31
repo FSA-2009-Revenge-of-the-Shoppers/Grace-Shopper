@@ -13,7 +13,7 @@ const CheckoutForm = ({user}) => {
       return
     }
     setPaymentLoading(true)
-    const clientSecret = user.id
+    const clientSecret = user.email
     const paymentResult = await stripe.confirmCardPayment(clientSecret, {
       payment_method: {
         card: elements.getElement(CardElement),

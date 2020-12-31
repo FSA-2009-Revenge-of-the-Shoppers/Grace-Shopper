@@ -3,6 +3,9 @@ import {connect} from 'react-redux'
 import CartItem from './CartItem'
 import {loadCart, checkout} from '../store/cart'
 import {me} from '../store'
+import {loadStripe} from '@stripe/stripe-js'
+const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY)
+import axios from 'axios'
 
 class Cart extends React.Component {
   constructor(props) {
@@ -18,6 +21,25 @@ class Cart extends React.Component {
   checkoutCart(cart, total, userId) {
     this.props.checkout(cart, total, userId)
     this.props.history.push('/thank-you', total)
+  }
+  async handleStripe() {
+    const stripe = await stripePromise
+
+    // Call your backend to create the Checkout Session
+    const {data} = await axios.post('/stripe/create-session')
+    console.log(data.id)
+    //const session = await response.json();
+
+    // When the customer clicks on the button, redirect them to Checkout.
+    const result = await stripe.redirectToCheckout({
+      sessionId: data.id
+    })
+
+    if (result.error) {
+      // If `redirectToCheckout` fails due to a browser or network
+      // error, display the localized error message to your customer
+      // using `result.error.message`.
+    }
   }
 
   render() {
@@ -46,7 +68,8 @@ class Cart extends React.Component {
               <button
                 type="button"
                 onClick={() =>
-                  this.checkoutCart(cart, total, this.props.user.id)
+                  // this.checkoutCart(cart, total, this.props.user.id)
+                  this.handleStripe()
                 }
               >
                 Checkout
