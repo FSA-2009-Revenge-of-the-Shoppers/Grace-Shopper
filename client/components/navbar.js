@@ -11,7 +11,7 @@ const Navbar = ({handleClick, user, cart}) => (
     {/* <h1>YoDaddy - The Home Of Everything Baby Yoda</h1> */}
     <nav>
       {user.id ? (
-        <div>
+        <div id="link-container">
           {/* The navbar will show these links after you log in */}
           <Link to="/home" className="nav-link">
             Shop
@@ -31,7 +31,7 @@ const Navbar = ({handleClick, user, cart}) => (
           </Link> */}
         </div>
       ) : (
-        <div>
+        <div id="link-container">
           {/* The navbar will show these links before you log in */}
           <Link to="/home" className="nav-link">
             Shop
@@ -51,7 +51,7 @@ const Navbar = ({handleClick, user, cart}) => (
         </div>
       )}
     </nav>
-    <hr />
+    <hr id="nav-break" />
   </div>
 )
 

@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+  /* background-image: url('star-background.png'); */
 }
 
 /* CSS for NavBar */
@@ -20,9 +21,21 @@ body {
   margin-bottom: -20px;
 }
 
+#link-container {
+  float: none;
+  position: absolute;
+  /* top: 50%; */
+  left: 50%;
+  transform: translate(-50%);
+}
+
 .nav-link {
   color: white;
   margin-bottom: 0px;
+}
+
+#nav-break {
+  border: 0px solid black;
 }
 /* ------------------ */
 
