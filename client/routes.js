@@ -10,7 +10,8 @@ import {
   AllUsers,
   Cart,
   PostCheckout,
-  CheckoutForm
+  CheckoutForm,
+  StripeFailure
 } from './components'
 
 /**
@@ -34,6 +35,7 @@ const Routes = props => {
         <Route exact path="/home" component={UserHome} />
         <Route exact path="/checkout" component={CheckoutForm} />
         <Route exact path="/thank-you" component={PostCheckout} />
+        <Route exact path="/stripe-failure" component={StripeFailure} />
         {user.id && (
           <Switch>
             {/* Routes placed here are only available after logging in */}

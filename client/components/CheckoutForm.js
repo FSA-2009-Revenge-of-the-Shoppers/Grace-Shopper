@@ -2,7 +2,8 @@ import React, {useState} from 'react'
 import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js'
 import {connect} from 'react-redux'
 
-const CheckoutForm = ({user}) => {
+const CheckoutForm = ({user, cart, total, clientSecret}) => {
+  // const [isIntentLoading, setIntentLoading] = useState(false)
   const [isPaymentLoading, setPaymentLoading] = useState(false)
   const stripe = useStripe()
   const elements = useElements()
@@ -13,7 +14,6 @@ const CheckoutForm = ({user}) => {
       return
     }
     setPaymentLoading(true)
-    const clientSecret = user.email
     const paymentResult = await stripe.confirmCardPayment(clientSecret, {
       payment_method: {
         card: elements.getElement(CardElement),

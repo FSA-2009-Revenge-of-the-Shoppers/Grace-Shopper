@@ -1,16 +1,24 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import CartItem from './CartItem'
+import CheckoutForm from './CheckoutForm'
 import {loadCart, checkout} from '../store/cart'
 import {me} from '../store'
 import {loadStripe} from '@stripe/stripe-js'
-const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY)
+const stripePromise = loadStripe(
+  'pk_test_51I3T5YJu0Fc4Oe9JCbahuYZ0KuvAhy3tTvLgeHxUqIAP3M1UMa9sPrXkoQx2JFn6I2yOhaZULoyvuNzRN77sIc6n008rRJESsy'
+)
 import axios from 'axios'
 
 class Cart extends React.Component {
   constructor(props) {
     super(props)
     this.checkoutCart = this.checkoutCart.bind(this)
+    this.startCheckout = this.startCheckout.bind(this)
+    this.state = {
+      paymentOpen: false,
+      clientSecret: ''
+    }
   }
   async componentDidMount() {
     // Need to wait for user in order to pass userId to getCart
@@ -18,15 +26,30 @@ class Cart extends React.Component {
     await this.props.getCart(this.props.user.id)
   }
 
+  async startCheckout(total) {
+    // Get Client Secret
+    const intent = await axios.post('/stripe/secret/', {total})
+    console.log('SECRET:', intent)
+    // Show the checkout Form
+    this.setState({
+      clientSecret: intent.client_secret,
+      paymentOpen: true
+    })
+  }
+
   checkoutCart(cart, total, userId) {
     this.props.checkout(cart, total, userId)
     this.props.history.push('/thank-you', total)
   }
-  async handleStripe() {
+
+  async handleStripe(cart, user) {
     const stripe = await stripePromise
 
     // Call your backend to create the Checkout Session
-    const {data} = await axios.post('/stripe/create-session')
+    const {data} = await axios.post('/stripe/create-session', {
+      cart,
+      user
+    })
     console.log(data.id)
     //const session = await response.json();
 
@@ -39,11 +62,12 @@ class Cart extends React.Component {
       // If `redirectToCheckout` fails due to a browser or network
       // error, display the localized error message to your customer
       // using `result.error.message`.
+      this.props.history.push('/stripe-failure', result.error.message)
     }
   }
 
   render() {
-    const {cart} = this.props
+    const {cart, user} = this.props
 
     const total =
       Number(
@@ -67,14 +91,24 @@ class Cart extends React.Component {
               <h3>Total: ${total}</h3>
               <button
                 type="button"
-                onClick={() =>
-                  // this.checkoutCart(cart, total, this.props.user.id)
-                  this.handleStripe()
+                onClick={
+                  () =>
+                    // this.checkoutCart(cart, total, this.props.user.id)
+                    this.handleStripe(cart, this.props.user)
+                  // this.startCheckout(total)
                 }
               >
                 Checkout
               </button>
             </div>
+            {this.state.paymentOpen && (
+              <CheckoutForm
+                user={user}
+                cart={cart}
+                total={total}
+                clientSecret={this.state.clientSecret}
+              />
+            )}
             <div className="cart-item-container-on-cart-view">
               {cart.map(product => (
                 <CartItem
