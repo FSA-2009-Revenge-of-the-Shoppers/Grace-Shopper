@@ -5,6 +5,7 @@ import CheckoutForm from './CheckoutForm'
 import {loadCart, checkout} from '../store/cart'
 import {me} from '../store'
 import {loadStripe} from '@stripe/stripe-js'
+import {Elements} from '@stripe/react-stripe-js'
 const stripePromise = loadStripe(
   'pk_test_51I3T5YJu0Fc4Oe9JCbahuYZ0KuvAhy3tTvLgeHxUqIAP3M1UMa9sPrXkoQx2JFn6I2yOhaZULoyvuNzRN77sIc6n008rRJESsy'
 )
@@ -15,6 +16,7 @@ class Cart extends React.Component {
     super(props)
     this.checkoutCart = this.checkoutCart.bind(this)
     this.startCheckout = this.startCheckout.bind(this)
+    this.handleStripe = this.handleStripe.bind(this)
     this.state = {
       paymentOpen: false,
       clientSecret: ''
@@ -28,13 +30,16 @@ class Cart extends React.Component {
 
   async startCheckout(total) {
     // Get Client Secret
-    const intent = await axios.post('/stripe/secret/', {total})
-    console.log('SECRET:', intent)
+    const {data: clientSecret} = await axios.post('/stripe/secret', {
+      total: total * 100
+    })
+    console.log('SECRET:', clientSecret)
     // Show the checkout Form
     this.setState({
-      clientSecret: intent.client_secret,
+      clientSecret,
       paymentOpen: true
     })
+    console.log(this.state)
   }
 
   checkoutCart(cart, total, userId) {
@@ -81,7 +86,17 @@ class Cart extends React.Component {
       100 /
       100
     return (
-      <div>
+      <div style={{alignSelf: 'center'}}>
+        {this.state.paymentOpen && (
+          <Elements stripe={stripePromise}>
+            <CheckoutForm
+              user={user}
+              cart={cart}
+              total={total}
+              clientSecret={this.state.clientSecret}
+            />
+          </Elements>
+        )}
         {!cart.length ? (
           <h1>No Items In Cart!</h1>
         ) : (
@@ -91,24 +106,15 @@ class Cart extends React.Component {
               <h3>Total: ${total}</h3>
               <button
                 type="button"
-                onClick={
-                  () =>
-                    // this.checkoutCart(cart, total, this.props.user.id)
-                    this.handleStripe(cart, this.props.user)
-                  // this.startCheckout(total)
+                onClick={() =>
+                  // this.checkoutCart(cart, total, this.props.user.id)
+                  // this.handleStripe(cart, this.props.user)
+                  this.startCheckout(total)
                 }
               >
                 Checkout
               </button>
             </div>
-            {this.state.paymentOpen && (
-              <CheckoutForm
-                user={user}
-                cart={cart}
-                total={total}
-                clientSecret={this.state.clientSecret}
-              />
-            )}
             <div className="cart-item-container-on-cart-view">
               {cart.map(product => (
                 <CartItem

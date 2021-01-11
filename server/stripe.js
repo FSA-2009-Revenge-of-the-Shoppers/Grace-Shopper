@@ -56,7 +56,7 @@ router.post('/webhook', async (req, res, next) => {
   }
 })
 
-router.post('secret/', async (req, res, next) => {
+router.post('/secret', async (req, res, next) => {
   const {total} = req.body
   try {
     const paymentIntent = await stripe.paymentIntents.create({
