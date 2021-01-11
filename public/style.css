@@ -1,6 +1,6 @@
 body {
   font-family: sans-serif;
-  /* background-image: url('star-background.png'); */
+  background-image: url('star-background.png');
 }
 
 /* CSS for NavBar */
@@ -40,11 +40,12 @@ body {
 /* ------------------ */
 
 #routes-container {
+  background-color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 85vw;
-  margin-left: 20px;
+  width: 65vw;
+  margin: 0 auto;
 }
 
 .align-left {
@@ -57,7 +58,7 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   padding: 10px;
-  margin-left: 120px;
+  /* margin-left: 120px; */
   margin-top: 20px;
 }
 
