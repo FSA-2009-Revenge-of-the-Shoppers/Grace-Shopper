@@ -111,7 +111,8 @@ async function seed() {
     Product.create({
       name: 'Lego Baby Yoda',
       description: "It's about time, LEGO.",
-      imageUrl: 'https://i.imgur.com/MyyJAXc.jpeg',
+      imageUrl:
+        'https://media1.popsugar-assets.com/files/thumbor/4VKB5em5936bTccVAyBlfby0ErM/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2020/09/21/696/n/24155406/e70425fe1c9c886b_75318_alt2/i/Look-How-Cute.jpg',
       price: 77.77
     }),
     Product.create({
