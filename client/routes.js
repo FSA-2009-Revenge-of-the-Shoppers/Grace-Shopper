@@ -44,7 +44,7 @@ const Routes = props => {
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
-        <Route component={Login} />
+        <Route component={AllProducts} />
       </Switch>
     </div>
   )

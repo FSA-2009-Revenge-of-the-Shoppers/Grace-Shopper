@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import CartItem from './CartItem'
 import CheckoutForm from './CheckoutForm'
-import {loadCart, checkout} from '../store/cart'
+import {loadCart} from '../store/cart'
 import {me} from '../store'
 import {loadStripe} from '@stripe/stripe-js'
 import {Elements} from '@stripe/react-stripe-js'
@@ -14,9 +14,10 @@ import axios from 'axios'
 class Cart extends React.Component {
   constructor(props) {
     super(props)
-    this.checkoutCart = this.checkoutCart.bind(this)
     this.startCheckout = this.startCheckout.bind(this)
     this.handleStripe = this.handleStripe.bind(this)
+    this.hideCheckoutForm = this.hideCheckoutForm.bind(this)
+    this.pushToThankYouPage = this.pushToThankYouPage.bind(this)
     this.state = {
       paymentOpen: false,
       clientSecret: ''
@@ -33,36 +34,32 @@ class Cart extends React.Component {
     const {data: clientSecret} = await axios.post('/stripe/secret', {
       total: total * 100
     })
-    console.log('SECRET:', clientSecret)
     // Show the checkout Form
     this.setState({
       clientSecret,
       paymentOpen: true
     })
-    console.log(this.state)
   }
 
-  checkoutCart(cart, total, userId) {
-    this.props.checkout(cart, total, userId)
-    this.props.history.push('/thank-you', total)
+  hideCheckoutForm() {
+    this.setState({paymentOpen: false})
+  }
+
+  pushToThankYouPage(total) {
+    this.props.history.push('thank-you', total)
   }
 
   async handleStripe(cart, user) {
     const stripe = await stripePromise
-
     // Call your backend to create the Checkout Session
     const {data} = await axios.post('/stripe/create-session', {
       cart,
       user
     })
-    console.log(data.id)
-    //const session = await response.json();
-
     // When the customer clicks on the button, redirect them to Checkout.
     const result = await stripe.redirectToCheckout({
       sessionId: data.id
     })
-
     if (result.error) {
       // If `redirectToCheckout` fails due to a browser or network
       // error, display the localized error message to your customer
@@ -94,6 +91,8 @@ class Cart extends React.Component {
               cart={cart}
               total={total}
               clientSecret={this.state.clientSecret}
+              cancel={this.hideCheckoutForm}
+              pushToThankYouPage={this.pushToThankYouPage}
             />
           </Elements>
         )}
@@ -104,14 +103,7 @@ class Cart extends React.Component {
             <div id="total-container">
               <h3 className="cart-title">Shopping Cart</h3>
               <h3>Total: ${total}</h3>
-              <button
-                type="button"
-                onClick={() =>
-                  // this.checkoutCart(cart, total, this.props.user.id)
-                  // this.handleStripe(cart, this.props.user)
-                  this.startCheckout(total)
-                }
-              >
+              <button type="button" onClick={() => this.startCheckout(total)}>
                 Checkout
               </button>
             </div>
@@ -139,8 +131,7 @@ const mapState = state => ({
 
 const mapDispatch = dispatch => ({
   getCart: userId => dispatch(loadCart(userId)),
-  loadInitialData: () => dispatch(me()),
-  checkout: (cart, total, userId) => dispatch(checkout(cart, total, userId))
+  loadInitialData: () => dispatch(me())
 })
 
 export default connect(mapState, mapDispatch)(Cart)

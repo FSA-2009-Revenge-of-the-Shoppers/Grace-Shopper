@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js'
 import {connect} from 'react-redux'
+import {checkout} from '../store/cart'
 
 const CARD_ELEMENT_OPTIONS = {
   style: {
@@ -20,13 +21,21 @@ const CARD_ELEMENT_OPTIONS = {
   }
 }
 
-const CheckoutForm = ({user, cart, total, clientSecret}) => {
+const CheckoutForm = ({
+  user,
+  cart,
+  total,
+  clientSecret,
+  checkoutCart,
+  cancel,
+  pushToThankYouPage
+}) => {
   // const [isIntentLoading, setIntentLoading] = useState(false)
   const [isPaymentLoading, setPaymentLoading] = useState(false)
   const stripe = useStripe()
   const elements = useElements()
-  console.log('Elements var from Hook:', elements)
-  console.log('what is this', CardElement)
+  // console.log('Elements var from Hook:', elements)
+  // console.log('what is this', CardElement)
 
   const payMoney = async e => {
     e.preventDefault()
@@ -34,6 +43,7 @@ const CheckoutForm = ({user, cart, total, clientSecret}) => {
       return
     }
     setPaymentLoading(true)
+    // Pay via Stripe
     const paymentResult = await stripe.confirmCardPayment(clientSecret, {
       payment_method: {
         card: elements.getElement(CardElement),
@@ -46,18 +56,14 @@ const CheckoutForm = ({user, cart, total, clientSecret}) => {
     if (paymentResult.error) {
       alert(paymentResult.error.message)
     } else if (paymentResult.paymentIntent.status === 'succeeded') {
-      alert('Success!')
+      // Run the checkout function
+      checkoutCart(cart, total, user.id)
+      // Redirect to thank you page
+      pushToThankYouPage(total)
     }
   }
 
   return (
-    // <form
-    //   style={{
-    //     display: 'block',
-    //     width: '50%'
-    //   }}
-    //   onSubmit={payMoney}
-    // >
     <div
       style={{
         display: 'flex',
@@ -71,11 +77,20 @@ const CheckoutForm = ({user, cart, total, clientSecret}) => {
         Card details
         <CardElement options={CARD_ELEMENT_OPTIONS} />
       </label>
-      <button className="pay-button" disabled={isPaymentLoading} type="submit">
-        {isPaymentLoading ? 'Loading...' : 'Complete Order'}
-      </button>
+      <div style={{display: 'flex', flexDirection: 'row'}}>
+        <button
+          className="pay-button"
+          disabled={isPaymentLoading}
+          type="button"
+          onClick={payMoney}
+        >
+          {isPaymentLoading ? 'Loading...' : 'Complete Order'}
+        </button>
+        <button className="cancel-button" type="button" onClick={cancel}>
+          Cancel Order
+        </button>
+      </div>
     </div>
-    // </form>
   )
 }
 
@@ -85,4 +100,11 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(CheckoutForm)
+const mapDispatchToProps = dispatch => {
+  return {
+    checkoutCart: (cart, total, userId) =>
+      dispatch(checkout(cart, total, userId))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CheckoutForm)

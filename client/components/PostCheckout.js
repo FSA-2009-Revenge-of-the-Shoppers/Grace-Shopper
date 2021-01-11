@@ -1,24 +1,9 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import {Link} from 'react-router-dom'
-import {connect} from 'react-redux'
-import {checkout} from '../store/cart'
+import accounting from 'accounting'
 
-const PostCheckout = ({cart, user, orderCheckout}) => {
-  const total =
-    Number(
-      cart.reduce(
-        (accumulator, product) =>
-          accumulator +
-          product.productOrder.savedPrice * product.productOrder.quantity,
-        0
-      )
-    ) *
-    100 /
-    100
-
-  useEffect(() => {
-    orderCheckout(cart, total, user.id)
-  }, [])
+const PostCheckout = props => {
+  const total = props.history.location.state
 
   return (
     <div>
@@ -26,23 +11,16 @@ const PostCheckout = ({cart, user, orderCheckout}) => {
         <span style={{fontWeight: 'bold', color: 'green'}}>
           Payment Succeeded!
         </span>{' '}
-        Thank you for shopping with YoDaddy.
+        Thank you for shopping with YoDaddy. Your total today was{' '}
+        <span style={{fontWeight: 'bold'}}>
+          {accounting.formatMoney(total)}.
+        </span>
       </p>
       <p>
-        <Link to="/home">Keep Shopping</Link>
+        <Link to="/home">Continue Shopping</Link>
       </p>
     </div>
   )
 }
 
-const mapState = state => ({
-  cart: state.cart,
-  user: state.user
-})
-
-const mapDispatch = dispatch => ({
-  orderCheckout: (cart, total, userId) =>
-    dispatch(checkout(cart, total, userId))
-})
-
-export default connect(mapState, mapDispatch)(PostCheckout)
+export default PostCheckout
