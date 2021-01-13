@@ -9,6 +9,13 @@ import CartIcon from './CartIcon'
 const Navbar = ({handleClick, user, cart}) => (
   <div id="nav-container">
     {/* <h1>YoDaddy - The Home Of Everything Baby Yoda</h1> */}
+    <img
+      src="logo.png"
+      id="logo"
+      alt="YoDaddy logo"
+      width="542px"
+      height="100px"
+    />
     <nav>
       {user.id ? (
         <div id="link-container">
