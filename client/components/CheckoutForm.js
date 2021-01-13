@@ -59,14 +59,14 @@ const CheckoutForm = ({
     } else if (paymentResult.paymentIntent.status === 'succeeded') {
       // Run the checkout function
       checkoutCart(cart, total, user.id)
+      // Redirect to thank you page
+      pushToThankYouPage(total)
       // Send email receipt
-      axios.post('/nodejs-email', {
+      await axios.post('/nodejs-email', {
         email: user.email,
         total,
         cart
       })
-      // Redirect to thank you page
-      pushToThankYouPage(total)
     }
   }
 

@@ -32,8 +32,7 @@ class Cart extends React.Component {
   async startCheckout(total) {
     // Get Client Secret
     const {data: clientSecret} = await axios.post('/stripe/secret', {
-      total: total * 100,
-      email: this.props.user.email
+      total: total * 100
     })
     // Show the checkout Form
     this.setState({
