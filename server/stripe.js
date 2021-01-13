@@ -57,15 +57,13 @@ router.post('/webhook', async (req, res, next) => {
 })
 
 router.post('/secret', async (req, res, next) => {
-  const {total, email} = req.body
+  const {total} = req.body
   try {
-    console.log('Exposed email:', email)
     const paymentIntent = await stripe.paymentIntents.create({
       amount: total,
       currency: 'usd',
       payment_method_types: ['card'],
-      metadata: {integration_check: 'accept_a_payment'},
-      receipt_email: email
+      metadata: {integration_check: 'accept_a_payment'}
     })
     res.json(paymentIntent.client_secret)
   } catch (error) {

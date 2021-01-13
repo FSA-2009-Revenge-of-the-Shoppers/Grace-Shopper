@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js'
 import {connect} from 'react-redux'
 import {checkout} from '../store/cart'
+import axios from 'axios'
 
 const CARD_ELEMENT_OPTIONS = {
   style: {
@@ -60,6 +61,12 @@ const CheckoutForm = ({
       checkoutCart(cart, total, user.id)
       // Redirect to thank you page
       pushToThankYouPage(total)
+      // Send email receipt
+      await axios.post('/nodejs-email', {
+        email: user.email,
+        total,
+        cart
+      })
     }
   }
 
