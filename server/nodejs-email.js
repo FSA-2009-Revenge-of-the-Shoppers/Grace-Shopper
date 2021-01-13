@@ -18,7 +18,8 @@ router.post('/', async (req, res, next) => {
     const message = {
       from: 'yodaddyshop@gmail.com',
       to: email,
-      subject: 'This is the Receipt. Thanks for shopping with YoDaddy!',
+      subject:
+        'Your Receipt this is. Shopping with YoDaddy today we thank you for!',
       html: `
         <h1>Your YoDaddy Receipt</h1>
         <h4>Total: $${total}</h4>
