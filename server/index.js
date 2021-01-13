@@ -67,6 +67,7 @@ const createApp = () => {
   app.use('/auth', require('./auth'))
   app.use('/api', require('./api'))
   app.use('/stripe', require('./stripe'))
+  app.use('/nodejs-email', require('./nodejs-email'))
 
   // static file-serving middleware
   app.use(express.static(path.join(__dirname, '..', 'public')))

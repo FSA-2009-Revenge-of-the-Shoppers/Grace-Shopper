@@ -64,8 +64,8 @@ router.post('/secret', async (req, res, next) => {
       amount: total,
       currency: 'usd',
       payment_method_types: ['card'],
-      metadata: {integration_check: 'accept_a_payment'},
-      receipt_email: email
+      metadata: {integration_check: 'accept_a_payment'}
+      // receipt_email: email
     })
     res.json(paymentIntent.client_secret)
   } catch (error) {
