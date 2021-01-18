@@ -8,7 +8,6 @@ import CartIcon from './CartIcon'
 
 const Navbar = ({handleClick, user, cart}) => (
   <div id="nav-container">
-    {/* <h1>YoDaddy - The Home Of Everything Baby Yoda</h1> */}
     <img
       src="logo.png"
       id="logo"
@@ -32,10 +31,6 @@ const Navbar = ({handleClick, user, cart}) => (
             Logout
           </a>
           <CartIcon cart={cart} className="nav-link" />
-          {/* <Link to="/cart" className="icon-container">
-            <img id="icon" src="/shopping-cart.png" />
-            {cart && cart.length && <p id="badge">{cart.length}</p>}
-          </Link> */}
         </div>
       ) : (
         <div id="link-container">
@@ -49,12 +44,13 @@ const Navbar = ({handleClick, user, cart}) => (
           <Link to="/signup" className="nav-link">
             Sign Up
           </Link>
-          <Link to="/cart">
+          <CartIcon cart={cart} className="nav-link" />
+          {/* <Link to="/cart">
             <div className="icon-container">
               <img id="icon" src="shopping-cart.png" />
               {cart && cart.length >= 1 && <p id="badge">{cart.length}</p>}
             </div>
-          </Link>
+          </Link> */}
         </div>
       )}
     </nav>
