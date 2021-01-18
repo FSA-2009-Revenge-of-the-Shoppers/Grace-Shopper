@@ -6,7 +6,7 @@ import {AllProducts} from './index'
 export const UserHome = props => {
   const {email, isLoggedIn} = props
 
-  const welcomeNum = Math.floor(Math.random() * (7 - 1) + 1)
+  const welcomeNum = Math.floor(Math.random() * (8 - 1) + 1)
 
   let welcomeMsg = ''
 
@@ -28,6 +28,9 @@ export const UserHome = props => {
       break
     case 6:
       welcomeMsg = `These ARE the products you're looking for, ${email}.`
+      break
+    case 7:
+      welcomeMsg = `${email}, I am YoDaddy.`
       break
     default:
       welcomeMsg = `Welcome, ${email}.`
