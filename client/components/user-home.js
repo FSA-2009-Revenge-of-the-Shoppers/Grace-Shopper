@@ -24,7 +24,7 @@ export const UserHome = props => {
       welcomeMsg = `Buy something, ${email}. I have spoken.`
       break
     case 5:
-      welcomeMsg = `${email}, I find your lack of spending distrubing.`
+      welcomeMsg = `${email}, I find your lack of spending disturbing.`
       break
     case 6:
       welcomeMsg = `These ARE the products you're looking for, ${email}.`
