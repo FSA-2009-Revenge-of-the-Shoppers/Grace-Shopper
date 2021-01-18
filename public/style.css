@@ -1,50 +1,91 @@
 body {
   font-family: sans-serif;
   background-image: url('star-background.png');
+  margin: 0;
 }
 
 /* CSS for NavBar */
 #nav-container {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: flex-start;
+  align-items: center;
   margin-top: 0px;
-  /* background-image: url('storeNameBackgroundImage.jpg'); */
-  /* background-size: 1450px; */
-  /* width: 100%; */
-  height: 150px;
+  height: 175px;
+  border-bottom: 1px solid rgb(187, 187, 187, 0.6);
 }
 
 #logo {
   margin: 0;
-  padding: 0;
-  display: block;
-  margin: auto;
+  padding: 12px 0 10px 0;
 }
 
 #nav-container nav {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  margin-top: 40px;
-  margin-bottom: -20px;
 }
 
 #link-container {
-  float: none;
-  position: absolute;
-  top: 100px;
-  left: 50%;
-  transform: translate(-50%);
+  display: flex;
+  align-items: center;
+  background-color: rgba(45, 45, 45, 0.824);
+  border: 2px solid rgb(187, 187, 187);
 }
 
 .nav-link {
   color: white;
-  margin-bottom: 0px;
+  font-size: 1.25rem;
+  margin: 0 auto;
+  align-self: stretch;
+  padding: 0.85rem 0;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  border-right: 1px solid rgb(187, 187, 187);
+}
+
+.nav-link:hover {
+  background-color: rgba(89, 89, 89, 0.728);
 }
 
 #nav-break {
   border: 0px solid black;
+}
+
+/* cart icon */
+.icon-container {
+  height: 100%;
+  width: 100px;
+  position: relative;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon-container:hover {
+  background-color: rgba(89, 89, 89, 0.728);
+}
+
+#icon {
+  height: 2em;
+  width: 2em;
+  z-index: 1;
+  position: relative;
+}
+
+#badge {
+  z-index: 9999;
+  position: absolute;
+  height: 1em;
+  width: 1em;
+  bottom: 10px;
+  right: 30px;
+  background: red;
+  border-radius: 50%;
+  color: white;
+  text-align: center;
 }
 /* ------------------ */
 
@@ -203,31 +244,4 @@ form div {
 
 #edit-a-product {
   align-self: flex-start;
-}
-
-/* cart icon */
-.icon-container {
-  height: 2em;
-  width: 2em;
-  position: relative;
-}
-
-#icon {
-  height: 2em;
-  width: 2em;
-  z-index: 1;
-  position: relative;
-}
-
-#badge {
-  z-index: 9999;
-  position: absolute;
-  height: 1em;
-  width: 1em;
-  bottom: 0;
-  right: 0;
-  background: red;
-  border-radius: 50%;
-  color: white;
-  text-align: center;
 }
