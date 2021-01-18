@@ -61,6 +61,11 @@ body {
   align-self: flex-start;
 }
 
+/* CSS for user home */
+#welcome-msg {
+  margin-left: 4vw;
+}
+
 /* CSS for all products view */
 .products-container {
   display: flex;
