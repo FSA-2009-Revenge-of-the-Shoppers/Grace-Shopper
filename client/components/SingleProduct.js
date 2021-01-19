@@ -103,7 +103,11 @@ export class SingleProduct extends React.Component {
               value={this.state.quantity}
               onChange={this.handleChange}
             />
-            <button type="submit">Add To Cart</button>
+            <p>
+              <button type="submit" id="add-to-cart-btn">
+                Add To Cart
+              </button>
+            </p>
           </form>
         </div>
       </div>
