@@ -18,6 +18,15 @@ eCommerce site attempting to fill the world's insatiable need for all things Bab
 
 <a href="https://yodaddy.herokuapp.com/"> YoDaddy </a>
 
+Shop all our great Baby Yoda products
+<img src="public/YoDaddy_SS1.png" width="800">
+Single Product Page
+<img src="public/YoDaddy_SS2.png" width="800">
+View Cart and Checkout with Stripe
+<img src="public/YoDaddy_SS3.png" width="800">
+E-Mail Receipt
+<img src="public/YoDaddy_SS4.png" width="800">
+
 ## Tech-Stack
 
 Below is a non-exhaustive list of technologies used throughout the project.
@@ -73,10 +82,9 @@ process.env.GOOGLE_CLIENT_SECRET
 process.env.GOOGLE_CALLBACK
 process.env.STRIPE_PUBLISHABLE_KEY
 process.env.STRIPE_SECRET_KEY
-
 ```
-...as well as set up a nodemailer account and set up the service (we used gmail) and auth.
 
+...as well as set up a nodemailer account and set up the service (we used gmail) and auth.
 
 ## HIRE US!
 
@@ -109,7 +117,7 @@ We hope you enjoy the site! We loved working together, want to thank Fullstack A
           <td></td>
           <td></td>
           <td></td>
-        </tr>            
+        </tr>
         <tr>
           <td>Emmanuel Vazquez</td>
           <td></td>
