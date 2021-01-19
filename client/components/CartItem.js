@@ -2,6 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import {updateQty, removeItemFromCart} from '../store/cart'
 import {connect} from 'react-redux'
+import accounting from 'accounting'
 
 export class CartItem extends React.Component {
   constructor(props) {
@@ -53,42 +54,53 @@ export class CartItem extends React.Component {
     return (
       <div className="indv-cart-item">
         <img
-          className="cart-item-image"
+          className="product-image"
           src={product.imageUrl}
           alt={`image of ${product.name}`}
-          width="300"
-          height="300"
+          width="400"
+          height="400"
         />
         <div className="product-info">
           <Link to={`/products/${product.id}`}>
-            <h2 className="product-name">{product.name}</h2>
+            <h1 className="product-name">{product.name}</h1>
           </Link>
-          <h3>Price: ${savedPrice}</h3>
+          <h3>{accounting.formatMoney(product.price)}</h3>
           <p>
-            Quantity: {quantity} - Total: ${Number(savedPrice * quantity) *
-              100 /
-              100}
+            Qty: {quantity} | Total:{' '}
+            {accounting.formatMoney(Number(savedPrice * quantity) * 100 / 100)}
           </p>
-          <button type="button" onClick={() => this.toggleEditMode()}>
+          <button
+            type="button"
+            className="add-to-cart-btn"
+            onClick={() => this.toggleEditMode()}
+          >
             Change Quantity
           </button>
 
           {this.state.editMode && (
             <form className="qtyForm" onSubmit={this.handleSubmit}>
-              <label htmlFor="quantity">New Quantity:</label>
-              <input
-                name="quantity"
-                type="number"
-                onChange={this.handleChange}
-                value={this.state.quantity}
-                required="required"
-              />
-              <button type="submit">Update</button>
+              <div className="edit-qty-top-row">
+                <label htmlFor="quantity">New Qty</label>
+                <input
+                  name="quantity"
+                  type="number"
+                  onChange={this.handleChange}
+                  value={this.state.quantity}
+                  required="required"
+                />
+              </div>
+              <button
+                type="submit"
+                className="add-to-cart-btn"
+                id="update-qty-button"
+              >
+                Update
+              </button>
             </form>
           )}
           <button
             type="button"
-            className="rmv-btn"
+            className="add-to-cart-btn"
             onClick={() => this.handleRemove()}
           >
             Remove from cart

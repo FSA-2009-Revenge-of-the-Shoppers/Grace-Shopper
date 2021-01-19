@@ -7,13 +7,7 @@ import {me} from '../store'
 import {loadStripe} from '@stripe/stripe-js'
 import {Elements} from '@stripe/react-stripe-js'
 import accounting from 'accounting'
-import {
-  Card,
-  Button,
-  CardHeader,
-  CardActions,
-  CardContent
-} from '@material-ui/core'
+import {Card, Button, CardActions, CardContent} from '@material-ui/core'
 const stripePromise = loadStripe(
   'pk_test_51I3T5YJu0Fc4Oe9JCbahuYZ0KuvAhy3tTvLgeHxUqIAP3M1UMa9sPrXkoQx2JFn6I2yOhaZULoyvuNzRN77sIc6n008rRJESsy'
 )
@@ -137,16 +131,14 @@ class Cart extends React.Component {
                 </Elements>
               )}
             </div>
-            <div className="cart-item-container-on-cart-view">
-              {cart.map(product => (
-                <CartItem
-                  product={product}
-                  remove={this.props.removeItem}
-                  key={product.id}
-                  userId={this.props.userId}
-                />
-              ))}
-            </div>
+            {cart.map(product => (
+              <CartItem
+                product={product}
+                remove={this.props.removeItem}
+                key={product.id}
+                userId={this.props.userId}
+              />
+            ))}
           </div>
         )}
       </div>

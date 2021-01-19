@@ -5,7 +5,7 @@ import {AllProducts} from './index'
 import {Button} from '@material-ui/core'
 
 export const UserHome = ({email, isLoggedIn}) => {
-  const generateWelcome = () => {
+  const generateWelcome = prevMsg => {
     let welcomeMsg = ''
     let welcomeNum = Math.floor(Math.random() * (8 - 1) + 1)
     switch (welcomeNum) {
@@ -33,14 +33,15 @@ export const UserHome = ({email, isLoggedIn}) => {
       default:
         welcomeMsg = `Welcome, ${email}.`
     }
-    return welcomeMsg
+    // Iterate recursively if we did not generate a new message
+    return prevMsg === welcomeMsg ? generateWelcome(prevMsg) : welcomeMsg
   }
   // Keep track of welcome message in state
   const [welcome, changeWelcome] = useState('')
   // When email loads, set welcome message state
   useEffect(
     () => {
-      changeWelcome(generateWelcome())
+      changeWelcome(generateWelcome(welcome))
     },
     [email]
   )
@@ -52,7 +53,7 @@ export const UserHome = ({email, isLoggedIn}) => {
           <div id="welcome">
             <h3 id="welcome-msg">{welcome}</h3>
             <Button
-              onClick={() => changeWelcome(generateWelcome())}
+              onClick={() => changeWelcome(generateWelcome(welcome))}
               variant="contained"
               color="primary"
               id="generate-welcome"
