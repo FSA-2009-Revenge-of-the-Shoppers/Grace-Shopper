@@ -103,8 +103,8 @@ body {
 }
 
 /* CSS for user home */
-#welcome-msg {
-  margin-left: 4vw;
+#user-home-container {
+  width: 60vw;
 }
 
 /* CSS for all products view */
@@ -112,9 +112,20 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding: 10px;
   /* margin-left: 120px; */
   margin-top: 20px;
+}
+
+#welcome {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+#generate-welcome {
+  background-color: seagreen;
+  margin-left: 25px;
 }
 
 .single-product {
@@ -145,7 +156,7 @@ body {
 .add-product-container {
   display: flex;
   flex-direction: row;
-  width: 500px;
+  width: 55vw;
 }
 #add-a-product {
   align-self: flex-start;
