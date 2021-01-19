@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {UpdateProduct} from '.'
 import {fetchSingleProduct} from '../store/singleProduct'
 import {postOrder} from '../store/cart'
+import accounting from 'accounting'
 
 const defaultState = {
   editMode: false,
@@ -93,7 +94,7 @@ export class SingleProduct extends React.Component {
         />
         <div>
           <h1 className="product-name">{product.name}</h1>
-          <h3>${product.price}</h3>
+          <h3>{accounting.formatMoney(product.price)}</h3>
           <p>{product.description}</p>
           <form onSubmit={this.handleSubmit}>
             <label htmlFor="quantity">Quantity:</label>
@@ -104,7 +105,7 @@ export class SingleProduct extends React.Component {
               onChange={this.handleChange}
             />
             <p>
-              <button type="submit" id="add-to-cart-btn">
+              <button type="submit" className="add-to-cart-btn">
                 Add To Cart
               </button>
             </p>
