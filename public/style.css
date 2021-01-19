@@ -388,3 +388,47 @@ form div {
 #edit-a-product {
   align-self: flex-start;
 }
+
+/* Auth forms --------------- */
+#auth-container {
+  width: 18rem;
+  height: 18rem;
+  margin: 5rem;
+  background-color: white;
+  box-shadow: 5px 5px 5px gray;
+  border-radius: 1%;
+}
+
+.form-component {
+  width: 90%;
+  margin: 0.5rem 0.5rem 0.5rem 0.5rem;
+}
+
+.same-width {
+  width: 100%;
+  height: 1.5rem;
+}
+
+.auth-button {
+  height: 2.5rem;
+  background-color: seagreen;
+  border: seagreen;
+  color: white;
+}
+
+.auth-button:hover {
+  border-color: 1px white;
+  box-shadow: 2px 2px 5px gray;
+}
+
+#google-link:link {
+  color: white;
+}
+
+#google-link:visited {
+  color: white;
+}
+
+hr.solid {
+  border-top: 1px solid gray;
+}
