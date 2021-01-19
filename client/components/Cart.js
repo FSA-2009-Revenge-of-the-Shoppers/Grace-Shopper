@@ -6,6 +6,14 @@ import {loadCart} from '../store/cart'
 import {me} from '../store'
 import {loadStripe} from '@stripe/stripe-js'
 import {Elements} from '@stripe/react-stripe-js'
+import accounting from 'accounting'
+import {
+  Card,
+  Button,
+  CardHeader,
+  CardActions,
+  CardContent
+} from '@material-ui/core'
 const stripePromise = loadStripe(
   'pk_test_51I3T5YJu0Fc4Oe9JCbahuYZ0KuvAhy3tTvLgeHxUqIAP3M1UMa9sPrXkoQx2JFn6I2yOhaZULoyvuNzRN77sIc6n008rRJESsy'
 )
@@ -82,30 +90,52 @@ class Cart extends React.Component {
       ) *
       100 /
       100
+    const quantity = cart.reduce(
+      (accumulator, product) => accumulator + product.productOrder.quantity,
+      0
+    )
     return (
-      <div style={{alignSelf: 'center'}}>
-        {this.state.paymentOpen && (
-          <Elements stripe={stripePromise}>
-            <CheckoutForm
-              user={user}
-              cart={cart}
-              total={total}
-              clientSecret={this.state.clientSecret}
-              cancel={this.hideCheckoutForm}
-              pushToThankYouPage={this.pushToThankYouPage}
-            />
-          </Elements>
-        )}
+      <div id="cart-parent">
         {!cart.length ? (
           <h1>No Items In Cart!</h1>
         ) : (
           <div id="main-cart-container">
-            <div id="total-container">
-              <h3 className="cart-title">Shopping Cart</h3>
-              <h3>Total: ${total}</h3>
-              <button type="button" onClick={() => this.startCheckout(total)}>
-                Checkout
-              </button>
+            <div id="cart-top">
+              <Card id="cart-info">
+                <CardActions id="checkout-button-container">
+                  <Button
+                    id="start-checkout-button"
+                    onClick={() => this.startCheckout(total)}
+                    variant="contained"
+                    color="primary"
+                  >
+                    Checkout
+                  </Button>
+                </CardActions>
+                <CardContent id="content-container">
+                  <hr />
+                  <div className="subtotal-container">
+                    <h3>Subtotal</h3>
+                    <h3>{accounting.formatMoney(total)}</h3>
+                  </div>
+                  <div className="subtotal-container">
+                    <p>Items</p>
+                    <p>{quantity}</p>
+                  </div>
+                </CardContent>
+              </Card>
+              {this.state.paymentOpen && (
+                <Elements stripe={stripePromise}>
+                  <CheckoutForm
+                    user={user}
+                    cart={cart}
+                    total={total}
+                    clientSecret={this.state.clientSecret}
+                    cancel={this.hideCheckoutForm}
+                    pushToThankYouPage={this.pushToThankYouPage}
+                  />
+                </Elements>
+              )}
             </div>
             <div className="cart-item-container-on-cart-view">
               {cart.map(product => (

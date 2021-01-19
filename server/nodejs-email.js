@@ -31,6 +31,7 @@ router.post('/', async (req, res, next) => {
             }</p>`
           })
           .join('')}
+        <a href="https://yodaddy.herokuapp.com/home">Shop Again</a>
       `
     }
 
