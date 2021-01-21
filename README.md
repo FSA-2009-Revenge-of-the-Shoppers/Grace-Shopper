@@ -120,9 +120,9 @@ We hope you enjoy the site! We loved working together, want to thank Fullstack A
         </tr>
         <tr>
           <td>Emmanuel Vazquez</td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td><a href="https://github.com/mannyjv">mannyjv</a></td>
+          <td><a href="https://www.linkedin.com/in/emmanueljvazquez/">Emmanuel Vazquez</a></td>
+          <td>emmanuel.vazquez06@gmail.com</td>
         </tr>
       </tbody>
   </table>
