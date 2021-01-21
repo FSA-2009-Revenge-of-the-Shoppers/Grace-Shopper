@@ -9,7 +9,7 @@ import CartIcon from './CartIcon'
 const Navbar = ({handleClick, user, cart}) => (
   <div id="nav-container">
     <img
-      src="logo.png"
+      src="logo_transparent.png"
       id="logo"
       alt="YoDaddy logo"
       width="542px"

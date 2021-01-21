@@ -108,9 +108,9 @@ We hope you enjoy the site! We loved working together, want to thank Fullstack A
         </tr>
         <tr>
           <td>David Huang</td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td><a href="https://github.com/dhuang42">dhuang42</a></td>
+          <td><a href="https://www.linkedin.com/in/davidhuang42/">David Huang</a></td>
+          <td>huangdavid42@yahoo.com</td>
         </tr>
         <tr>
           <td>Josie Chen</td>
