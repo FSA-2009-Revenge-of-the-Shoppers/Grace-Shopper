@@ -1,6 +1,6 @@
 body {
   font-family: sans-serif;
-  background-image: url('star-background.png');
+  background-image: url('star-background.jpg');
   margin: 0;
 }
 
@@ -90,11 +90,11 @@ body {
 /* ------------------ */
 
 #routes-container {
-  background-color: #eaf5ffd2;
+  background-color: #eaf5ffb8;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 65vw;
+  width: 75vw;
   max-width: 1000px;
   margin: 0 auto;
 }
@@ -214,24 +214,17 @@ body {
 
 #main-cart-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   text-align: center;
   align-items: center;
   padding: 20px 40px;
   width: 90%;
 }
 
-#cart-top {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  align-self: flex-start;
-  align-items: flex-start;
-}
-
 #cart-info {
   width: 250px;
   padding-top: 10px;
+  align-self: flex-start;
 }
 
 #checkout-button-container {
@@ -448,6 +441,9 @@ hr.solid {
   #nav-container {
     height: 148px;
   }
+  #main-cart-container {
+    flex-direction: column-reverse;
+  }
 }
 
 /* iPad Pro Responsiveness */
@@ -455,5 +451,12 @@ hr.solid {
 @media only screen and (max-width: 1030px) {
   #routes-container {
     width: 90vw;
+  }
+}
+
+@media only screen and (max-width: 1250px) {
+  #main-cart-container {
+    flex-direction: column-reverse;
+    justify-content: center;
   }
 }
