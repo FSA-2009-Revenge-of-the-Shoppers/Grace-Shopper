@@ -66,17 +66,19 @@ body {
 
 .icon-container:hover {
   background-color: rgba(89, 89, 89, 0.728);
+  background-color: #ffd54e;
+  background-color: #d2b041;
 }
 
 #icon {
   height: 2em;
   width: 2em;
-  z-index: 1;
+  /* z-index: 1; */
   position: relative;
 }
 
 #badge {
-  z-index: 9999;
+  /* z-index: 2; */
   position: absolute;
   height: 1em;
   width: 1em;
@@ -95,7 +97,7 @@ body {
   flex-direction: column;
   align-items: center;
   width: 80vw;
-  max-width: 1200px;
+  max-width: 1600px;
   margin: 0 auto;
 }
 
@@ -439,6 +441,9 @@ hr.solid {
   }
   #nav-container {
     height: 148px;
+  }
+  #checkout-container {
+    padding: 0;
   }
 }
 
