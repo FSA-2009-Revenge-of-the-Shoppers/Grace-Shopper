@@ -66,8 +66,8 @@ body {
 
 .icon-container:hover {
   background-color: rgba(89, 89, 89, 0.728);
-  background-color: #ffd54e;
-  background-color: #d2b041;
+  /* background-color: #ffd54e;
+  background-color: #d2b041; */
 }
 
 #icon {
