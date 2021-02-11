@@ -57,8 +57,8 @@ export class CartItem extends React.Component {
           className="product-image"
           src={product.imageUrl}
           alt={`image of ${product.name}`}
-          width="400"
-          height="400"
+          width="400px"
+          height="400px"
         />
         <div className="product-info">
           <Link to={`/products/${product.id}`}>
