@@ -2,16 +2,20 @@ import React from 'react'
 import {connect} from 'react-redux'
 import CartItem from './CartItem'
 import CheckoutForm from './CheckoutForm'
+import ModalContainer from './ModalContainer'
 import {loadCart} from '../store/cart'
 import {me} from '../store'
 import {loadStripe} from '@stripe/stripe-js'
 import {Elements} from '@stripe/react-stripe-js'
 import accounting from 'accounting'
-import {Card, Button, CardActions, CardContent, Modal} from '@material-ui/core'
+import {Card, Button, CardActions, CardContent} from '@material-ui/core'
+import Modal from 'react-modal'
 const stripePromise = loadStripe(
   'pk_test_51I3T5YJu0Fc4Oe9JCbahuYZ0KuvAhy3tTvLgeHxUqIAP3M1UMa9sPrXkoQx2JFn6I2yOhaZULoyvuNzRN77sIc6n008rRJESsy'
 )
 import axios from 'axios'
+
+Modal.setAppElement('#app')
 
 class Cart extends React.Component {
   constructor(props) {
@@ -127,7 +131,21 @@ class Cart extends React.Component {
                 </div>
               </CardContent>
             </Card>
-            <Modal open={this.state.paymentOpen}>
+            <Modal
+              isOpen={this.state.paymentOpen}
+              onRequestClose={this.hideCheckoutForm}
+              style={{
+                overlay: {
+                  backgroundColor: 'rgba(41, 41, 41, 0.728)'
+                },
+                content: {
+                  margin: '50px 0',
+                  backgroundColor: 'rgba(255, 245, 245)',
+                  border: '3px solid #d2b041',
+                  borderRadius: '15px'
+                }
+              }}
+            >
               {this.state.paymentOpen && (
                 <Elements stripe={stripePromise}>
                   <CheckoutForm
