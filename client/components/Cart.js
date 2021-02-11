@@ -7,7 +7,7 @@ import {me} from '../store'
 import {loadStripe} from '@stripe/stripe-js'
 import {Elements} from '@stripe/react-stripe-js'
 import accounting from 'accounting'
-import {Card, Button, CardActions, CardContent} from '@material-ui/core'
+import {Card, Button, CardActions, CardContent, Modal} from '@material-ui/core'
 const stripePromise = loadStripe(
   'pk_test_51I3T5YJu0Fc4Oe9JCbahuYZ0KuvAhy3tTvLgeHxUqIAP3M1UMa9sPrXkoQx2JFn6I2yOhaZULoyvuNzRN77sIc6n008rRJESsy'
 )
@@ -34,7 +34,7 @@ class Cart extends React.Component {
   async startCheckout(total) {
     // Get Client Secret
     const {data: clientSecret} = await axios.post('/stripe/secret', {
-      total: total * 100
+      total: Math.round(total * 100)
     })
     // Show the checkout Form
     this.setState({
@@ -94,21 +94,6 @@ class Cart extends React.Component {
           <h1>No Items In Cart!</h1>
         ) : (
           <div id="main-cart-container">
-            {/* <div id="checkout-info"> */}
-            {/* Going to move all this to a Modal */}
-            {this.state.paymentOpen && (
-              <Elements stripe={stripePromise}>
-                <CheckoutForm
-                  user={user}
-                  cart={cart}
-                  total={total}
-                  clientSecret={this.state.clientSecret}
-                  cancel={this.hideCheckoutForm}
-                  pushToThankYouPage={this.pushToThankYouPage}
-                />
-              </Elements>
-            )}
-            {/* </div> */}
             <div id="cart-items-container">
               {cart.map(product => (
                 <CartItem
@@ -142,6 +127,20 @@ class Cart extends React.Component {
                 </div>
               </CardContent>
             </Card>
+            <Modal open={this.state.paymentOpen}>
+              {this.state.paymentOpen && (
+                <Elements stripe={stripePromise}>
+                  <CheckoutForm
+                    user={user}
+                    cart={cart}
+                    total={total}
+                    clientSecret={this.state.clientSecret}
+                    cancel={this.hideCheckoutForm}
+                    pushToThankYouPage={this.pushToThankYouPage}
+                  />
+                </Elements>
+              )}
+            </Modal>
           </div>
         )}
       </div>
