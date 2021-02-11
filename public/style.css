@@ -94,8 +94,8 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 75vw;
-  max-width: 1000px;
+  width: 80vw;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -216,7 +216,8 @@ body {
   display: flex;
   flex-direction: row;
   text-align: center;
-  align-items: center;
+  align-self: center;
+  justify-content: space-evenly;
   padding: 20px 40px;
   width: 90%;
 }
@@ -224,6 +225,8 @@ body {
 #cart-info {
   width: 250px;
   padding-top: 10px;
+  margin-top: 30px;
+  margin-left: 20px;
   align-self: flex-start;
 }
 
@@ -255,20 +258,20 @@ body {
   margin-bottom: 0;
 }
 
-.cart-item-container-on-cart-view {
+/* .cart-item-container-on-cart-view {
   display: flex;
   flex-direction: column;
   text-align: center;
   justify-content: space-around;
   width: 100%;
   margin: 40px 0;
-  /* background-color: rgba(232, 240, 242, 0.6);
+  background-color: rgba(232, 240, 242, 0.6);
   border: 3px solid gray;
-  border-radius: 10px; */
+  border-radius: 10px;
   padding: 10px;
   -webkit-box-shadow: -6px 9px 8px 2px rgba(0, 0, 0, 0.65);
   box-shadow: -6px 9px 8px 2px rgba(0, 0, 0, 0.65);
-}
+} */
 
 .indv-cart-item {
   width: 100%;
@@ -281,10 +284,11 @@ body {
 
 .product-info {
   width: 100%;
+  min-width: 260px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 10px;
+  padding: 0 15px;
 }
 
 .qtyForm {
@@ -441,8 +445,18 @@ hr.solid {
   #nav-container {
     height: 148px;
   }
-  #main-cart-container {
-    flex-direction: column-reverse;
+}
+
+@media only screen and (max-width: 725px) {
+  .single-product-view-container {
+    flex-direction: column;
+  }
+  .single-product-view-container img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 250px;
+    height: 250px;
   }
 }
 
@@ -450,13 +464,16 @@ hr.solid {
 
 @media only screen and (max-width: 1030px) {
   #routes-container {
-    width: 90vw;
+    width: 95vw;
   }
 }
 
 @media only screen and (max-width: 1250px) {
   #main-cart-container {
     flex-direction: column-reverse;
-    justify-content: center;
+  }
+  #cart-info {
+    margin-top: 0;
+    align-self: center;
   }
 }
