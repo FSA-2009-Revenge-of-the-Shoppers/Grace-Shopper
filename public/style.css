@@ -449,3 +449,11 @@ hr.solid {
     height: 148px;
   }
 }
+
+/* iPad Pro Responsiveness */
+
+@media only screen and (max-width: 1030px) {
+  #routes-container {
+    width: 90vw;
+  }
+}
