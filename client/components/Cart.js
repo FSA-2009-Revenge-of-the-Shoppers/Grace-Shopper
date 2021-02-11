@@ -94,51 +94,54 @@ class Cart extends React.Component {
           <h1>No Items In Cart!</h1>
         ) : (
           <div id="main-cart-container">
-            <div id="cart-top">
-              <Card id="cart-info">
-                <CardActions id="checkout-button-container">
-                  <Button
-                    id="start-checkout-button"
-                    onClick={() => this.startCheckout(total)}
-                    variant="contained"
-                    color="primary"
-                  >
-                    Checkout
-                  </Button>
-                </CardActions>
-                <CardContent id="content-container">
-                  <hr />
-                  <div className="subtotal-container">
-                    <h3>Subtotal</h3>
-                    <h3>{accounting.formatMoney(total)}</h3>
-                  </div>
-                  <div className="subtotal-container">
-                    <p>Items</p>
-                    <p>{quantity}</p>
-                  </div>
-                </CardContent>
-              </Card>
-              {this.state.paymentOpen && (
-                <Elements stripe={stripePromise}>
-                  <CheckoutForm
-                    user={user}
-                    cart={cart}
-                    total={total}
-                    clientSecret={this.state.clientSecret}
-                    cancel={this.hideCheckoutForm}
-                    pushToThankYouPage={this.pushToThankYouPage}
-                  />
-                </Elements>
-              )}
+            {/* <div id="checkout-info"> */}
+            {/* Going to move all this to a Modal */}
+            {this.state.paymentOpen && (
+              <Elements stripe={stripePromise}>
+                <CheckoutForm
+                  user={user}
+                  cart={cart}
+                  total={total}
+                  clientSecret={this.state.clientSecret}
+                  cancel={this.hideCheckoutForm}
+                  pushToThankYouPage={this.pushToThankYouPage}
+                />
+              </Elements>
+            )}
+            {/* </div> */}
+            <div id="cart-items-container">
+              {cart.map(product => (
+                <CartItem
+                  product={product}
+                  remove={this.props.removeItem}
+                  key={product.id}
+                  userId={this.props.userId}
+                />
+              ))}
             </div>
-            {cart.map(product => (
-              <CartItem
-                product={product}
-                remove={this.props.removeItem}
-                key={product.id}
-                userId={this.props.userId}
-              />
-            ))}
+            <Card id="cart-info">
+              <CardActions id="checkout-button-container">
+                <Button
+                  id="start-checkout-button"
+                  onClick={() => this.startCheckout(total)}
+                  variant="contained"
+                  color="primary"
+                >
+                  Checkout
+                </Button>
+              </CardActions>
+              <CardContent id="content-container">
+                <hr />
+                <div className="subtotal-container">
+                  <h3>Subtotal</h3>
+                  <h3>{accounting.formatMoney(total)}</h3>
+                </div>
+                <div className="subtotal-container">
+                  <p>Items</p>
+                  <p>{quantity}</p>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         )}
       </div>
