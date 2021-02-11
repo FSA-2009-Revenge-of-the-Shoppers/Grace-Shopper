@@ -1,6 +1,6 @@
 body {
   font-family: sans-serif;
-  background-image: url('star-background.jpg');
+  background-image: url('star-background.png');
   margin: 0;
 }
 
@@ -446,12 +446,28 @@ hr.solid {
   .single-product-view-container {
     flex-direction: column;
   }
+  .product-image {
+    width: 250px;
+    height: 250px;
+  }
   .single-product-view-container img {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 250px;
-    height: 250px;
+  }
+  .indv-cart-item {
+    flex-direction: column;
+  }
+  .indv-cart-item img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .indv-cart-item h3 {
+    margin: 5px 0px 5px 0px;
+  }
+  .indv-cart-item p {
+    margin: 5px 0px 5px 0px;
   }
 }
 
