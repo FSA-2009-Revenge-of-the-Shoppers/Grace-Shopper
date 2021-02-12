@@ -97,7 +97,7 @@ body {
   flex-direction: column;
   align-items: center;
   width: 80vw;
-  max-width: 1600px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -177,7 +177,8 @@ body {
   display: flex;
   flex-direction: row;
   text-align: center;
-  justify-content: space-around;
+  justify-content: space-evenly;
+  max-width: 900px;
   width: 100%;
   margin: 40px;
   padding: 10px;
