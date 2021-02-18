@@ -117,12 +117,14 @@ export const postOrder = order => {
     }
   } else {
     // J: create a localStorage cart item in the same format as database productOrder
+
     const {product, quantity, savedPrice} = order
     const cartItem = product
     cartItem.productOrder = {
       quantity,
       savedPrice
     }
+    console.log('cartItem', cartItem)
 
     /* J: creates a cart on localStorage if needed */
     if (!window.localStorage.cart) {
@@ -131,9 +133,22 @@ export const postOrder = order => {
     // grab the existing cart
     const cart = JSON.parse(window.localStorage.getItem('cart'))
     // push the new item onto the array
-    cart.push(cartItem)
+
+    // check if cart already contains item
+    const filteredCart = cart.filter(item => item.id === cartItem.id)
+
+    if (filteredCart.length) {
+      // if item was already in cart, update qty of the item
+      filteredCart[0].productOrder.quantity += cartItem.productOrder.quantity
+    } else {
+      // if not already in cart, push new item to cart
+      cart.push(cartItem)
+    }
+
     // reset localStorage with the new item
     window.localStorage.setItem('cart', JSON.stringify(cart))
+
+    console.log('localStorage cart after push', window.localStorage.cart)
     // update redux
     return dispatch => dispatch(getCart(cart))
   }
@@ -173,3 +188,27 @@ Sample: a product in an order returned by a database call
     }
   },
 */
+// [
+//   {
+//     "id":2,
+//     "name":"Hungry Baby Yoda",
+//     "description":"This baby yoda wants its nom nom.",
+//     "imageUrl":"https://i.pinimg.com/564x/f6/c5/36/f6c5362760240453788a4257c748a0b1.jpg",
+//     "price":"30.00",
+//     "quantity":0,
+//     "createdAt":"2020-12-28T22:19:39.241Z",
+//     "updatedAt":"2020-12-28T22:19:39.241Z",
+//     "productOrder":{"quantity":1,"savedPrice":30}
+//   },
+//   {
+//     "id":2,
+//     "name":"Hungry Baby Yoda",
+//     "description":"This baby yoda wants its nom nom.",
+//     "imageUrl":"https://i.pinimg.com/564x/f6/c5/36/f6c5362760240453788a4257c748a0b1.jpg",
+//     "price":"30.00",
+//     "quantity":0,
+//     "createdAt":"2020-12-28T22:19:39.241Z",
+//     "updatedAt":"2020-12-28T22:19:39.241Z",
+//     "productOrder":{"quantity":1,"savedPrice":30}
+//   }
+// ]
