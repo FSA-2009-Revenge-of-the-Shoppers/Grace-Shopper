@@ -10,7 +10,7 @@ eCommerce site attempting to fill the world's insatiable need for all things Bab
 * Shop and checkout while logged in, or as a guest. Logging in merges cart from local storage to your account in our Postgres database
 * Edit item quantity and remove from cart
 * Authorized admin-only routes and features (edit, delete, or add new product; view users' info)
-* Responsive design - compatible with mobile devices
+* Fully responsive design - compatible with mobile devices
 * Custom logo! (Made by David Huang)
 * Baby Yodas for days
 * Customized welcome messages with famous Star Wars quotes
