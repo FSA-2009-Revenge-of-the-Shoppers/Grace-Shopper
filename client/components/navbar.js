@@ -17,40 +17,48 @@ const Navbar = ({handleClick, user, cart}) => (
     />
     <nav>
       {user.id ? (
-        <div id="link-container">
-          {/* The navbar will show these links after you log in */}
-          <Link to="/home" className="nav-link">
-            Shop
-          </Link>
-          {user.admin && (
-            <Link to="/users" className="nav-link">
-              Users
+        <div id="bar-container">
+          <span id="box-left" />
+          <div id="link-container">
+            {/* The navbar will show these links after you log in */}
+            <Link to="/home" className="nav-link">
+              Shop
             </Link>
-          )}
-          <a href="#" className="nav-link" onClick={handleClick}>
-            Logout
-          </a>
-          <CartIcon cart={cart} className="nav-link" />
+            {user.admin && (
+              <Link to="/users" className="nav-link">
+                Users
+              </Link>
+            )}
+            <a href="#" className="nav-link" onClick={handleClick}>
+              Logout
+            </a>
+            <CartIcon cart={cart} className="nav-link" />
+          </div>
+          <span id="box-right" />
         </div>
       ) : (
-        <div id="link-container">
-          {/* The navbar will show these links before you log in */}
-          <Link to="/home" className="nav-link">
-            Shop
-          </Link>
-          <Link to="/login" className="nav-link">
-            Login
-          </Link>
-          <Link to="/signup" className="nav-link">
-            Sign Up
-          </Link>
-          <CartIcon cart={cart} className="nav-link" />
-          {/* <Link to="/cart">
-            <div className="icon-container">
-              <img id="icon" src="shopping-cart.png" />
-              {cart && cart.length >= 1 && <p id="badge">{cart.length}</p>}
-            </div>
-          </Link> */}
+        <div id="bar-container">
+          <span id="box-left" />
+          <div id="link-container">
+            {/* The navbar will show these links before you log in */}
+            <Link to="/home" className="nav-link">
+              Shop
+            </Link>
+            <Link to="/login" className="nav-link">
+              Login
+            </Link>
+            <Link to="/signup" className="nav-link">
+              Sign Up
+            </Link>
+            <CartIcon cart={cart} className="nav-link" />
+            {/* <Link to="/cart">
+              <div className="icon-container">
+                <img id="icon" src="shopping-cart.png" />
+                {cart && cart.length >= 1 && <p id="badge">{cart.length}</p>}
+              </div>
+            </Link> */}
+          </div>
+          <span id="box-right" />
         </div>
       )}
     </nav>
