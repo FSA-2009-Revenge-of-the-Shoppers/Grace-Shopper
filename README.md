@@ -30,7 +30,7 @@ Checkout with Stripe
 E-Mail Receipt
 <img src="public/screenshots/YoDaddy_SS4.png" width="800">
 Responsive Design
-<img src="public/screenshots/yodaddy-mobile.png" width="800">
+<img src="public/screenshots/yodaddy-mobile.png" width="400">
 
 ## Tech-Stack
 
