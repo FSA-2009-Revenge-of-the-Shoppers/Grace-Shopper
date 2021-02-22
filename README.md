@@ -19,17 +19,17 @@ eCommerce site attempting to fill the world's insatiable need for all things Bab
 
 <a href="https://yodaddy.herokuapp.com/"> YoDaddy </a>
 
-Shop all our great Baby Yoda products
+Shop all our great Baby Yoda products<br/>
 <img src="public/screenshots/yodaddy-home.png" width="800">
-Single Product Page
+Single Product Page<br/>
 <img src="public/screenshots/yodaddy-product.png" width="800">
-View Cart
+View Cart<br/>
 <img src="public/screenshots/yodaddy-cart.png" width="800">
-Checkout with Stripe
+Checkout with Stripe<br/>
 <img src="public/screenshots/yodaddy-checkout.png" width="800">
-E-Mail Receipt
+E-Mail Receipt<br/>
 <img src="public/screenshots/YoDaddy_SS4.png" width="800">
-Responsive Design
+Responsive Design<br/>
 <img src="public/screenshots/yodaddy-mobile.png" width="400">
 
 ## Tech-Stack
