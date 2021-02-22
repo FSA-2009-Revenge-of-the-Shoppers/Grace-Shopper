@@ -139,10 +139,15 @@ class Cart extends React.Component {
                   backgroundColor: 'rgba(41, 41, 41, 0.728)'
                 },
                 content: {
-                  margin: '50px 0',
-                  backgroundColor: 'rgba(255, 245, 245)',
+                  position: 'fixed',
+                  top: '50%',
+                  left: '50%',
+                  margin: '-15vh 0px 0px -30vw',
+                  backgroundColor: 'rgba(255, 255, 255)',
                   border: '3px solid #d2b041',
-                  borderRadius: '15px'
+                  borderRadius: '15px',
+                  width: '60vw',
+                  height: '30vh'
                 }
               }}
             >
