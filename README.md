@@ -20,17 +20,17 @@ eCommerce site attempting to fill the world's insatiable need for all things Bab
 <a href="https://yodaddy.herokuapp.com/"> YoDaddy </a>
 
 Shop all our great Baby Yoda products<br/>
-<img src="public/screenshots/yodaddy-home.png" width="800">
+<img src="public/screenshots/yodaddy-home.png" width="800"><br/>
 Single Product Page<br/>
-<img src="public/screenshots/yodaddy-product.png" width="800">
+<img src="public/screenshots/yodaddy-product.png" width="800"><br/>
 View Cart<br/>
-<img src="public/screenshots/yodaddy-cart.png" width="800">
+<img src="public/screenshots/yodaddy-cart.png" width="800"><br/>
 Checkout with Stripe<br/>
-<img src="public/screenshots/yodaddy-checkout.png" width="800">
+<img src="public/screenshots/yodaddy-checkout.png" width="800"><br/>
 E-Mail Receipt<br/>
-<img src="public/screenshots/YoDaddy_SS4.png" width="800">
+<img src="public/screenshots/YoDaddy_SS4.png" width="800"><br/>
 Responsive Design<br/>
-<img src="public/screenshots/yodaddy-mobile.png" width="400">
+<img src="public/screenshots/yodaddy-mobile.png" width="400"><br/>
 
 ## Tech-Stack
 
