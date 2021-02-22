@@ -18,7 +18,7 @@ const Navbar = ({handleClick, user, cart}) => (
     <nav>
       {user.id ? (
         <div id="bar-container">
-          <span id="box-left" />
+          <span id="nav-box" />
           <div id="link-container">
             {/* The navbar will show these links after you log in */}
             <Link to="/home" className="nav-link">
@@ -34,11 +34,10 @@ const Navbar = ({handleClick, user, cart}) => (
             </a>
             <CartIcon cart={cart} className="nav-link" />
           </div>
-          <span id="box-right" />
         </div>
       ) : (
         <div id="bar-container">
-          <span id="box-left" />
+          <span id="nav-box" />
           <div id="link-container">
             {/* The navbar will show these links before you log in */}
             <Link to="/home" className="nav-link">
@@ -58,7 +57,6 @@ const Navbar = ({handleClick, user, cart}) => (
               </div>
             </Link> */}
           </div>
-          <span id="box-right" />
         </div>
       )}
     </nav>
