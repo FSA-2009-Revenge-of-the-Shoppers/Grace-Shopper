@@ -50,7 +50,7 @@ body {
   align-items: center;
   background-color: rgba(45, 45, 45, 0.824);
   border: 2px solid rgb(187, 187, 187);
-  z-index: 99;
+  z-index: 0;
 }
 
 .nav-link {
