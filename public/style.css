@@ -2,6 +2,7 @@ body {
   font-family: sans-serif;
   background-image: url('star-background.png');
   margin: 0;
+  background-attachment: fixed;
 }
 
 /* CSS for NavBar */
@@ -31,13 +32,16 @@ body {
   flex-direction: row;
 }
 
-#box-left {
+#nav-box {
   display: flex;
   flex-direction: row;
+  position: absolute;
+  left: 0;
   background-color: rgba(45, 45, 45, 0.824);
   border-top: 2px solid rgb(187, 187, 187);
   border-bottom: 2px solid rgb(187, 187, 187);
-  width: 100vw;
+  width: 100%;
+  height: 50px;
 }
 
 #link-container {
@@ -46,15 +50,7 @@ body {
   align-items: center;
   background-color: rgba(45, 45, 45, 0.824);
   border: 2px solid rgb(187, 187, 187);
-}
-
-#box-right {
-  display: flex;
-  flex-direction: row;
-  background-color: rgba(45, 45, 45, 0.824);
-  border-top: 2px solid rgb(187, 187, 187);
-  border-bottom: 2px solid rgb(187, 187, 187);
-  width: 100vw;
+  z-index: 0;
 }
 
 .nav-link {
@@ -473,12 +469,10 @@ hr.solid {
 }
 
 @media only screen and (max-width: 725px) {
-  #box-left {
+  /* uncomment if navbar causes problems on mobile */
+  /* #nav-box {
     display: none;
-  }
-  #box-right {
-    display: none;
-  }
+  } */
   .single-product-view-container {
     flex-direction: column;
   }

@@ -10,6 +10,7 @@ eCommerce site attempting to fill the world's insatiable need for all things Bab
 * Shop and checkout while logged in, or as a guest. Logging in merges cart from local storage to your account in our Postgres database
 * Edit item quantity and remove from cart
 * Authorized admin-only routes and features (edit, delete, or add new product; view users' info)
+* Fully responsive design - compatible with mobile devices
 * Custom logo! (Made by David Huang)
 * Baby Yodas for days
 * Customized welcome messages with famous Star Wars quotes
@@ -18,14 +19,18 @@ eCommerce site attempting to fill the world's insatiable need for all things Bab
 
 <a href="https://yodaddy.herokuapp.com/"> YoDaddy </a>
 
-Shop all our great Baby Yoda products
-<img src="public/YoDaddy_SS1.png" width="800">
-Single Product Page
-<img src="public/YoDaddy_SS2.png" width="800">
-View Cart and Checkout with Stripe
-<img src="public/YoDaddy_SS3.png" width="800">
-E-Mail Receipt
-<img src="public/YoDaddy_SS4.png" width="800">
+Shop all our great Baby Yoda products<br/>
+<img src="public/screenshots/yodaddy-home.png" width="800"><br/>
+Single Product Page<br/>
+<img src="public/screenshots/yodaddy-product.png" width="800"><br/>
+View Cart<br/>
+<img src="public/screenshots/yodaddy-cart.png" width="800"><br/>
+Checkout with Stripe<br/>
+<img src="public/screenshots/yodaddy-checkout.png" width="800"><br/>
+E-Mail Receipt<br/>
+<img src="public/screenshots/YoDaddy_SS4.png" width="800"><br/>
+Responsive Design<br/>
+<img src="public/screenshots/yodaddy-mobile.png" width="400"><br/>
 
 ## Tech-Stack
 
