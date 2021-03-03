@@ -83,6 +83,7 @@ export class CartItem extends React.Component {
                 <label htmlFor="quantity">New Qty</label>
                 <input
                   name="quantity"
+                  min={1}
                   type="number"
                   onChange={this.handleChange}
                   value={this.state.quantity}
