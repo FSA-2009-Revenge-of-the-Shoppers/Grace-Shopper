@@ -100,6 +100,7 @@ export class SingleProduct extends React.Component {
             <label htmlFor="quantity">Quantity:</label>
             <input
               type="number"
+              min={1}
               name="quantity"
               value={this.state.quantity}
               onChange={this.handleChange}
