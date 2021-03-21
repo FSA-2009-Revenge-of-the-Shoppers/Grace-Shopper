@@ -1,30 +1,27 @@
 language: node_js
 node_js:
-  - 12 # uses version 12
+- 12
 services:
-  - postgresql # starts up postgres
+- postgresql
 addons:
-  postgresql: '10' # recent postgres version on Travis
-dist: xenial # uses xenial environment
+  postgresql: '10'
+dist: xenial
 notifications:
   email:
-    on_success: change # default: change (only when going from broken to fixed)
-    on_failure: always # default: always (which is annoying, as it should be)
+    on_success: change
+    on_failure: always
 install:
-  - npm ci # faster, goes only from package-lock
+- npm ci
 before_script:
-  - psql -c 'create database "grace-shopper-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
+- psql -c 'create database "grace-shopper-test";' -U postgres
 script:
-  - npm test # test the code
-  - npm run build-client # make the bundle
-before_deploy: # omit node_modules, since we set skip_cleanup below
-  - rm -rf node_modules
-deploy: # see README for details on these keys
-  # prevents travis from deleting the build
+- npm test
+- npm run build-client
+before_deploy:
+- rm -rf node_modules
+deploy:
   skip_cleanup: true
   provider: heroku
-  # app should be your heroku app name; see README
   app: yodaddy
-  # the secure key indicates an encrypted value; see README
   api_key:
-    secure: 4gC+5wzjl66GLvt+7QeFgTvLyOVLNhd/YL9hl5m6h27E5LAGrwDkbvTc5uZVoc/o/l+NwZfDiWGxfzWaoafxrmo25qR7JfV8ATa1ngWAXE6+IV/1ZCy4WTgyqbJqfuLwGiqYin4M0w6kbkAV8Io0VSEUCatA4kVqPDTXzWT8r09B2ZaEhS4bDp17MitzBqqiT1ENIGG3Kiw+4utNKK3vOmej9/yc2eJ4iIBXPU2I4YB0Lb8UkmqA762pQSubtg68+c8wOFUHr+CoGmmVgTvgObFl5uvwYlRUEOHYgC90j/S+crWkdeWhR7qHjxedU8X09wJvy9v92gZC39akIkz7t5zkhNUpvFod/GDfk6GGzuNmsiU2QTlLogvTN9rNcqc0v0FcYuLD6SQku2Ty//sMleULufl1GqmHba87iAPxEvcB+o9PXD+wdjjPJ25BxKI3OoPXe0K48X5LM5GfSHXlM4HbzNNxcZk4WwgPGN2K8YWSs0o5lNlgAVE0ZFfawr4BOd6VSeVyVcrbVra7y5ARTTgHFHQE8d7rrSNzhr69/HGzhaB1v/t52sjdoyfdzVLGnw3hlHI6of6NDyLyQoynhY9fOT9Y5Umqpv+q/lJfr5507gKfNcKF6dVDI0gMBobeSapzHs7drqqEc1WiU5joA/Z+Gr8zFE3FPbE0eWaRhAo=
+    secure: KAiw1cBvCS4Z1396ZE8GcK62Frwx2UldbmvljGeOUe++ccOhQz4BkdqaPfU7DCx+PiQviuiCFjkbFvoxBxEftgX+Y6ksKKHU9sMHtmhLaKhHXFtVvwNHUTdfdOKNBCxCOKMeSD84KU4DUbSP9Yna44zcPZaAc8mBEAI5FZlsrDrl8P9XlFBSxtRYX6IpP9J/C1/y1m3GZul0CIo9STClqF2iA/1NPN9IEhaSA0MWyrl+t72qBYod37/4N75RRBARz49f8LZOdcSjJ9lnJIcXF/xRD4XZ/leL2M8kYg3bYZyPRZjbof827PSxixAdrSFsYcJRM3hKLdW2p1Wj4HHgSyr7upY05G1b19DLiMXUSMI7Rq5gWn+0HECvNdY6ylvgyD9gG0Pk3E53/w6w+2dyXM35Qu29v4Wee0NxaWZbIgOkxiWQSmmZu196RcS9bF85TWdXYPoZJJDixDPbEvoAhD9IxQ9GXVNlttuP6Tt6tdlhos1PpCB3dLsWeGCzZqIQfYFe6NdYQ/sF7JcjmHB7H61lwIdIrSKrgNAWfdF/sTYia2sJVOAe8+zIFFRrbKoGaaIEV7BlBKoyj3bOexFWZvQ3VYqdWn6DX7uVHK2LKSN/4t865VQ1xgGyQq5gynzMui9uNuelLhEi8m3foBXvZ9zoM72dIbr/ZluN2BZy6D0=
