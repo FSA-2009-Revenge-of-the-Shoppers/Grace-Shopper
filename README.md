@@ -119,8 +119,8 @@ We hope you enjoy the site! We loved working together, want to thank Fullstack A
         </tr>
         <tr>
           <td>Josie Chen</td>
-          <td></td>
-          <td></td>
+          <td><a href="https://github.com/JosieYXChen">JosieYXChen</a></td>
+          <td><a href="https://www.linkedin.com/in/josie-chen/">Josie Chen</a></td>
           <td></td>
         </tr>
         <tr>
