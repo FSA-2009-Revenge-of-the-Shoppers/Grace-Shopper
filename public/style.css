@@ -431,6 +431,8 @@ form div {
   background-color: seagreen;
   border: seagreen;
   color: white;
+  cursor: pointer;
+  transition: all .15s ease;
 }
 
 .auth-button:hover {
